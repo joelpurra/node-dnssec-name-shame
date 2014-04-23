@@ -1,4 +1,4 @@
-# [node-dnssec-name-shame](http://node-dnssec-name-shame.joelpurra.com/)
+# [node-dnssec-name-shame](http://node-dnssec-name-and-shame.com/)
 
 Look at a domain and check for DNSSEC records. Name and shame included!
 
