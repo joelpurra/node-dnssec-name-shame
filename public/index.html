@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>DNSSEC name and shame!</title>
+
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Quando" />
+    <style type="text/css">
+    h1, h2, h3, h4, h5, h6 {
+        font-family: Quando, Helvetica, Verdana, sans-serif;
+    }
+    #hero {
+        background-color: lightgray;
+        border-radius: 5px;
+        padding: 1em;
+    }
+    fieldset {
+        border: 3px solid grey;
+        border-radius: 5px;
+        font-size: 1.5em;
+    }
+    fieldset p:first-of-type {
+        margin-top: 0;
+    }
+    fieldset input, fieldset button {
+        font-size: 1em;
+    }
+    footer img {
+        max-width: 16px;
+        vertical-align: middle;
+    }
+    </style>
+
+    <link rel="icon" type="image/png" href="resources/images/OWNLOGO/OWNLOGO-64x64.png" sizes="64x64" />
+    <link rel="icon" type="image/png" href="resources/images/OWNLOGO/OWNLOGO-90x90.png" sizes="90x90" />
+
+    <link rel="image_src" href="resources/images/OWNLOGO/OWNLOGO-90x90.png" />
+
+    <link rel="canonical" href="http://dnssec-name-shame.joelpurra.com/" />
+    <link rel="canonical-domain" href="http://dnssec-name-shame.joelpurra.com/" />
+    <meta name="title" content="DNSSEC name and shame!" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="DNSSEC name and shame!" />
+    <meta name="twitter:description" content="Do the big companies use DNSSEC yet? Are you really safe online? We know who's been good and who's been naughty - and now it's time to name and shame them!" />
+    <meta name="twitter:site" content="@joelpurra" />
+    <meta name="twitter:creator" content="@joelpurra" />
+    <meta name="twitter:image:src" content="http://dnssec-name-shame.joelpurra.com/resources/images/OWNLOGO/OWNLOGO-90x90.png" />
+    <meta name="twitter:domain" content="dnssec-name-shame.joelpurra.com" />
+
+    <meta property="og:site_name" content="DNSSEC name and shame!" />
+    <meta property="og:url" content="http://dnssec-name-shame.joelpurra.com/" />
+    <meta property="og:image" content="http://dnssec-name-shame.joelpurra.com/resources/images/OWNLOGO/OWNLOGO-90x90.png" />
+    <meta property="og:title" content="DNSSEC name and shame!" />
+
+    <meta name="description" content="Do the big companies use DNSSEC yet? Are you really safe online? We know who's been good and who's been naughty - and now it's time to name and shame them!" />
+
+</head>
+
+<body>
+    <img src="resources/images/OWNLOGO/OWNLOGO-490x186.jpg" alt="Logotype" />
+    <h1>
+        <a href="http://dnssec-name-shame.joelpurra.com/">DNSSEC name and shame!</a>
+    </h1>
+    <p>
+        Do the big companies use DNSSEC yet? Are you really safe online? We know who's been good and who's been naughty - and now it's time to name and shame them!
+    </p>
+    <section id="hero">
+        <form id="name-shame-form" action="/name-shame/" method="GET">
+            <fieldset>
+                <legend>Check a domain for DNSSEC compliance</legend>
+                <p>
+                    <em>Success not guaranteed!</em>
+                </p>
+                <label>Domain name
+                    <input id="name-shame-domain" name="domainname" type="text" required="required" pattern="^[a-z0-9\-]{1,64}\.[a-z]+$" autofocus="autofocus" title="Please fill out a domain (example.com)" />
+                </label>
+                <button type="submit">
+                    Check the domain!
+                </button>
+            </fieldset>
+        </form>
+    </section>
+
+    <section>
+        <h2>
+            Resources
+        </h2>
+        <ul>
+            <li>
+                <a href="http://dnssec-name-shame.joelpurra.com/">This page</a>
+            </li>
+            <li>
+                <a href="https://github.com/joelpurra/node-dnssec-name-shame">Source code for node-dnssec-name-shame on github</a>
+            </li>
+            <li>
+                <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC on Wikipedia</a>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>
+            Log
+        </h2>
+
+        <section>
+            <h3>
+                <time datetime="2014-04-23" title="2014-04-23">
+                    2014-04-23
+                </time>
+                Initial shaming on The Next Web Kings of Code Hack Battle
+            </h3>
+            <p>
+                Once we found out that Twitter.com wasn't secured with DNSSEC, the game was on. The Twitter representative wasn't too pleased about our idea, which made it seem all the much better!
+            </p>
+        </section>
+    </section>
+
+    <footer class="container">
+        <hr />
+        <img src="resources/images/OWNLOGO/OWNLOGO-64x64.png" /> <a href="http://dnssec-name-shame.joelpurra.com/">DNSSEC name and shame!</a> &copy; 2013 <a href="http://joelpurra.com/">Joel Purra</a> and Tom Cuddy. Released under the <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0 License</a>.
+    </footer>
+
+
+    <!-- DO NOT COPY THIS SCRIPT TAG -->
+    <!-- It's used for my statistics -->
+    <!-- DO NOT COPY THIS SCRIPT TAG -->
+    <script type="text/javascript">
+    //<![CDATA[
+    // DO NOT COPY THIS SCRIPT TAG
+    // It's used for my statistics
+    // DO NOT COPY THIS SCRIPT TAG
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-15653943-2', 'joelpurra.com');
+    ga('send', 'pageview');
+    //]]>
+    </script>
+
+
+</body>
+<!-- jekyll-theme-demivolte, http://joelpurra.github.io/jekyll-theme-demivolte by Joel Purra, http://joelpurra.com/ -->
+
+</html>
