@@ -4,7 +4,9 @@
 /*global require: true, process: true, __dirname: true, console: true */
 
 var configuration = require("configvention"),
-    port = configuration.get("PORT"),
+    // Keep "PORT" for servers with PORT defined in an environment variable
+    httpServerPort = configuration.get("PORT") || configuration.get("http-server-port"),
+    httpServerIp = configuration.get("http-server-ip"),
     mongoUri = configuration.get("MONGOLAB_URI"),
     siteRootRelativePath = configuration.get("site-root"),
 
@@ -163,7 +165,8 @@ app.get("/name-shame/", function(request, response, next) {
 
 app.use(express.static(siteRootPath));
 
-app.listen(port, function() {
-    console.log("Listening on port", port);
+app.listen(httpServerPort, httpServerIp, function() {
+    console.log("Listening on port", httpServerPort);
+    console.log("Bound to interface with ip", httpServerIp);
     console.log("Serving site root from folder", siteRootPath);
 });
