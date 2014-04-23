@@ -13,8 +13,13 @@ $(function() {
         domainLookupDone = function(data, textStatus, jqXHR) {
             // TODO: use data
             console.log(data, textStatus, jqXHR);
-
-            if (data.isSecure) {
+            var resultString="<h2>DNSSEC Results</h1>";
+            resultString+="<ul><li>Domain:  " + data.domain + "</li>";
+            resultString+="<li>DNSSEC Secure:  " + data.isSecure + "</li>";
+            resultString+="</ul>";	
+            $("#resultId").empty();
+            $("#resultId").append(resultString);
+             if (data.isSecure) {
                 playSound("done");
             } else {
                 playSound("fail");
