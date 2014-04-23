@@ -13,6 +13,13 @@ Look at a domain and check for DNSSEC records. Name and shame included!
 
 
 
+## Thanks
+
+- [buzzer2.wav](https://www.freesound.org/people/hypocore/sounds/164089/) by [hypocore](https://www.freesound.org/people/hypocore/), licensed under [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/).
+- [success.wav](https://www.freesound.org/people/grunz/sounds/109662/) by [grunz](https://www.freesound.org/people/grunz/), licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+
+
 ## License
 
 Copyright (c) 2014, [Joel Purra](http://joelpurra.com/) and Tom Cuddy. All rights reserved.
