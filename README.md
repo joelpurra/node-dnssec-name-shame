@@ -7,8 +7,8 @@ Look at a domain and check for DNSSEC records. Name and shame included!
 
 ## Todo
 
-&#9744; Add sounds for pass and fail.  
 &#9744; Tweet the results.  
+&#9745; Add sounds for pass and fail.  
 &#9745; Create a small API.  
 
 
