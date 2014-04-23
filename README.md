@@ -15,7 +15,7 @@ Look at a domain and check for DNSSEC records. Name and shame included!
 
 ## License
 
-Copyright (c) 2013, 2014, [Joel Purra](http://joelpurra.com/) and Tom Cuddy. All rights reserved.
+Copyright (c) 2014, [Joel Purra](http://joelpurra.com/) and Tom Cuddy. All rights reserved.
 
 When using node-dnssec-name-shame, comply to the [GNU Affero General Public License 3.0 (AGPL-3.0)](https://en.wikipedia.org/wiki/Affero_General_Public_License). Please see the LICENSE file for details.
 
