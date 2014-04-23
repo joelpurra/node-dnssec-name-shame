@@ -1,7 +1,38 @@
-# [node-dnssec-name-shame](http://dnssec-name-and-shame.com/)
+# [node-dnssec-name-shame](https://github.com/joelpurra/node-dnssec-name-shame)
 [dnssec-name-and-shame.com](http://dnssec-name-and-shame.com/)
 
-Look at a domain and check for DNSSEC records. Name and shame included!
+Look at a domain and check for DNSSEC records. Naming and shaming included!
+
+
+
+## Requirements
+
+- [getdns](https://github.com/getdnsapi/getdns), see [getdnsapi.net](http://getdnsapi.net/).
+- [node.js](http://nodejs.org/) and [Node Package Manager](https://www.npmjs.org/) (NPM).
+- [MongoDB](http://www.mongodb.org/).
+- [Bower](http://bower.io/).
+
+
+
+## Getting started
+
+- Make sure getdns is installed properly, including [unbound's root anchor](http://www.unbound.net/documentation/howto_anchor.html). If the root anchor isn't set up properly, all DNS lookups will be labeled insecure.
+- Make sure mongodb is running.
+
+```bash
+# Clone the repository
+git clone --recursive https://github.com/joelpurra/node-dnssec-name-shame.git node-dnssec-name-shame
+cd node-dnssec-name-shame
+
+# Install dependencies
+npm install
+bower install
+
+# Start the server
+node app/web.js
+```
+
+- Browse to your local test site, [http://localhost:5000/](http://localhost:5000/).
 
 
 
