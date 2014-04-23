@@ -1,5 +1,5 @@
 {
-    "name": "node-dnssec-name-shame",
+    "name": "dnssec-name-shame",
     "private": true,
     "version": "0.0.0",
     "description": "Look at a domain and check for DNSSEC records. Name and shame included!",
