@@ -3,6 +3,8 @@
 
 Look at a domain and check for DNSSEC records. Naming and shaming included!
 
+Initially developed during [The Next Web's Kings of Code Hack Battle](http://thenextweb.com/conference/europe/hack-battle/) 2014 in Amsterdam, The Netherlands.
+
 
 
 ## Requirements
@@ -46,6 +48,8 @@ node app/web.js
 
 ## Thanks
 
+- [Versign Labs](http://labs.verisigninc.com/).
+- [NLnet Labs](http://nlnetlabs.nl/).
 - [buzzer2.wav](https://www.freesound.org/people/hypocore/sounds/164089/) by [hypocore](https://www.freesound.org/people/hypocore/), licensed under [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/).
 - [success.wav](https://www.freesound.org/people/grunz/sounds/109662/) by [grunz](https://www.freesound.org/people/grunz/), licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
 
