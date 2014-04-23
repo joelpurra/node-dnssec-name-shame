@@ -57,7 +57,7 @@ app.get("/name-shame/", function(request, response, next) {
 
     function checkAndCleanDomainname(domainname) {
         // TOOD: write regexp for domain names
-        var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^[a-z0-9\-]{1,64}\.[a-z]+$/i);
+        var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
 
         return clean;
     }
