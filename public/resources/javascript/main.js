@@ -1,7 +1,7 @@
 $(function() {
     var $document = $(document),
         $nameShameForm = $("#name-shame-form"),
-        $domainInput = $("[name=domainname]", $nameShameForm),
+        $domainnameInput = $("[name=domainname]", $nameShameForm),
 
         playSound = function(name) {
             var instance = createjs.Sound.play(name);
@@ -38,9 +38,15 @@ $(function() {
             } else {
                 image = "Failure";
             }
-            var imageString = "<img src=resources/image/" + image + ".png />";
-            $("#resultImageId").empty();
-            $("#resultImageId").append(imageString);
+
+            var $img = $("#resultImageId img");
+
+            if (!$img.length) {
+                $img = $("<img />").appendTo("#resultImageId")
+            }
+
+            var imageUrl = "resources/image/" + image + ".png";
+            $img.attr("src", imageUrl);
 
             // Load the results text
             var resultString = "<h2>DNSSEC Results</h2>";
@@ -68,6 +74,30 @@ $(function() {
             } else {
                 playSound("fail");
             }
+        },
+
+        checkDomain = function(domainname) {
+            var promise = $.getJSON("/name-shame/", {
+                domainname: domainname
+            });
+
+            return promise;
+        },
+
+        checkDomainAndUpdateUi = function(domainname) {
+            var promise = checkDomain(domainname)
+                .fail(domainLookupFail)
+                .done(domainLookupDone);
+
+            return promise;
+        },
+
+        checkDomainInUiForm = function(domainname) {
+            $domainnameInput.val(domainname);
+
+            var promise = checkDomainAndUpdateUi(domainname);
+
+            return promise;
         };
 
     (function() {
@@ -79,12 +109,9 @@ $(function() {
         var onSubmit = function(event) {
             event.preventDefault();
 
-            var domainname = $domainInput.val(),
-                onSubmitPromise = $.getJSON("/name-shame/", {
-                    domainname: domainname
-                })
-                    .fail(domainLookupFail)
-                    .done(domainLookupDone);
+            var domainname = $domainnameInput.val();
+
+            checkDomainAndUpdateUi(domainname);
 
             return false;
         };
@@ -103,10 +130,26 @@ $(function() {
 
                 var $target = $(event.target),
                     url = $target.attr("href"),
-                    domain = getDomainFromUrl(url);
+                    domain = getDomainFromUrl(url),
+                    highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
+                        var successClass = "success",
+                            failClass = "fail",
+                            bothClasses = successClass + " " + failClass,
+                            resultClass;
 
-                $domainInput.val(domain);
-                $nameShameForm.submit();
+                        if (data.isSecure === true) {
+                            resultClass = successClass;
+                        } else {
+                            resultClass = failClass;
+                        }
+
+                        $target.parent("li")
+                            .removeClass(bothClasses)
+                            .addClass(resultClass);
+                    };
+
+                checkDomainInUiForm(domain)
+                    .done(highlightClickedItemWithResult);
 
                 return false;
             };

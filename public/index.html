@@ -51,6 +51,20 @@
     hr {
         clear:both;
     }
+    .has-domains-to-check {
+        list-style-type: none;
+    }
+    .has-domains-to-check li:before {
+        content:'?'
+    }
+    .has-domains-to-check li.success:before {
+        content:'✔︎';
+        color: green;
+    }
+    .has-domains-to-check li.fail:before {
+        content:'✘';
+        color: red;
+    }
     </style>
 
     <link rel="icon" type="image/png" href="resources/image/11047076106_d2400a4135_o-64x64.jpg" sizes="64x64" />
