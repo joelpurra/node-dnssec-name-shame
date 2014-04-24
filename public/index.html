@@ -7,11 +7,15 @@
 
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Quando" />
     <style type="text/css">
+    body {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
     h1, h2, h3, h4, h5, h6 {
         font-family: Quando, Helvetica, Verdana, sans-serif;
     }
     #hero {
-        background-color: lightgray;
+        /*background-color: lightgray;*/
         border-radius: 5px;
         padding: 1em;
     }
@@ -29,6 +33,23 @@
     footer img {
         max-width: 16px;
         vertical-align: middle;
+    }
+    </style>
+    <style type="text/css">
+    .two-columns {
+        column-count: 2;
+    }
+    .columns.two .column {
+        width: 50%;
+    }
+    .columns.two .column.left {
+        float: left;
+    }
+    .columns.two .column.right {
+        float: right;
+    }
+    hr {
+        clear:both;
     }
     </style>
 
@@ -59,7 +80,9 @@
 </head>
 
 <body>
-    <img src="resources/image/11047076106_d2400a4135_o-272x288.jpg" alt="Logotype" />
+    <p style="text-align: center; float: left; margin-right: 1em;">
+        <img src="resources/image/11047076106_d2400a4135_o-272x288.jpg" alt="Logotype" />
+    </p>
     <h1>
         <a href="http://dnssec-name-and-shame.com/">DNSSEC name and shame!</a>
     </h1>
@@ -94,128 +117,136 @@
             Guess which companies have done it right!
         </h2>
 
-        <h3>
-            The Next Web's Kings of Code Hack Battle API sponsors
-        </h3>
+        <div class="two columns">
+            <section class="left column">
+                <h3>
+                    The Next Web's Kings of Code Hack Battle API sponsors
+                </h3>
 
-        <p>
-            These companies sponsored the event where this tool was hacked together, which is why we wanted to check them first!
-        </p>
-        <ul class="has-domains-to-check">
-            <li>
-                <a href="http://sendgrid.com/">sendgrid.com</a>
-            </li>
-            <li>
-                <a href="https://deezer.com/">deezer.com</a>
-            </li>
-            <li>
-                <a href="http://labs.verisigninc.com/">labs.verisigninc.com</a>
-            </li>
-            <li>
-                <a href="https://www.spotify.com/">www.spotify.com</a>
-            </li>
-            <li>
-                <a href="https://blueprint.paypal.com/">blueprint.paypal.com</a>
-            </li>
-            <li>
-                <a href="http://www.pearson.com/">www.pearson.com</a>
-            </li>
-            <li>
-                <a href="https://twitter.com/">twitter.com</a>
-            </li>
-            <li>
-                <a href="http://www.mashery.com/">mashery.com</a>
-            </li>
-            <li>
-                <a href="https://push.co/">push.co</a>
-            </li>
-        </ul>
+                <p>
+                    These companies sponsored the event where this tool was hacked together, which is why we wanted to check them first!
+                </p>
+                <ul class="has-domains-to-check">
+                    <li>
+                        <a href="http://sendgrid.com/">sendgrid.com</a>
+                    </li>
+                    <li>
+                        <a href="https://deezer.com/">deezer.com</a>
+                    </li>
+                    <li>
+                        <a href="http://labs.verisigninc.com/">labs.verisigninc.com</a>
+                    </li>
+                    <li>
+                        <a href="https://www.spotify.com/">www.spotify.com</a>
+                    </li>
+                    <li>
+                        <a href="https://blueprint.paypal.com/">blueprint.paypal.com</a>
+                    </li>
+                    <li>
+                        <a href="http://www.pearson.com/">www.pearson.com</a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/">twitter.com</a>
+                    </li>
+                    <li>
+                        <a href="http://www.mashery.com/">mashery.com</a>
+                    </li>
+                    <li>
+                        <a href="https://push.co/">push.co</a>
+                    </li>
+                </ul>
+            </section>
 
-        <h3>
-            Alexa Top 25 sites worldwide
-        </h3>
+            <section class="right column">
+                <h3>
+                    Alexa Top 25 sites worldwide
+                </h3>
 
-        <p>
-            The sites with <a href="http://www.alexa.com/topsites">the most traffic in the world</a> - surely they must have secured their DNS records!?
-        </p>
-        <ul class="has-domains-to-check">
-            <li>
-                <a href="http://google.com/">google.com</a>
-            </li>
-            <li>
-                <a href="http://facebook.com/">facebook.com</a>
-            </li>
-            <li>
-                <a href="http://youtube.com/">youtube.com</a>
-            </li>
-            <li>
-                <a href="http://yahoo.com/">yahoo.com</a>
-            </li>
-            <li>
-                <a href="http://baidu.com/">baidu.com</a>
-            </li>
-            <li>
-                <a href="http://wikipedia.org/">wikipedia.org</a>
-            </li>
-            <li>
-                <a href="http://qq.com/">qq.com</a>
-            </li>
-            <li>
-                <a href="http://twitter.com/">twitter.com</a>
-            </li>
-            <li>
-                <a href="http://live.com/">live.com</a>
-            </li>
-            <li>
-                <a href="http://amazon.com/">amazon.com</a>
-            </li>
-            <li>
-                <a href="http://taobao.com/">taobao.com</a>
-            </li>
-            <li>
-                <a href="http://linkedin.com/">linkedin.com</a>
-            </li>
-            <li>
-                <a href="http://google.co.in/">google.co.in</a>
-            </li>
-            <li>
-                <a href="http://sina.com.cn/">sina.com.cn</a>
-            </li>
-            <li>
-                <a href="http://blogspot.com/">blogspot.com</a>
-            </li>
-            <li>
-                <a href="http://hao123.com/">hao123.com</a>
-            </li>
-            <li>
-                <a href="http://weibo.com/">weibo.com</a>
-            </li>
-            <li>
-                <a href="http://yahoo.co.jp/">yahoo.co.jp</a>
-            </li>
-            <li>
-                <a href="http://wordpress.com/">wordpress.com</a>
-            </li>
-            <li>
-                <a href="http://vk.com/">vk.com</a>
-            </li>
-            <li>
-                <a href="http://yandex.ru/">yandex.ru</a>
-            </li>
-            <li>
-                <a href="http://ebay.com/">ebay.com</a>
-            </li>
-            <li>
-                <a href="http://bing.com/">bing.com</a>
-            </li>
-            <li>
-                <a href="http://tmall.com/">tmall.com</a>
-            </li>
-            <li>
-                <a href="http://google.de/">google.de</a>
-            </li>
-        </ul>
+                <p>
+                    The sites with <a href="http://www.alexa.com/topsites">the most traffic in the world</a> - surely they must have secured their DNS records!?
+                </p>
+                <ul class="has-domains-to-check">
+                    <li>
+                        <a href="http://google.com/">google.com</a>
+                    </li>
+                    <li>
+                        <a href="http://facebook.com/">facebook.com</a>
+                    </li>
+                    <li>
+                        <a href="http://youtube.com/">youtube.com</a>
+                    </li>
+                    <li>
+                        <a href="http://yahoo.com/">yahoo.com</a>
+                    </li>
+                    <li>
+                        <a href="http://baidu.com/">baidu.com</a>
+                    </li>
+                    <li>
+                        <a href="http://wikipedia.org/">wikipedia.org</a>
+                    </li>
+                    <li>
+                        <a href="http://qq.com/">qq.com</a>
+                    </li>
+                    <li>
+                        <a href="http://twitter.com/">twitter.com</a>
+                    </li>
+                    <li>
+                        <a href="http://live.com/">live.com</a>
+                    </li>
+                    <li>
+                        <a href="http://amazon.com/">amazon.com</a>
+                    </li>
+                    <li>
+                        <a href="http://taobao.com/">taobao.com</a>
+                    </li>
+                    <li>
+                        <a href="http://linkedin.com/">linkedin.com</a>
+                    </li>
+                    <li>
+                        <a href="http://google.co.in/">google.co.in</a>
+                    </li>
+                    <li>
+                        <a href="http://sina.com.cn/">sina.com.cn</a>
+                    </li>
+                    <li>
+                        <a href="http://blogspot.com/">blogspot.com</a>
+                    </li>
+                    <li>
+                        <a href="http://hao123.com/">hao123.com</a>
+                    </li>
+                    <li>
+                        <a href="http://weibo.com/">weibo.com</a>
+                    </li>
+                    <li>
+                        <a href="http://yahoo.co.jp/">yahoo.co.jp</a>
+                    </li>
+                    <li>
+                        <a href="http://wordpress.com/">wordpress.com</a>
+                    </li>
+                    <li>
+                        <a href="http://vk.com/">vk.com</a>
+                    </li>
+                    <li>
+                        <a href="http://yandex.ru/">yandex.ru</a>
+                    </li>
+                    <li>
+                        <a href="http://ebay.com/">ebay.com</a>
+                    </li>
+                    <li>
+                        <a href="http://bing.com/">bing.com</a>
+                    </li>
+                    <li>
+                        <a href="http://tmall.com/">tmall.com</a>
+                    </li>
+                    <li>
+                        <a href="http://google.de/">google.de</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
     </section>
+
+    <hr />
 
     <section>
         <h2>
