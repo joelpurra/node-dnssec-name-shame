@@ -11,7 +11,8 @@ $(function() {
             // TODO: show error to the user
             console.error(jqXHR, textStatus, errorThrown);
 
-            playSound("fail");
+            // HACK: Server error, resubmit the form
+            $nameShameForm.submit();
         },
 
         domainLookupDone = function(data, textStatus, jqXHR) {
