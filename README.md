@@ -52,7 +52,7 @@ node app/web.js
 - [NLnet Labs](http://nlnetlabs.nl/).
 - [buzzer2.wav](https://www.freesound.org/people/hypocore/sounds/164089/) by [hypocore](https://www.freesound.org/people/hypocore/), licensed under [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/).
 - [success.wav](https://www.freesound.org/people/grunz/sounds/109662/) by [grunz](https://www.freesound.org/people/grunz/), licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
-
+- [catholic school nun](https://secure.flickr.com/photos/audiolucistore/11047076106) by [audiolucistore](https://secure.flickr.com/photos/audiolucistore/) [(audio-luci-store.it)](http://www.audio-luci-store.it/), licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
 
 
 ## License
