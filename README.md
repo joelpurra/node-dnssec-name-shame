@@ -40,7 +40,9 @@ node app/web.js
 
 ## Todo
 
-&#9744; Tweet the results.  
+&#9744; Modify links to the external sites to open in new window, and add link to `/name-shame/` JSON URL canceled with javascript.  
+&#9744; Create pretty-pretty slide show style animations for the listed example domains?  
+&#9745; Tweet the results.  
 &#9745; Add sounds for pass and fail.  
 &#9745; Create a small API.  
 
