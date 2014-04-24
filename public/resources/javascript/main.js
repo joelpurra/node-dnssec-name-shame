@@ -33,7 +33,7 @@ $(function() {
 
             // Load the success or failure image
             var image = "";
-            if (data.isSecure) {
+            if (data.isSecure === true) {
                 image = "Success";
             } else {
                 image = "Failure";
@@ -58,14 +58,14 @@ $(function() {
             $("#resultId").append(resultString);
 
             // Load the tweet button
-            var tweetResult = data.domain;
-            var siteUrl="http://dnssec-name-and-shame.com";
-            if (data.isSecure) {
-                tweetResult += " has successfully implemented #DNSSEC. " + siteUrl;
+            var tweetResult;
+            var siteUrl = "dnssec-name-and-shame.com";
+            if (data.isSecure === true) {
+                tweetResult = "#win " + data.domain + " has successfully implemented #DNSSEC! " + siteUrl;
             } else {
-                tweetResult += " has NOT successfully implemented #DNSSEC. " +siteUrl;
+                tweetResult = "#shame " + data.domain + " has NOT implemented #DNSSEC! " + siteUrl;
             }
-            var tweetString = "<p/><img src=\"resources/image/bird_blue_48.png\"><h3><a href=http://twitter.com/home/?status=" + encodeURIComponent(tweetResult) + ">Tweet results for " + data.domain +"</a></h3>";
+            var tweetString = "<p/><img src=\"resources/image/bird_blue_48.png\"><h3><a href=http://twitter.com/home/?status=" + encodeURIComponent(tweetResult) + ">Tweet results for " + htmlEncode(data.domain) + "</a></h3>";
             $("#tweetId").empty();
             $("#tweetId").append(tweetString);
 
