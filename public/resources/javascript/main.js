@@ -64,7 +64,7 @@ $(function() {
             } else {
                 tweetResult += " has NOT successfully implemented #DNSSEC";
             }
-            var tweetString = "<p/><h3><a href=http://twitter.com/home/?status=" + encodeURIComponent(tweetResult) + ">Tweet this result</a></h3>";
+            var tweetString = "<p/><img src=\"resources/image/bird_blue_48.png\"><h3><a href=http://twitter.com/home/?status=" + encodeURIComponent(tweetResult) + ">Tweet results for " + data.domain +"</a></h3>";
             $("#tweetId").empty();
             $("#tweetId").append(tweetString);
 
