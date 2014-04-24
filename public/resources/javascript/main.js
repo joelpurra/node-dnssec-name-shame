@@ -17,6 +17,17 @@ $(function() {
         domainLookupDone = function(data, textStatus, jqXHR) {
             // TODO: use data
             console.log(data, textStatus, jqXHR);
+            
+            var image="";
+            if (data.isSecure){
+              image="Success";
+            } else {
+              image="Failure";
+            }
+
+            var imageString="<img src=resources/image/"+image+".png />";
+            $("#resultImageId").empty();
+            $("#resultImageId").append(imageString);
 
             var resultString = "<h2>DNSSEC Results</h1>";
             resultString += "<ul><li>Domain:  " + data.domain + "</li>";
