@@ -38,13 +38,13 @@ $(function() {
             $("#resultId").append(resultString);
 
             // Load the tweet button
-            var tweetResult = data.domain;
+            var tweetResult = data.domain.toUpperCase();
             if (data.isSecure) {
-               tweetResult+=" has successfully implemented DNSSEC!";
+               tweetResult+=" has successfully implemented #DNSSEC";
             } else {
-               tweetResult+=" has NOT successfully implemented DNSSEC!";
+               tweetResult+=" has NOT successfully implemented #DNSSEC";
             }
-	    var tweetString="<p/><h3><a href=http://twitter.com/home/?status=\"" + encodeURIComponent(tweetResult) + "\">Tweet this result</a></h3>";
+	    var tweetString="<p/><h3><a href=http://twitter.com/home/?status=" + encodeURIComponent(tweetResult) + ">Tweet this result</a></h3>";
             $("#tweetId").empty();
             $("#tweetId").append(tweetString);
 
