@@ -59,13 +59,13 @@ $(function() {
 
             // Load the tweet button
             var tweetResult;
-            var siteUrl = "dnssec-name-and-shame.com";
+            var siteUrl = "http://dnssec-name-and-shame.com/";
             if (data.isSecure === true) {
-                tweetResult = "#win " + data.domain + " has successfully implemented #DNSSEC! " + siteUrl;
+                tweetResult = "#win " + data.domain + " has successfully implemented #DNSSEC!";
             } else {
-                tweetResult = "#shame " + data.domain + " has NOT implemented #DNSSEC! " + siteUrl;
+                tweetResult = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
             }
-            var tweetString = "<p/><img src=\"resources/image/bird_blue_48.png\"><h3><a href=http://twitter.com/home/?status=" + encodeURIComponent(tweetResult) + ">Tweet results for " + htmlEncode(data.domain) + "</a></h3>";
+            var tweetString = "<p/><img src=\"resources/image/bird_blue_48.png\"><h3><a href=https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResult) + "&url=" + encodeURIComponent(siteUrl) + "&hashtags=internet,dns,security>Tweet results for " + htmlEncode(data.domain) + "</a></h3>";
             $("#tweetId").empty();
             $("#tweetId").append(tweetString);
 
