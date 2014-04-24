@@ -38,7 +38,7 @@ $(function() {
             $("#resultId").append(resultString);
 
             // Load the tweet button
-            var tweetResult = data.domain.toUpperCase();
+            var tweetResult = data.domain;
             if (data.isSecure) {
                tweetResult+=" has successfully implemented #DNSSEC";
             } else {
