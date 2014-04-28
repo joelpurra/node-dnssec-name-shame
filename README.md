@@ -3,7 +3,7 @@
 
 Look at a domain and check for DNSSEC records. Naming and shaming included!
 
-Initially developed during [The Next Web's Kings of Code Hack Battle](http://thenextweb.com/conference/europe/hack-battle/) 2014 in Amsterdam, The Netherlands.
+Initially developed during [The Next Web's](http://thenextweb.com/) [Kings of Code Hack Battle](http://thenextweb.com/conference/europe/hack-battle/) 2014 in Amsterdam, The Netherlands.
 
 
 
