@@ -63,7 +63,13 @@ app.get("/name-shame/", function(request, response, next) {
     }
 
     function handleError(error) {
-        throw error;
+        // TODO: log this error in a better way
+        //throw error;
+        console.error("handleError", error);
+
+        // TODO: make a prettier error message, maybe with some limited information
+        response.send(500);
+        response.end();
     }
 
     var domainname = checkAndCleanDomainname(request.query.domainname);
