@@ -47,6 +47,7 @@ node app/web.js
 
 ## Todo
 
+&#9744; Fetch Alexa's top 25 (or more) sites dynamically.  
 &#9744; Modify links to the external sites to open in new window, and add link to `/name-shame/` JSON URL canceled with javascript.  
 &#9744; Create pretty-pretty slide show style animations for the listed example domains?  
 &#9745; Tweet the results.  
