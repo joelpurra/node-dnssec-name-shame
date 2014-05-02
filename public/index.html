@@ -41,6 +41,10 @@
         color: grey;
     }
     .two-columns {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        -o-column-count: 2;
+        -ms-column-count: 2;
         column-count: 2;
     }
     .columns.two .column {
@@ -319,23 +323,31 @@
         <h2>
             Resources
         </h2>
-        <ul>
-            <li>
-                <a href="http://vimeo.com/91504543">"What is DNSSEC?" Short video explaining the basics.</a> 
-            </li>
-            <li>
-                <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC on Wikipedia</a>
-            </li>
-            <li>
-                <a href="http://dnscheck.iis.se/">DNSCheck by .SE</a>
-            </li>
-            <li>
-                <a href="http://dnssec-debugger.verisignlabs.com/">DNSSEC Debugger by Verisign Labs</a>
-            </li>
-            <li>
-                <a href="https://github.com/joelpurra/node-dnssec-name-shame">Source code for node-dnssec-name-shame on github</a>
-            </li>
-        </ul>
+        <div class="two-columns">
+            <ul style="margin-top: 0;">
+                <li>
+                    <a href="http://vimeo.com/91504543">"What is DNSSEC?"</a>, short video explaining the basics.
+                </li>
+                <li>
+                    <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">Domain Name System Security Extensions</a> on Wikipedia.
+                </li>
+                <li>
+                    <a href="https://www.internetsociety.org/deploy360/dnssec/">DNSSEC resources</a> on <a href="https://www.internetsociety.org/deploy360/">The Internet Society Deploy360 Programme</a>.
+                </li>
+                <li>
+                    We're using <a href="http://getdnsapi.net/">getdnsapi</a> through <a href="https://github.com/getdnsapi/getdns-node">getdns-node</a> for easy DNSSEC enabled DNS lookups.
+                </li>
+                <li>
+                    <a href="http://dnscheck.iis.se/">DNSCheck</a> by <a href="https://iis.se/">.SE</a>.
+                </li>
+                <li>
+                    <a href="http://dnssec-debugger.verisignlabs.com/">DNSSEC Debugger</a> by <a href="http://labs.verisigninc.com/">Verisign Labs</a>.
+                </li>
+                <li>
+                    <a href="https://github.com/joelpurra/node-dnssec-name-shame">Source code for node-dnssec-name-shame</a> on github.
+                </li>
+            </ul>
+        </div>
     </section>
 
     <section>
