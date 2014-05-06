@@ -40,7 +40,7 @@ node app/web.js
 
 ## Notes
 
-- This implementation only checks a domain for signed A records. While an A record isn't required in DNS, it's what the browser will use when a user requests a page (sometimes after resolving CNAME records), and therefore considered more common than for example MX records. If you don't have an A record, then you might want to try another tool for your DNSSEC tests.
+- This implementation only checks a domain for signed A or AAAA records. While an A/AAAA record isn't required in DNS, it's what the browser will use when a user requests a page (sometimes after resolving CNAME records), and therefore considered more common than for example MX records. If you don't have an A/AAAA record, you might want to try another tool for your DNSSEC tests.
 - Lookups are cached in getdns' context for the duration of the server's uptime. DNS record TTL should also be in effect.
 
 

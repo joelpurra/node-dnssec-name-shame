@@ -96,42 +96,66 @@ app.get("/name-shame/", function(request, response, next) {
                         return obj;
                     }
 
-                    function recordIsSecure(record) {
-                        return record.dnssec_status === getdns.DNSSEC_SECURE;
-                    }
-
-                    // getFirstSecureResponse from https://github.com/getdnsapi/tnw2014/blob/master/node/getdns-crypto-example/app.js
-                    // response util - get a secure response of a particular type
-                    var getFirstSecureResponse = function(result, type) {
+                    // TODO: break out helper functions
+                    // Based on getFirstSecureResponse from https://github.com/getdnsapi/tnw2014/blob/master/node/getdns-crypto-example/app.js
+                    var getSecureRecordsOfType = function(result, type) {
                         var replies_tree = result.replies_tree;
-                        // validate that there is a reply with an answer
-                        if (!replies_tree || !replies_tree.length || !replies_tree[0].answer || !replies_tree[0].answer.length) {
-                            return "empty answer list for type " + type;
+
+                        // validate that there is a reply
+                        if (!replies_tree || !replies_tree.length) {
+                            return "empty reply list";
                         }
-                        var reply = replies_tree[0];
-                        // ensure the reply is secure
-                        if (reply.dnssec_status != getdns.DNSSEC_SECURE) {
-                            return "insecure reply for type " + type;
-                        }
-                        var answers = reply.answer;
-                        // get the records of that type
-                        answers = answers.filter(function(answer) {
-                            return answer.type == type;
+                        var secureOfType = [];
+
+                        replies_tree.forEach(function(reply) {
+                            var answers = reply.answer;
+
+                            // ensure the reply is secure
+                            if (reply.dnssec_status != getdns.DNSSEC_SECURE) {
+                                return;
+                            }
+
+                            if (!answers || !answers.length) {
+                                return;
+                            }
+
+                            // get the records of that type
+                            secureOfType = secureOfType.concat(answers.filter(function(answer) {
+                                return answer.type == type;
+                            }));
                         });
-                        if (!answers.length) {
-                            return "no answers of type " + type;
+
+                        if (!secureOfType.length) {
+                            return "no secure answers of type " + type;
                         }
-                        return answers[0];
+
+                        return secureOfType;
                     };
 
+                    // TODO: break out helper functions
+
+                    function getFirstSecureRecordOfType(result, type) {
+                        var records = getSecureRecordsOfType(result, type);
+
+                        if (typeof records === "string") {
+                            return records;
+                        }
+
+                        return records[0];
+                    }
+
+                    // TODO: break out helper functions
+
+                    function hasSecureRecordOfType(result, type) {
+                        var record = getFirstSecureRecordOfType(result, type);
+
+                        return (typeof record !== "string");
+                    }
+
                     function stripDNSLookupObjectForFrontend(records) {
-                        var record = getFirstSecureResponse(records, getdns.RRTYPE_A),
-
-                            // Strings are considered errors, everything else is considered a secure record
-                            isSecure = (typeof record !== "string"),
-
+                        var typeAorAAAAIsSecure = hasSecureRecordOfType(records, getdns.RRTYPE_A) || hasSecureRecordOfType(records, getdns.RRTYPE_AAAA),
                             result = {
-                                isSecure: isSecure
+                                isSecure: typeAorAAAAIsSecure
                             };
 
                         return result;
