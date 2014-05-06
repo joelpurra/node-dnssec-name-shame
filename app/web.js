@@ -17,6 +17,7 @@ var configuration = require("configvention"),
     t = require("../lib/DNSLookup.js").DNSLookup,
     DNSLookup = new t(),
     express = require('express'),
+    st = require("st"),
     path = require("path"),
     extend = require("extend"),
 
@@ -37,6 +38,12 @@ var configuration = require("configvention"),
 
     // Path to static resources like index.html, css etcetera
     siteRootPath = resolvePathFromProjectRoot.apply(null, siteRootRelativePath.split("/")),
+
+    mount = st({
+        path: siteRootPath,
+        url: "/",
+        index: 'index.html'
+    }),
 
     database = require("./data/data-layer-wrapper.js")({
         uri: mongoUri
@@ -193,7 +200,7 @@ app.get("/name-shame/", function(request, response, next) {
         });
 });
 
-app.use(express.static(siteRootPath));
+app.use(mount)
 
 app.listen(httpServerPort, httpServerIp, function() {
     console.log("Listening on port", httpServerPort);
