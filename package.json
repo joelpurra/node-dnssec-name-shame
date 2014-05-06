@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "description": "Look at a domain and check for DNSSEC records. Name and shame included!",
-    "main": "app/web.js",
+    "homepage": "http://dnssec-name-and-shame.com/",
     "dependencies": {
         "configvention": "^1.0.2",
         "Deferred": "^0.1.1",
@@ -20,9 +20,20 @@
         "type": "git",
         "url": "https://github.com/joelpurra/node-dnssec-name-shame"
     },
+    "bugs": {
+        "url": "https://github.com/joelpurra/node-dnssec-name-shame/issues",
+        "email": "code+dnssec-name-shame@joelpurra.com"
+    },
     "keywords": [
         "dnssec"
     ],
-    "author": ["Joel Purra", "Tom Cuddy"],
+    "author": {
+        "name": "Joel Purra",
+        "email": "code+npm@joelpurra.com",
+        "url": "http://joelpurra.com/"
+    },
+    "contributors": [{
+        "name": "Tom Cuddy"
+    }],
     "license": "AGPL-3.0"
 }
