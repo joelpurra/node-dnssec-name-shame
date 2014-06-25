@@ -85,6 +85,25 @@
     #results-container.none-yet .results-image.happy {
         display: none;
     }
+    #results-blocks {
+    }
+    #results-blocks.none-yet {
+        display: none;
+    }
+    #results-blocks .results-block {
+        float: left;
+        margin: 1em;
+    }
+    #results-blocks .results-image.success {
+    }
+    #results-blocks .results-image.failure {
+    }
+    #results-blocks.none-yet .results-image {
+        display: none;
+    }
+    .clear {
+        clear: both;
+    }
     </style>
 
     <link rel="icon" type="image/png" href="resources/image/anne-marie-16x16.jpg" sizes="16x16" />
@@ -147,11 +166,29 @@
             </fieldset>
         </form>
     </section>
-    <div>
-        <div id="resultImageId" style="float: left; margin: 1em;"></div>
-        <div id="resultId" style="float: left; margin: 1em;"></div>
-        <div id="tweetId" style="float: left; margin: 1em; vertical-align: middle;"></div>
-        <br style="clear: both;" />
+    <div id="results-blocks" class="none-yet">
+        <div class="results-block">
+            <img src="resources/image/Success.png" class="results-image success" alt="Success!" title="Success!" />
+            <img src="resources/image/Failure.png" class="results-image failure" alt="Failure!" title="Failure!" />
+        </div>
+        <div class="results-block">
+            <h2>DNSSEC Results</h2>
+            <ul>
+                <li>Domain:
+                    <span id="results-domain-name"></span>
+                </li>
+                <li>DNSSEC Secure:
+                    <span id="results-success-or-fail"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="results-block">
+            <h3>
+                <img src="resources/image/bird_blue_48.png" />
+                <a id="results-tweet-link" href="#"></a>
+            </h3>
+        </div>
+        <br class="clear" />
     </div>
 
     <section>

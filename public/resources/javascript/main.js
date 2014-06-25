@@ -7,18 +7,6 @@ $(function() {
             var instance = createjs.Sound.play(name);
         },
 
-        // http://stackoverflow.com/questions/1219860/html-encoding-in-javascript-jquery
-        // http://stackoverflow.com/a/1219983/907779
-        htmlEncode = function(value) {
-            //create a in-memory div, set it's inner text(which jQuery automatically encodes)
-            //then grab the encoded contents back out.  The div never exists on the page.
-            return $('<div/>').text(value).html();
-        },
-
-        htmlDecode = function(value) {
-            return $('<div/>').html(value).text();
-        },
-
         domainLookupFail = function(jqXHR, textStatus, errorThrown) {
             // TODO: show error to the user
             console.error(jqXHR, textStatus, errorThrown);
@@ -30,16 +18,21 @@ $(function() {
         domainLookupDone = function(data, textStatus, jqXHR) {
             console.log(data, textStatus, jqXHR);
 
-            // Load the success or failure image
+            // Happy/angry, success/failure images
             var successOrFailImage,
-                angryOrHappyImage;
+                angryOrHappyImage,
+                tweetResultsText;
 
             if (data.isSecure === true) {
-                successOrFailImage = "Success";
+                playSound("done");
+                successOrFailImage = "success";
                 angryOrHappyImage = "happy";
+                tweetResultsText = "#win " + data.domain + " has successfully implemented #DNSSEC!";
             } else {
-                successOrFailImage = "Failure";
+                playSound("fail");
+                successOrFailImage = "failure";
                 angryOrHappyImage = "angry";
+                tweetResultsText = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
             }
 
             $("#results-container")
@@ -51,42 +44,25 @@ $(function() {
                 .end()
                 .removeClass("none-yet");
 
-            var $img = $("#resultImageId img");
+            $("#results-blocks")
+                .find(".results-image")
+                .hide()
+                .end()
+                .find(".results-image." + successOrFailImage)
+                .show()
+                .end()
+                .removeClass("none-yet");
 
-            if (!$img.length) {
-                $img = $("<img />").appendTo("#resultImageId")
-            }
+            // Results text
+            $("#results-domain-name").text(data.domain);
+            $("#results-success-or-fail").text(data.isSecure === true ? "Yes!" : "No!");
 
-            var imageUrl = "resources/image/" + successOrFailImage + ".png";
-            $img.attr("src", imageUrl);
+            // Tweet button
+            var tweetSiteUrl = "http://dnssec-name-and-shame.com/";
 
-            // Load the results text
-            var resultString = "<h2>DNSSEC Results</h2>";
-            resultString += "<ul>";
-            resultString += "<li>Domain:  " + htmlEncode(data.domain) + "</li>";
-            resultString += "<li>DNSSEC Secure:  " + (data.isSecure === true ? "Yes!" : "No!") + "</li>";
-            resultString += "</ul>";
-            $("#resultId").empty();
-            $("#resultId").append(resultString);
-
-            // Load the tweet button
-            var tweetResult;
-            var siteUrl = "http://dnssec-name-and-shame.com/";
-            if (data.isSecure === true) {
-                tweetResult = "#win " + data.domain + " has successfully implemented #DNSSEC!";
-            } else {
-                tweetResult = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
-            }
-            var tweetString = "<p/><img src=\"resources/image/bird_blue_48.png\"><h3><a href=https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResult) + "&url=" + encodeURIComponent(siteUrl) + "&hashtags=internet,dns,security>Tweet results for " + htmlEncode(data.domain) + "</a></h3>";
-            $("#tweetId").empty();
-            $("#tweetId").append(tweetString);
-
-            // play the sound
-            if (data.isSecure === true) {
-                playSound("done");
-            } else {
-                playSound("fail");
-            }
+            $("#results-tweet-link")
+                .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&hashtags=internet,dns,security")
+                .text("Tweet results for " + data.domain);
         },
 
         checkDomain = function(domainname) {
