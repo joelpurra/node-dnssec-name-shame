@@ -28,16 +28,28 @@ $(function() {
         },
 
         domainLookupDone = function(data, textStatus, jqXHR) {
-            // TODO: use data
             console.log(data, textStatus, jqXHR);
 
             // Load the success or failure image
-            var image = "";
+            var successOrFailImage,
+                angryOrHappyImage;
+
             if (data.isSecure === true) {
-                image = "Success";
+                successOrFailImage = "Success";
+                angryOrHappyImage = "happy";
             } else {
-                image = "Failure";
+                successOrFailImage = "Failure";
+                angryOrHappyImage = "angry";
             }
+
+            $("#results-container")
+                .find(".results-image")
+                .hide()
+                .end()
+                .find(".results-image." + angryOrHappyImage)
+                .show()
+                .end()
+                .removeClass("none-yet");
 
             var $img = $("#resultImageId img");
 
@@ -45,7 +57,7 @@ $(function() {
                 $img = $("<img />").appendTo("#resultImageId")
             }
 
-            var imageUrl = "resources/image/" + image + ".png";
+            var imageUrl = "resources/image/" + successOrFailImage + ".png";
             $img.attr("src", imageUrl);
 
             // Load the results text

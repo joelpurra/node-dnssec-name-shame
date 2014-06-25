@@ -73,6 +73,18 @@
         content:'✘';
         color: red;
     }
+    #results-container {
+        text-align: center;
+        float: left;
+        margin-right: 1em;
+    }
+    #results-container .results-image.angry {
+    }
+    #results-container .results-image.happy {
+    }
+    #results-container.none-yet .results-image.happy {
+        display: none;
+    }
     </style>
 
     <link rel="icon" type="image/png" href="resources/image/anne-marie-16x16.jpg" sizes="16x16" />
@@ -103,12 +115,12 @@
     <meta property="og:title" content="DNSSEC name and shame!" />
 
     <meta name="description" content="Do the big companies use DNSSEC yet? Are you really safe from DNS spoofing online? We know who's been naughty and who's been nice - and now it's time to name and shame them!" />
-
 </head>
 
 <body>
-    <p style="text-align: center; float: left; margin-right: 1em;">
-        <img src="resources/image/anne-marie-300x231.jpg" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer" />
+    <p id="results-container" class="none-yet">
+        <img src="resources/image/angry.jpg" class="results-image angry" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" />
+        <img src="resources/image/happy.jpg" class="results-image happy" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's happy" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's happy" />
     </p>
     <h1>
         <a href="http://dnssec-name-and-shame.com/">DNSSEC name and shame!</a> 
