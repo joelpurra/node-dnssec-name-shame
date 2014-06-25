@@ -20,6 +20,7 @@ var configuration = require("configvention"),
     st = require("st"),
     path = require("path"),
     extend = require("extend"),
+    express_enforces_ssl = require('express-enforces-ssl'),
 
     callWithFirstInArray = require("../lib/callWithFirstInArray.js"),
 
@@ -50,6 +51,13 @@ var configuration = require("configvention"),
     }),
 
     app = express();
+
+app.enable('trust proxy');
+
+if (configuration.get("redirect-to-https") === true) {
+    app.use(express_enforces_ssl());
+}
+
 
 app.use(express.logger());
 

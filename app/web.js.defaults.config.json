@@ -1,5 +1,6 @@
 {
     "http-server-port": 5000,
     "MONGOLAB_URI": "mongodb://localhost/dnssec-name-shame",
-    "site-root": "public/"
+    "site-root": "public/",
+    "redirect-to-https": true
 }
