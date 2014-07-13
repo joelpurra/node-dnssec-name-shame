@@ -272,7 +272,8 @@
                         <a href="https://www.opendnssec.org/">www.opendnssec.org</a>
                     </li>
                     <li>
-                        <a href="https://www.ietf.org/">www.ietf.org</a>
+                        <strike><a href="https://www.ietf.org/">www.ietf.org</a>
+                        </strike>(see log from 2014-07-13 below)
                     </li>
                     <li>
                         <a href="https://internetsociety.org/">internetsociety.org</a>
@@ -406,6 +407,34 @@
         <h2>
             Log
         </h2>
+
+        <section>
+            <h3>
+                <time datetime="2014-07-13" title="2014-07-13">
+                    2014-07-13
+                </time>
+                Shame: IETF and PayPal not fully signed because of CNAMEs to external services in their www. subdomains.
+            </h3>
+            <p>
+                Last month, I received two separate but similar questions: why is <a href="https://paypal.com/">paypal.com</a> reported as successful, but <a href="https://www.paypal.com/">www.paypal.com</a> isn't? And why is <a href="https://ietf.org/">ietf.org</a> successful but <a href="https://www.ietf.org/">www.ietf.org</a> not?
+            </p>
+            <p>
+                The answer is easy to spot with
+                <code>dig +dnssec www.ietf.org</code>: IETF has correctly signed their own zone, including the A record for their domain, but the www. subdomain uses a CNAME to Cloudflare. Cloudflare hasn't signed their records (yet), so the CNAME chain leading up to an A record is broken. IETF used to be a known good example. For shame!
+            </p>
+            <p>
+                The same goes for www.paypal.com, which signs a CNAME record pointing to Akamai, which doesn't sign their records. Keep in mind that PayPal gave
+                <em>this very site</em>
+                a prize 2014-04-24, because we validated them for having correctly implemented DNSSEC. For shame!
+            </p>
+            <p>
+                Both IETF and PayPal redirect users browsing to their web sites to the www. subdomain, this means that they're effectively bypassing their own DNSSEC signing. Perhaps
+                <em>you</em>
+                should ask for more from
+                <em>your</em>
+                external service providers?
+            </p>
+        </section>
 
         <section>
             <h3>
