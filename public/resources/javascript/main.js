@@ -118,7 +118,11 @@ $(function() {
                 event.preventDefault();
 
                 var $target = $(event.target),
-                    url = $target.attr("href"),
+                    $link = $target
+                        .filter("[href]")
+                        .add($(event.target).parents("[href]"))
+                        .first(),
+                    url = $link.attr("href"),
                     domain = getDomainFromUrl(url),
                     highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
                         var successClass = "success",
@@ -132,7 +136,8 @@ $(function() {
                             resultClass = failClass;
                         }
 
-                        $target.parent("li")
+                        $link.parents("li")
+                            .first()
                             .removeClass(bothClasses)
                             .addClass(resultClass);
                     };
