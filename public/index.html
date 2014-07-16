@@ -420,7 +420,7 @@
             </p>
             <p>
                 The answer is easy to spot with
-                <code>dig +dnssec www.ietf.org</code>: IETF has correctly signed their own zone, including the A record for their domain, but the www. subdomain uses a CNAME to Cloudflare. Cloudflare hasn't signed their records (yet), so the CNAME chain leading up to an A record is broken. IETF used to be a known good example. For shame!
+                <code>dig +dnssec www.ietf.org</code>: IETF has correctly signed their own zone, including the A record for their domain, but the www. subdomain uses a CNAME to Cloudflare. Cloudflare hasn't signed their records (<a href="http://www.internetsociety.org/deploy360/blog/2014/07/report-on-icann50-dnssec-workshop-cloudflare-hsms-otr-demos-and-more/">yet</a>, <a href="http://london50.icann.org/en/schedule/wed-dnssec/presentation-dnssec-dns-proxying-25jun14-en.pdf">pdf</a>), so the CNAME chain leading up to an A record is broken. IETF used to be a known good example. For shame!
             </p>
             <p>
                 The same goes for www.paypal.com, which signs a CNAME record pointing to Akamai, which doesn't sign their records. Keep in mind that PayPal gave
