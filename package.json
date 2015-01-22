@@ -5,11 +5,11 @@
     "description": "Look at a domain and check for DNSSEC records. Name and shame included!",
     "homepage": "http://dnssec-name-and-shame.com/",
     "dependencies": {
-        "configvention": "^1.0.2",
         "Deferred": "^0.1.1",
-        "express": "^3.5.2",
-        "extend": "^1.2.1",
-        "getdns": "^0.1.3",
+        "configvention": "^1.0.2",
+        "express": "^3.19.1",
+        "extend": "^1.3.0",
+        "getdns": "^0.1.6",
         "mongodb": "^1.4.3",
         "st": "^0.4.1"
     },
