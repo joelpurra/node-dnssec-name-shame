@@ -182,9 +182,23 @@ $(function() {
     }());
 
     (function() {
+        // HACK: Server error! Sleep and then resubmit the form.
+        // TODO: check if the user changed the domain in the input box?
+        var errorsInARow = 0,
+            sleepDefault = 1000;
+
         $nameShameForm.on("dnas.lookup.fail", function(evt, data) {
-            // HACK: Server error, resubmit the form
-            $nameShameForm.submit();
+            var sleepThisTime = Math.pow(2, errorsInARow++) * sleepDefault;
+
+            console.error("Server failure, waiting to resubmit form.", "errorsInARow", errorsInARow, "sleepThisTime", sleepThisTime);
+
+            setTimeout(function() {
+                $nameShameForm.submit();
+            }, sleepThisTime);
+        });
+
+        $nameShameForm.on("dnas.lookup.done", function(evt, data) {
+            errorsInARow = 0;
         });
     }());
 });
