@@ -187,10 +187,10 @@ $(function() {
             }
 
             // Tweet button
-            var tweetSiteUrl = "http://dnssec-name-and-shame.com/";
+            var tweetSiteUrl = "http://dnssec-name-and-shame.com/domain/" + data.domain;
 
             $("#results-tweet-link")
-                .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&hashtags=internet,dns,security")
+                .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&via=dnssecnameshame&related=joelpurra,tompcuddy&hashtags=internet,dns,security")
                 .text("Tweet results for " + data.domain);
 
         });
