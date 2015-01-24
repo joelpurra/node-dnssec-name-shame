@@ -55,22 +55,37 @@ var configuration = require("configvention"),
 app.use(express.logger());
 app.use(configuredHttpsRedirect());
 
+// TODO: refactor function scope/location.
+function checkAndClean(str, disallowedRx, allowedRx) {
+    if (disallowedRx.test(str) || !allowedRx.test(str)) {
+        return null;
+    }
+
+    return str;
+}
+
+// TODO: refactor function scope/location.
+function checkAndCleanDomainname(domainname) {
+    // TOOD: write regexp for domain names
+    var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
+
+    return clean;
+}
+
+// TODO: refactor function scope/location.
+function checkAndCleanDomainnameOrDie(response, domainname) {
+    var clean = checkAndCleanDomainname(domainname);
+
+    if (!clean) {
+        response.send(422);
+        response.end();
+        return;
+    }
+
+    return clean;
+}
+
 app.get("/name-shame/", function(request, response, next) {
-    function checkAndClean(str, disallowedRx, allowedRx) {
-        if (disallowedRx.test(str) || !allowedRx.test(str)) {
-            return null;
-        }
-
-        return str;
-    }
-
-    function checkAndCleanDomainname(domainname) {
-        // TOOD: write regexp for domain names
-        var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
-
-        return clean;
-    }
-
     function handleError(error) {
         // TODO: log this error in a better way
         //throw error;
@@ -81,13 +96,7 @@ app.get("/name-shame/", function(request, response, next) {
         response.end();
     }
 
-    var domainname = checkAndCleanDomainname(request.query.domainname);
-
-    if (!domainname) {
-        response.send(422);
-        response.end();
-        return;
-    }
+    var domainname = checkAndCleanDomainnameOrDie(response, request.query.domainname);
 
     database.Domains.getOrCreate(domainname)
         .fail(handleError)
@@ -172,9 +181,9 @@ app.get("/name-shame/", function(request, response, next) {
 
                     function createResultsObjectForFrontend(domain, dnsLookupObject) {
                         var meta = {
-                            domain: domain.name,
-                            generatedAt: dnsLookupObject.generatedAt
-                        },
+                                domain: domain.name,
+                                generatedAt: dnsLookupObject.generatedAt
+                            },
                             stripped = stripDNSLookupObjectForFrontend(dnsLookupObject.records),
                             result = extend({}, meta, stripped);
 
@@ -202,7 +211,28 @@ app.get("/name-shame/", function(request, response, next) {
         });
 });
 
-app.use(mount)
+// TODO: group as middleware.
+app.get("/domain/", function(request, response, next) {
+    response.redirect(301, "/");
+});
+
+// TODO: group as middleware.
+app.get("/domain/:domainname", function(request, response, next, domainname) {
+    var clean = checkAndCleanDomainnameOrDie(response, request.query.domainname);
+
+    // The domain name is now clean, or this won't be reached.
+    next();
+});
+
+app.get("/domain/*", function(request, response, next) {
+    // These domains will be handled on the client side.
+    // TODO: use a template and fill in values in the returned HTML.
+    request.url = "/";
+
+    next();
+});
+
+app.use(mount);
 
 app.listen(httpServerPort, httpServerIp, function() {
     console.log("Listening on port", httpServerPort);
