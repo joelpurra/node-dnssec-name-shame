@@ -3,66 +3,23 @@ $(function() {
         $nameShameForm = $("#name-shame-form"),
         $domainnameInput = $("[name=domainname]", $nameShameForm),
 
-        playSound = function(name) {
-            var instance = createjs.Sound.play(name);
-        },
-
         domainLookupFail = function(jqXHR, textStatus, errorThrown) {
             // TODO: show error to the user
-            console.error(jqXHR, textStatus, errorThrown);
+            console.error("domainLookupFail", jqXHR, textStatus, errorThrown);
 
-            // HACK: Server error, resubmit the form
-            $nameShameForm.submit();
+            $nameShameForm.trigger("dnas.lookup.fail");
         },
 
         domainLookupDone = function(data, textStatus, jqXHR) {
-            console.log(data, textStatus, jqXHR);
+            console.log("domainLookupDone", data, textStatus, jqXHR);
 
-            // Happy/angry, success/failure images
-            var successOrFailImage,
-                angryOrHappyImage,
-                tweetResultsText;
+            $nameShameForm.trigger("dnas.lookup.done", data);
 
             if (data.isSecure === true) {
-                playSound("done");
-                successOrFailImage = "success";
-                angryOrHappyImage = "happy";
-                tweetResultsText = "#win " + data.domain + " has successfully implemented #DNSSEC!";
+                $nameShameForm.trigger("dnas.lookup.is-secure", data);
             } else {
-                playSound("fail");
-                successOrFailImage = "failure";
-                angryOrHappyImage = "angry";
-                tweetResultsText = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
+                $nameShameForm.trigger("dnas.lookup.is-insecure", data);
             }
-
-            $("#results-container")
-                .find(".results-image")
-                .hide()
-                .end()
-                .find(".results-image." + angryOrHappyImage)
-                .show()
-                .end()
-                .removeClass("none-yet");
-
-            $("#results-blocks")
-                .find(".results-image")
-                .hide()
-                .end()
-                .find(".results-image." + successOrFailImage)
-                .show()
-                .end()
-                .removeClass("none-yet");
-
-            // Results text
-            $("#results-domain-name").text(data.domain);
-            $("#results-success-or-fail").text(data.isSecure === true ? "Yes!" : "No!");
-
-            // Tweet button
-            var tweetSiteUrl = "http://dnssec-name-and-shame.com/";
-
-            $("#results-tweet-link")
-                .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&hashtags=internet,dns,security")
-                .text("Tweet results for " + data.domain);
         },
 
         checkDomain = function(domainname) {
@@ -90,11 +47,6 @@ $(function() {
         };
 
     (function() {
-        createjs.Sound.registerSound("resources/audio/164089_2975503-lq.mp3", "fail");
-        createjs.Sound.registerSound("resources/audio/109662_945474-lq.mp3", "done");
-    }());
-
-    (function() {
         var onSubmit = function(event) {
             event.preventDefault();
 
@@ -110,18 +62,18 @@ $(function() {
 
     (function() {
         var getDomainFromUrl = function(url) {
-            var domain = url.split("://")[1].split("/")[0];
+                var domain = url.split("://")[1].split("/")[0];
 
-            return domain;
-        },
+                return domain;
+            },
             doAjaxOnLinkClick = function(event) {
                 event.preventDefault();
 
                 var $target = $(event.target),
                     $link = $target
-                        .filter("[href]")
-                        .add($(event.target).parents("[href]"))
-                        .first(),
+                    .filter("[href]")
+                    .add($(event.target).parents("[href]"))
+                    .first(),
                     url = $link.attr("href"),
                     domain = getDomainFromUrl(url),
                     highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
@@ -149,5 +101,90 @@ $(function() {
             };
 
         $document.on("click", ".has-domains-to-check a", doAjaxOnLinkClick);
+    }());
+
+    (function() {
+        $nameShameForm.on("dnas.lookup.done", function(evt, data) {
+            // Happy/angry, success/failure images
+            var successOrFailImage,
+                angryOrHappyImage;
+
+            if (data.isSecure === true) {
+                successOrFailImage = "success";
+                angryOrHappyImage = "happy";
+            } else {
+                successOrFailImage = "failure";
+                angryOrHappyImage = "angry";
+            }
+
+            $("#results-container")
+                .find(".results-image")
+                .hide()
+                .end()
+                .find(".results-image." + angryOrHappyImage)
+                .show()
+                .end()
+                .removeClass("none-yet");
+
+            $("#results-blocks")
+                .find(".results-image")
+                .hide()
+                .end()
+                .find(".results-image." + successOrFailImage)
+                .show()
+                .end()
+                .removeClass("none-yet");
+
+            // Results text
+            $("#results-domain-name").text(data.domain);
+            $("#results-success-or-fail").text(data.isSecure === true ? "Yes!" : "No!");
+        });
+    }());
+
+    (function() {
+        $nameShameForm.on("dnas.lookup.done", function(evt, data) {
+            var tweetResultsText;
+
+            if (data.isSecure === true) {
+                tweetResultsText = "#win " + data.domain + " has successfully implemented #DNSSEC!";
+            } else {
+                tweetResultsText = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
+            }
+
+            // Tweet button
+            var tweetSiteUrl = "http://dnssec-name-and-shame.com/";
+
+            $("#results-tweet-link")
+                .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&hashtags=internet,dns,security")
+                .text("Tweet results for " + data.domain);
+
+        });
+    }());
+
+    (function() {
+        var
+            playSound = function(name) {
+                var instance = createjs.Sound.play(name);
+            };
+
+        (function() {
+            createjs.Sound.registerSound("resources/audio/164089_2975503-lq.mp3", "fail");
+            createjs.Sound.registerSound("resources/audio/109662_945474-lq.mp3", "done");
+        }());
+
+        $nameShameForm.on("dnas.lookup.done", function(evt, data) {
+            if (data.isSecure === true) {
+                playSound("done");
+            } else {
+                playSound("fail");
+            }
+        });
+    }());
+
+    (function() {
+        $nameShameForm.on("dnas.lookup.fail", function(evt, data) {
+            // HACK: Server error, resubmit the form
+            $nameShameForm.submit();
+        });
     }());
 });
