@@ -1,0 +1,86 @@
+body {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Quando, Helvetica, Verdana, sans-serif;
+}
+#hero {
+    /*background-color: lightgray;*/
+    
+    border-radius: 5px;
+    padding: 1em;
+}
+fieldset {
+    border: 3px solid grey;
+    border-radius: 5px;
+    font-size: 1.5em;
+}
+fieldset p:first-of-type {
+    margin-top: 0;
+}
+fieldset input, fieldset button {
+    font-size: 1em;
+}
+footer img {
+    max-width: 16px;
+    vertical-align: middle;
+}
+h1 small, h2 small, h3 small {
+    font-size: 0.5em;
+    color: grey;
+}
+.two-columns {
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    -o-column-count: 2;
+    -ms-column-count: 2;
+    column-count: 2;
+}
+.columns.two .column {
+    width: 50%;
+}
+.columns.two .column.left {
+    float: left;
+}
+.columns.two .column.right {
+    float: right;
+}
+hr {
+    clear: both;
+}
+.has-domains-to-check {
+    list-style-type: none;
+}
+.has-domains-to-check li:before {
+    content: '?'
+}
+.has-domains-to-check li.success:before {
+    content: '✔︎';
+    color: green;
+}
+.has-domains-to-check li.fail:before {
+    content: '✘';
+    color: red;
+}
+#results-container {
+    text-align: center;
+    float: left;
+    margin-right: 1em;
+}
+#results-container .results-image.angry {} #results-container .results-image.happy {} #results-container.none-yet .results-image.happy {
+    display: none;
+}
+#results-blocks {} #results-blocks.none-yet {
+    display: none;
+}
+#results-blocks .results-block {
+    float: left;
+    margin: 1em;
+}
+#results-blocks .results-image.success {} #results-blocks .results-image.failure {} #results-blocks.none-yet .results-image {
+    display: none;
+}
+.clear {
+    clear: both;
+}
