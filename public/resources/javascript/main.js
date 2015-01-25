@@ -299,7 +299,7 @@ $(function() {
     }
 
     function loadFrontpageIfNotAlreadyThere() {
-        if (document.location.href !== "/") {
+        if (document.location.pathname !== "/") {
             clearResults();
 
             pushClearState();
