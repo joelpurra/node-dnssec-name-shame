@@ -3,6 +3,43 @@ $(function() {
         $nameShameForm = $("#name-shame-form"),
         $domainnameInput = $("[name=domainname]", $nameShameForm),
 
+        // TODO: refactor function scope/location.
+        checkAndClean = function(str, disallowedRx, allowedRx) {
+            if (disallowedRx.test(str) || !allowedRx.test(str)) {
+                return null;
+            }
+
+            return str;
+        },
+
+        // TODO: refactor function scope/location.
+        checkAndCleanDomainname = function(domainname) {
+            // TOOD: write regexp for domain names
+            var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
+
+            return clean;
+        },
+
+        // TODO: refactor function scope/location.
+        cleanDomainnameFromDNASUrl = function(url) {
+            var path = url || "",
+                domainnameRx = /\/domain\/([^/]+)$/,
+                domainname;
+
+            if (!path || !domainnameRx.test(path)) {
+                return null;
+            }
+
+            path.match(domainnameRx);
+            domainname = checkAndCleanDomainname(RegExp.$1);
+
+            if (!domainname) {
+                return null;
+            }
+
+            return domainname;
+        },
+
         handleLookupFail = function(clientState) {
             clientState = clientState || {};
 
@@ -32,6 +69,10 @@ $(function() {
 
         domainLookupXHRDone = function(data, textStatus, jqXHR) {
             console.log("domainLookupXHRDone", data, textStatus, jqXHR);
+
+            data = data || {};
+            data.domain = (data && data.domain) || "";
+            data.domain = checkAndCleanDomainname(data.domain);
 
             handleLookupDone(data, {
                 firstTime: true
@@ -241,43 +282,6 @@ $(function() {
             errorsInARow = 0;
         });
     }());
-
-    // TODO: refactor function scope/location.
-    function checkAndClean(str, disallowedRx, allowedRx) {
-        if (disallowedRx.test(str) || !allowedRx.test(str)) {
-            return null;
-        }
-
-        return str;
-    }
-
-    // TODO: refactor function scope/location.
-    function checkAndCleanDomainname(domainname) {
-        // TOOD: write regexp for domain names
-        var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
-
-        return clean;
-    }
-
-    // TODO: refactor function scope/location.
-    function cleanDomainnameFromDNASUrl(url) {
-        var path = url || "",
-            domainnameRx = /\/domain\/([^/]+)$/,
-            domainname;
-
-        if (!path || !domainnameRx.test(path)) {
-            return null;
-        }
-
-        path.match(domainnameRx);
-        domainname = checkAndCleanDomainname(RegExp.$1);
-
-        if (!domainname) {
-            return null;
-        }
-
-        return domainname;
-    }
 
     var stateCounter = 0;
 
