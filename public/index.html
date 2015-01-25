@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>DNSSEC name and shame!</title>
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quando" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quando|Pacifico|Open+Sans" />
     <link rel="stylesheet" type="text/css" href="/resources/style/main.css" />
 
     <link rel="icon" type="image/png" href="/resources/image/anne-marie-16x16.jpg" sizes="16x16" />
@@ -39,59 +39,59 @@
 </head>
 
 <body>
-    <p id="results-container" class="none-yet">
-        <img src="/resources/image/angry.jpg" class="results-image angry" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" />
-        <img src="/resources/image/happy.jpg" class="results-image happy" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's happy" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's happy" />
-    </p>
-    <h1>
-        <a href="https://dnssec-name-and-shame.com/">DNSSEC name and shame!</a>
-        <small>
-            Domain Name System Security Extensions
-        </small>
+    <header>
+        <h1>
+        <a href="https://dnssec-name-and-shame.com/">
+            DNSSEC name and shame!
+        </a>
     </h1>
-    <p>
-        Do the big organizations and companies use DNSSEC yet? Are you really safe from DNS spoofing online? We know who's been naughty and who's been nice - and now it's time to name and shame them!
-    </p>
-    <section id="hero">
+        <p>
+            Do the big organizations and companies use
+            <abbr title="Domain Name System Security Extensions">DNSSEC</abbr>
+            yet? Are you really safe from
+            <abbr title="Domain Name System">DNS</abbr>
+            spoofing online? We know who's been <em>naughty</em> and who's been <em>nice</em> - and now it's time to <em>name</em> and <em>shame</em> them!
+        </p>
+    </header>
+
+    <section id="results-group">
+        <div id="results-container" class="none-yet">
+            <img src="/resources/image/angry.jpg" class="results-image angry" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" />
+            <img src="/resources/image/happy.jpg" class="results-image happy" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's happy" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's happy" />
+        </div>
+        <div id="results-blocks" class="none-yet">
+            <div class="results-block">
+                <p>
+                    <strong><span id="results-domain-name"></span></strong> is <em><span id="results-success-or-fail"></span></em> secured with DNSSEC!
+                </p>
+                <p>
+                    <img src="/resources/image/bird_blue_48.png" /><a id="results-tweet-link" href="#"></a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
         <form id="name-shame-form" action="/name-shame/" method="GET">
             <fieldset>
                 <legend>Check a domain for DNSSEC compliance</legend>
-                <p>
-                    <em>Success not guaranteed!</em>
-                </p>
-                <label>Domain name
-                    <input id="name-shame-domain" name="domainname" type="text" required="required" pattern="^([a-z0-9\-]{1,64}\.)+[a-z]+$" autofocus="autofocus" title="Please fill out a domain (example.com), all lowercase." />
-                </label>
-                <button type="submit">
-                    Check the domain!
-                </button>
+                <table>
+                    <tr>
+                        <td>
+                            <label>
+                                <input id="name-shame-domain" name="domainname" type="text" required="required" pattern="^([a-z0-9\-]{1,64}\.)+[a-z]+$" autofocus="autofocus" title="Please fill out a domain (example.com), all lowercase." />
+                            </label>
+                        </td>
+                        <td>
+                            <button type="submit">
+                                Check now!
+                            </button>
+                        </td>
+                    </tr>
+                </table>
             </fieldset>
         </form>
     </section>
-    <div id="results-blocks" class="none-yet">
-        <div class="results-block">
-            <img src="/resources/image/Success.png" class="results-image success" alt="Success!" title="Success!" />
-            <img src="/resources/image/Failure.png" class="results-image failure" alt="Failure!" title="Failure!" />
-        </div>
-        <div class="results-block">
-            <h2>DNSSEC Results</h2>
-            <ul>
-                <li>Domain:
-                    <span id="results-domain-name"></span>
-                </li>
-                <li>DNSSEC Secure:
-                    <span id="results-success-or-fail"></span>
-                </li>
-            </ul>
-        </div>
-        <div class="results-block">
-            <h3>
-                <img src="/resources/image/bird_blue_48.png" />
-                <a id="results-tweet-link" href="#"></a>
-            </h3>
-        </div>
-        <br class="clear" />
-    </div>
 
     <section>
         <h2>
@@ -100,9 +100,9 @@
         </h2>
 
         <div class="two columns">
-            <section class="left column">
+            <div class="left column">
                 <h3>
-                    The Next Web's Kings of Code Hack Battle API sponsors
+                    The Next Web's Kings of Code Hack Battle API sponsors 2014
                 </h3>
 
                 <p>
@@ -174,16 +174,15 @@
                         <a href="https://www.opendnssec.org/">www.opendnssec.org</a>
                     </li>
                     <li>
-                        <a href="https://www.ietf.org/"><strike>www.ietf.org</strike></a>
-                        (see log from 2014-07-13 below)
+                        <a href="https://www.ietf.org/"><strike>www.ietf.org</strike></a> (see log from 2014-07-13 below)
                     </li>
                     <li>
                         <a href="https://internetsociety.org/">internetsociety.org</a>
                     </li>
                 </ul>
-            </section>
+            </div>
 
-            <section class="right column">
+            <div class="right column">
                 <h3>
                     Alexa Top 25 sites worldwide
                 </h3>
@@ -268,11 +267,9 @@
                         <a href="http://google.de/">google.de</a>
                     </li>
                 </ul>
-            </section>
+            </div>
         </div>
     </section>
-
-    <hr />
 
     <section>
         <h2>
@@ -310,7 +307,7 @@
             Log
         </h2>
 
-        <section>
+        <article>
             <h3>
                 <time datetime="2014-07-13" title="2014-07-13">
                     2014-07-13
@@ -326,19 +323,16 @@
             </p>
             <p>
                 The same goes for www.paypal.com, which signs a CNAME record pointing to Akamai, which doesn't sign their records. Keep in mind that PayPal gave
-                <em>this very site</em>
-                a prize 2014-04-24, because we validated them for having correctly implemented DNSSEC. For shame!
+                <em>this very site</em> a prize 2014-04-24, because we validated them for having correctly implemented DNSSEC. For shame!
             </p>
             <p>
                 Both IETF and PayPal redirect users browsing to their web sites to the www. subdomain, this means that they're effectively bypassing their own DNSSEC signing. Perhaps
-                <em>you</em>
-                should ask for more from
-                <em>your</em>
-                external service providers?
+                <em>you</em> should ask for more from
+                <em>your</em> external service providers?
             </p>
-        </section>
+        </article>
 
-        <section>
+        <article>
             <h3>
                 <time datetime="2014-06-25" title="2014-06-25">
                     2014-06-25
@@ -348,13 +342,13 @@
             <p>
                 During the <a href="http://london50.icann.org/en/schedule/wed-dnssec">DNSSEC workshop</a> at the 50th ICANN meeting, Anne-Marie handed out t-shirts promoting dnsssec-name-and-shame.com to some of the most active people in DNSSEC, prompting jokes and laughter. At the same time, the site was updated with a happy image of her for successful DNSSEC lookups. Thanks again, Anne-Marie!
             </p>
-        </section>
+        </article>
 
         <details>
             <summary>
                 Older entries
             </summary>
-            <section>
+            <article>
                 <h3>
                     <time datetime="2014-04-28" title="2014-04-28">
                         2014-04-28
@@ -364,9 +358,9 @@
                 <p>
                     We have a new photo on the site - and it's not just some random stock photography this time. When <a href="https://dnssec-name-and-shame.com/">dnssec-name-and-shame.com</a> was getting attention during the hackathon, Anne-Marie Eklund Löwinder got in touch and offered to pose for the site! She's a DNSSEC pioneer and has been <a href="http://www.internethalloffame.org/inductees/anne-marie-eklund-l%C3%B6winder">inducted into the Internet Hall of Fame</a> for her efforts in securing DNS. Having worked many years trying to convince people to use DNSSEC, she was happy to see that this site has a slightly different take on things. Thank you for your support, Anne-Marie!
                 </p>
-            </section>
+            </article>
 
-            <section>
+            <article>
                 <h3>
                     <time datetime="2014-04-24" title="2014-04-24">
                         2014-04-24
@@ -376,13 +370,13 @@
                 <p>
                     Security is important to PayPal, and they work hard to do everything right. One of those things is to properly implement DNSSEC, and we hightlighted them as one of the few top sites who have done that correctly. Thanks PayPal for implementing DNSSEC and thanks for the honors!
                 </p>
-            </section>
+            </article>
 
             <details>
                 <summary>
                     Older entries
                 </summary>
-                <section>
+                <article>
                     <h3>
                         <time datetime="2014-04-24" title="2014-04-24">
                             2014-04-24
@@ -392,25 +386,24 @@
                     <p>
                         Today is the day, after a couple of hours of making things pretty-pretty. But hey - let's not stop here - <a href="https://github.com/joelpurra/node-dnssec-name-shame">pull requests are accepted</a>!
                     </p>
-                </section>
+                </article>
 
-                <section>
+                <article>
                     <h3>
                         <time datetime="2014-04-23" title="2014-04-23">
                             2014-04-23
                         </time>
-                        Initial shaming on <a href="http://thenextweb.com/">The Next Web's</a>  <a href="http://thenextweb.com/conference/europe/hack-battle/">Kings of Code Hack Battle</a>
+                        Initial shaming on <a href="http://thenextweb.com/">The Next Web's</a>  <a href="http://thenextweb.com/conference/europe/hack-battle/">Kings of Code Hack Battle</a> 2014
                     </h3>
                     <p>
                         Once we found out that Twitter.com wasn't secured with DNSSEC, the game was on. How about shaming them a bit, in front of all the hackathon participants? The Twitter representative wasn't too pleased about our idea, which made it seem all the much better!
                     </p>
-                </section>
+                </article>
             </details>
     </section>
 
-    <footer class="container">
-        <hr />
-        <img src="/resources/image/anne-marie-64x64.jpg" /> <a href="https://dnssec-name-and-shame.com/">DNSSEC name and shame!</a> &copy; 2014 <a href="http://joelpurra.com/">Joel Purra</a> and Tom Cuddy. Released under the <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0 License</a>. Hosted by <a href="https://nlnetlabs.nl/">NLnet Labs</a>.
+    <footer>
+        <img src="/resources/image/anne-marie-64x64.jpg" /> <a href="https://dnssec-name-and-shame.com/">DNSSEC name and shame!</a> &copy; 2014, 2015 <a href="http://joelpurra.com/">Joel Purra</a> and Tom Cuddy. Released under the <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0 License</a>. Hosted by <a href="https://nlnetlabs.nl/">NLnet Labs</a>.
     </footer>
 
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -431,7 +424,7 @@
             (i[r].q = i[r].q || []).push(arguments)
         }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
+            m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)

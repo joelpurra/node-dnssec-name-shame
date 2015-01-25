@@ -1,15 +1,51 @@
-body {
-    margin-left: 10%;
-    margin-right: 10%;
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', Helvetica, Verdana, sans-serif;
+    font-size: 1.3em;
+    line-height: 1.25;
+}
+section, header, footer {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin: 0;
+    clear: both;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: Quando, Helvetica, Verdana, sans-serif;
+    margin: 0;
+    margin-top: 1em;
 }
-#hero {
-    /*background-color: lightgray;*/
-    
-    border-radius: 5px;
-    padding: 1em;
+strong {
+    font-family: Quando, Helvetica, Verdana, sans-serif;
+}
+em {
+    font-family: 'Pacifico', cursive;
+    padding-right: 0.1em;
+}
+header {
+    font-size: 1.5em;
+    background-color: #eaeaea;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+header, header a {
+    color: #504c52;
+    text-decoration: none;
+}
+section:nth-of-type(even) {
+    background-color: #f8f8f8;
+}
+article {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+article:nth-of-type(even) {
+    background-color: #f8f8f8;
 }
 fieldset {
     border: 3px solid grey;
@@ -22,13 +58,35 @@ fieldset p:first-of-type {
 fieldset input, fieldset button {
     font-size: 1em;
 }
+#name-shame-form table {
+    padding: 0;
+    margin: 0;
+}
+#name-shame-form table, #name-shame-form table input {
+    width: 100%;
+}
+#name-shame-form table td {
+    padding: 0;
+}
+#name-shame-form table button {
+    float: right;
+}
+footer {
+    background-color: #eaeaea;
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
 footer img {
-    max-width: 16px;
+    max-width: 32px;
     vertical-align: middle;
 }
 h1 small, h2 small, h3 small {
     font-size: 0.5em;
     color: grey;
+}
+abbr {
+    border-bottom: 1px dotted grey;
+    cursor: help;
 }
 .two-columns {
     -moz-column-count: 2;
@@ -46,14 +104,14 @@ h1 small, h2 small, h3 small {
 .columns.two .column.right {
     float: right;
 }
-hr {
-    clear: both;
-}
 .has-domains-to-check {
     list-style-type: none;
 }
 .has-domains-to-check li:before {
-    content: '?'
+    content: '?';
+    display: inline-block;
+    width: 0.7em;
+    text-align: center;
 }
 .has-domains-to-check li.success:before {
     content: '✔︎';
@@ -63,10 +121,13 @@ hr {
     content: '✘';
     color: red;
 }
-#results-container {
+#results-group {} #results-container {
     text-align: center;
     float: left;
     margin-right: 1em;
+}
+#results-container img {
+    border-bottom: 1px solid lightgrey;
 }
 #results-container .results-image.angry {} #results-container .results-image.happy {} #results-container.none-yet .results-image.happy {
     display: none;
@@ -76,10 +137,13 @@ hr {
 }
 #results-blocks .results-block {
     float: left;
-    margin: 1em;
+    margin: 0.3em;
 }
 #results-blocks .results-image.success {} #results-blocks .results-image.failure {} #results-blocks.none-yet .results-image {
     display: none;
+}
+#results-domain-name {} #results-success-or-fail {
+    color: red;
 }
 .clear {
     clear: both;

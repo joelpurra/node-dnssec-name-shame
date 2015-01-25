@@ -213,26 +213,31 @@ $(function() {
 
             // Results text
             $("#results-domain-name").text(data.domain);
-            $("#results-success-or-fail").text(data.isSecure === true ? "Yes!" : "No!");
+            $("#results-success-or-fail").text(data.isSecure === true ? "" : "not");
         });
     }());
 
     (function() {
         $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-            var tweetResultsText;
+            var tweetResultsText,
+                tweetLinkText = "Publicly #";
 
             if (data.isSecure === true) {
-                tweetResultsText = "#win " + data.domain + " has successfully implemented #DNSSEC!";
+                tweetResultsText = "#praise " + data.domain + " has successfully implemented #DNSSEC!";
+                tweetLinkText += "praise";
             } else {
                 tweetResultsText = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
+                tweetLinkText += "shame";
             }
+
+            tweetLinkText += " " + data.domain + "!";
 
             // Tweet button
             var tweetSiteUrl = "http://dnssec-name-and-shame.com/domain/" + data.domain;
 
             $("#results-tweet-link")
                 .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&via=dnssecnameshame&related=joelpurra,tompcuddy&hashtags=internet,dns,security")
-                .text("Tweet results for " + data.domain);
+                .text(tweetLinkText);
 
         });
     }());
