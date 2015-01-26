@@ -328,17 +328,28 @@ $(function() {
 
     var stateCounter = 0;
 
+    function getStateTitle() {
+        return document.title + " (" + (stateCounter++) + ")";
+    }
+
+    function setPageTitle(title) {
+        title = (!title || title === "") ? "DNSSEC name and shame!" : title;
+
+        document.title = title;
+    }
+
     function pushClearState() {
         var state = null,
-            title = "Front page (" + stateCounter + ")",
             url = "/";
 
-        history.pushState(state, title, url);
+        history.pushState(state, getStateTitle(), url);
     }
 
     function loadFrontpageIfNotAlreadyThere() {
         if (document.location.pathname !== "/") {
             clearResults();
+
+            setPageTitle();
 
             pushClearState();
 
@@ -358,16 +369,24 @@ $(function() {
             var fromUrl = cleanDomainnameFromDNASUrl(document.location.href);
 
             var state = data,
-                title = "Domain lookup: " + data.domain + " (" + stateCounter + ")",
+                title,
                 url = "/domain/" + data.domain;
+
+            if (data.isSecure === true) {
+                title = "Praise " + data.domain + " for implementing DNSSEC!";
+            } else {
+                title = "Shame " + data.domain + " for not implementing DNSSEC!";
+            }
+
+            setPageTitle(title);
 
             // The state should already be loaded according to the
             // document.location -- so don't pushState it again, just
             // replaceState with the most recent data.
             if (fromUrl === data.domain) {
-                history.replaceState(state, title, url);
+                history.replaceState(state, getStateTitle(), url);
             } else {
-                history.pushState(state, title, url);
+                history.pushState(state, getStateTitle(), url);
             }
 
             track();
