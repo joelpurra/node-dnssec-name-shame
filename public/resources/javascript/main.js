@@ -1,5 +1,6 @@
 $(function() {
     var $document = $(document),
+        $body = $("body"),
         $nameShameForm = $("#name-shame-form"),
         $domainnameInput = $("[name=domainname]", $nameShameForm),
 
@@ -101,6 +102,16 @@ $(function() {
             var promise = checkDomainAndUpdateUi(domainname);
 
             return promise;
+        },
+
+        getLinkFromAnchorClick = function(evt) {
+            var $target = $(evt.target),
+                $link = $target
+                .filter("[href]")
+                .add($(evt.target).parents("[href]"))
+                .first();
+
+            return $link;
         };
 
     (function() {
@@ -126,11 +137,7 @@ $(function() {
             doAjaxOnLinkClick = function(event) {
                 event.preventDefault();
 
-                var $target = $(event.target),
-                    $link = $target
-                    .filter("[href]")
-                    .add($(event.target).parents("[href]"))
-                    .first(),
+                var $link = getLinkFromAnchorClick(event),
                     url = $link.attr("href"),
                     domain = getDomainFromUrl(url),
                     highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
@@ -304,6 +311,8 @@ $(function() {
 
             pushClearState();
         }
+
+        $body.scrollTop(0);
     }
 
     (function() {
@@ -357,5 +366,23 @@ $(function() {
                 $nameShameForm.submit();
             }
         });
+    }());
+
+    (function() {
+        function dontGoToHere(evt) {
+            var $link = getLinkFromAnchorClick(evt),
+                url = $link.attr("href");
+
+            // Links to the front page, but clickable domain checks excluded.
+            if ((url === "/" || url === "https://dnssec-name-and-shame.com/") && !$link.parents(".has-domains-to-check").length) {
+                evt.preventDefault();
+
+                loadFrontpageIfNotAlreadyThere();
+
+                return false;
+            }
+        }
+
+        $("a").on("click", dontGoToHere);
     }());
 });
