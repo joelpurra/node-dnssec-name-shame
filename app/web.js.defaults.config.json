@@ -2,6 +2,7 @@
     "http-server-port": 5000,
     "MONGOLAB_URI": "mongodb://localhost/dnssec-name-shame",
     "site-root": "public/",
+    "enable-hsts": true,
     "redirect-to-https": true,
     "http-url-root": "http://dnssec-name-and-shame.com",
     "https-url-root": "https://dnssec-name-and-shame.com"

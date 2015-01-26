@@ -17,6 +17,7 @@ var configuration = require("configvention"),
     t = require("../lib/DNSLookup.js").DNSLookup,
     DNSLookup = new t(),
     express = require('express'),
+    helmet = require('helmet'),
     st = require("st"),
     path = require("path"),
     extend = require("extend"),
@@ -53,6 +54,14 @@ var configuration = require("configvention"),
     app = express();
 
 app.use(express.logger());
+
+app.use(helmet());
+app.use(helmet.hsts({
+    maxAge: 15724800000,
+    includeSubdomains: true,
+    force: configuration.get("enable-hsts") === true
+}));
+
 app.use(configuredHttpsRedirect());
 
 // TODO: refactor function scope/location.
