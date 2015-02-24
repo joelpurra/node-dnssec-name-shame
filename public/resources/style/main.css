@@ -116,15 +116,22 @@ abbr {
     -o-column-count: 2;
     -ms-column-count: 2;
     column-count: 2;
+    -moz-column-width: 500px;
+    -webkit-column-width: 500px;
+    -o-column-width: 500px;
+    -ms-column-width: 500px;
+    column-width: 500px;
 }
-.columns.two .column {
-    width: 50%;
-}
-.columns.two .column.left {
-    float: left;
-}
-.columns.two .column.right {
-    float: right;
+@media (min-width: 1200px) {
+    .columns.two .column {
+        width: 50%;
+    }
+    .columns.two .column.left {
+        float: left;
+    }
+    .columns.two .column.right {
+        float: right;
+    }
 }
 .has-domains-to-check {
     list-style-type: none;
