@@ -13,11 +13,11 @@ var configuration = require("configvention"),
     dumpedDataVersion = 0,
     relativePathToRootFromThisFile = "..",
 
-    getdns = require('getdns'),
+    getdns = require("getdns"),
     t = require("../lib/DNSLookup.js").DNSLookup,
     DNSLookup = new t(),
-    express = require('express'),
-    helmet = require('helmet'),
+    express = require("express"),
+    helmet = require("helmet"),
     st = require("st"),
     path = require("path"),
     extend = require("extend"),
@@ -44,7 +44,7 @@ var configuration = require("configvention"),
     mount = st({
         path: siteRootPath,
         url: "/",
-        index: 'index.html'
+        index: "index.html"
     }),
 
     database = require("./data/data-layer-wrapper.js")({

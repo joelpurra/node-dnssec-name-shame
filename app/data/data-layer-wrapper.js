@@ -3,41 +3,39 @@
 /*jslint white: true, todo: true */
 /*global require: true, module: true */
 
-var Deferred = require('Deferred'),
+var Deferred = require("Deferred"),
     MongoDBManagment = require("../../lib/mongodb-deferred.js"),
     callWithFirstInArray = require("../../lib/callWithFirstInArray.js"),
-    deepCleanKeysFromDots = require("../../lib/deepCleanKeysFromDots.js"),
-    toObjectID = require("../../lib/toObjectID.js"),
 
     // TODO: simplify this code, to avoid generating functions?
     generate = function(options) {
         var generateDomains = function() {
-            // TODO: class inheritance/aliasing, prototype chain stuffs
-            var Domains = new MongoDBManagment.Server(options.uri).getDatabase(options.databaseName).getCollection("domains");
+                // TODO: class inheritance/aliasing, prototype chain stuffs
+                var Domains = new MongoDBManagment.Server(options.uri).getDatabase(options.databaseName).getCollection("domains");
 
-            Domains.getOrCreate = function(domainname) {
-                var deferred = new Deferred(),
-                    domainToFind = {
-                        name: domainname
-                    };
+                Domains.getOrCreate = function(domainname) {
+                    var deferred = new Deferred(),
+                        domainToFind = {
+                            name: domainname
+                        };
 
-                this.findOne(domainToFind)
-                    .fail(deferred.reject)
-                    .done(function(domain) {
-                        if (domain) {
-                            deferred.resolve(domain);
-                        } else {
-                            this.insert(domainToFind)
-                                .fail(deferred.reject)
-                                .done(callWithFirstInArray(deferred.resolve));
-                        }
-                    }.bind(this));
+                    this.findOne(domainToFind)
+                        .fail(deferred.reject)
+                        .done(function(domain) {
+                            if (domain) {
+                                deferred.resolve(domain);
+                            } else {
+                                this.insert(domainToFind)
+                                    .fail(deferred.reject)
+                                    .done(callWithFirstInArray(deferred.resolve));
+                            }
+                        }.bind(this));
 
-                return deferred.promise();
-            }.bind(Domains);
+                    return deferred.promise();
+                }.bind(Domains);
 
-            return Domains;
-        },
+                return Domains;
+            },
 
             generateDNSLookupHistory = function() {
                 // TODO: class inheritance/aliasing, prototype chain stuffs
