@@ -1,204 +1,178 @@
-$(function() {
-    var $document = $(document),
-        $body = $("body"),
-        $nameShameForm = $("#name-shame-form"),
-        $domainnameInput = $("[name=domainname]", $nameShameForm),
+(function($) {
+    $(function() {
+        var $document = $(document),
+            $body = $("body"),
+            $nameShameForm = $("#name-shame-form"),
+            $domainnameInput = $("[name=domainname]", $nameShameForm),
 
-        // TODO: refactor function scope/location.
-        checkAndClean = function(str, disallowedRx, allowedRx) {
-            if (disallowedRx.test(str) || !allowedRx.test(str)) {
-                return null;
-            }
+            // TODO: refactor function scope/location.
+            checkAndClean = function(str, disallowedRx, allowedRx) {
+                if (disallowedRx.test(str) || !allowedRx.test(str)) {
+                    return null;
+                }
 
-            return str;
-        },
-
-        // TODO: refactor function scope/location.
-        checkAndCleanDomainname = function(domainname) {
-            // TOOD: write regexp for domain names
-            var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
-
-            return clean;
-        },
-
-        // TODO: refactor function scope/location.
-        cleanDomainnameFromDNASUrl = function(url) {
-            var path = url || "",
-                domainnameRx = /\/domain\/([^/]+)$/,
-                domainname;
-
-            if (!path || !domainnameRx.test(path)) {
-                return null;
-            }
-
-            path.match(domainnameRx);
-            domainname = checkAndCleanDomainname(RegExp.$1);
-
-            if (!domainname) {
-                return null;
-            }
-
-            return domainname;
-        },
-
-        handleLookupFail = function(clientState) {
-            clientState = clientState || {};
-
-            $nameShameForm.trigger("dnas.lookup.fail", [clientState]);
-        },
-
-        handleLookupDone = function(data, clientState) {
-            clientState = clientState || {};
-
-            $nameShameForm.trigger("dnas.lookup.done", [data, clientState]);
-
-            if (data.isSecure === true) {
-                $nameShameForm.trigger("dnas.lookup.is-secure", [data, clientState]);
-            } else {
-                $nameShameForm.trigger("dnas.lookup.is-insecure", [data, clientState]);
-            }
-        },
-
-        domainLookupXHRFail = function(jqXHR, textStatus, errorThrown) {
-            // TODO: show error to the user
-            console.error("domainLookupXHRFail", jqXHR, textStatus, errorThrown);
-
-            handleLookupFail({
-                firstTime: true
-            });
-        },
-
-        domainLookupXHRDone = function(data, textStatus, jqXHR) {
-            console.log("domainLookupXHRDone", data, textStatus, jqXHR);
-
-            data = data || {};
-            data.domain = (data && data.domain) || "";
-            data.domain = checkAndCleanDomainname(data.domain);
-
-            handleLookupDone(data, {
-                firstTime: true
-            });
-        },
-
-        checkDomain = function(domainname) {
-            var promise = $.getJSON("/name-shame/", {
-                domainname: domainname
-            });
-
-            return promise;
-        },
-
-        checkDomainAndUpdateUi = function(domainname) {
-            var promise = checkDomain(domainname)
-                .fail(domainLookupXHRFail)
-                .done(domainLookupXHRDone);
-
-            return promise;
-        },
-
-        checkDomainInUiForm = function(domainname) {
-            $domainnameInput.val(domainname);
-
-            var promise = checkDomainAndUpdateUi(domainname);
-
-            return promise;
-        },
-
-        getLinkFromAnchorClick = function(evt) {
-            var $target = $(evt.target),
-                $link = $target
-                .filter("[href]")
-                .add($(evt.target).parents("[href]"))
-                .first();
-
-            return $link;
-        };
-
-    (function() {
-        var onSubmit = function(event) {
-            event.preventDefault();
-
-            var domainname = $domainnameInput.val();
-
-            checkDomainAndUpdateUi(domainname);
-
-            return false;
-        };
-
-        $nameShameForm.on("submit", onSubmit);
-    }());
-
-    (function() {
-        var getDomainFromUrl = function(url) {
-                var domain = url.split("://")[1].split("/")[0];
-
-                return domain;
+                return str;
             },
-            doAjaxOnLinkClick = function(event) {
+
+            // TODO: refactor function scope/location.
+            checkAndCleanDomainname = function(domainname) {
+                // TOOD: write regexp for domain names
+                var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
+
+                return clean;
+            },
+
+            // TODO: refactor function scope/location.
+            cleanDomainnameFromDNASUrl = function(url) {
+                var path = url || "",
+                    domainnameRx = /\/domain\/([^/]+)$/,
+                    domainname;
+
+                if (!path || !domainnameRx.test(path)) {
+                    return null;
+                }
+
+                path.match(domainnameRx);
+                domainname = checkAndCleanDomainname(RegExp.$1);
+
+                if (!domainname) {
+                    return null;
+                }
+
+                return domainname;
+            },
+
+            handleLookupFail = function(clientState) {
+                clientState = clientState || {};
+
+                $nameShameForm.trigger("dnas.lookup.fail", [clientState]);
+            },
+
+            handleLookupDone = function(data, clientState) {
+                clientState = clientState || {};
+
+                $nameShameForm.trigger("dnas.lookup.done", [data, clientState]);
+
+                if (data.isSecure === true) {
+                    $nameShameForm.trigger("dnas.lookup.is-secure", [data, clientState]);
+                } else {
+                    $nameShameForm.trigger("dnas.lookup.is-insecure", [data, clientState]);
+                }
+            },
+
+            domainLookupXHRFail = function(jqXHR, textStatus, errorThrown) {
+                // TODO: show error to the user
+                console.error("domainLookupXHRFail", jqXHR, textStatus, errorThrown);
+
+                handleLookupFail({
+                    firstTime: true
+                });
+            },
+
+            domainLookupXHRDone = function(data, textStatus, jqXHR) {
+                console.log("domainLookupXHRDone", data, textStatus, jqXHR);
+
+                data = data || {};
+                data.domain = (data && data.domain) || "";
+                data.domain = checkAndCleanDomainname(data.domain);
+
+                handleLookupDone(data, {
+                    firstTime: true
+                });
+            },
+
+            checkDomain = function(domainname) {
+                var promise = $.getJSON("/name-shame/", {
+                    domainname: domainname
+                });
+
+                return promise;
+            },
+
+            checkDomainAndUpdateUi = function(domainname) {
+                var promise = checkDomain(domainname)
+                    .fail(domainLookupXHRFail)
+                    .done(domainLookupXHRDone);
+
+                return promise;
+            },
+
+            checkDomainInUiForm = function(domainname) {
+                $domainnameInput.val(domainname);
+
+                var promise = checkDomainAndUpdateUi(domainname);
+
+                return promise;
+            },
+
+            getLinkFromAnchorClick = function(evt) {
+                var $target = $(evt.target),
+                    $link = $target
+                    .filter("[href]")
+                    .add($(evt.target).parents("[href]"))
+                    .first();
+
+                return $link;
+            };
+
+        (function() {
+            var onSubmit = function(event) {
                 event.preventDefault();
 
-                var $link = getLinkFromAnchorClick(event),
-                    url = $link.attr("href"),
-                    domain = getDomainFromUrl(url),
-                    highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
-                        // TODO: make this a dynamic lookup, so that multiple or dynamic lists can have green ticks and red crosses.
-                        // This would make a manual lookup of google.com show in the lists below.
-                        var successClass = "success",
-                            failClass = "fail",
-                            bothClasses = successClass + " " + failClass,
-                            resultClass;
+                var domainname = $domainnameInput.val();
 
-                        if (data.isSecure === true) {
-                            resultClass = successClass;
-                        } else {
-                            resultClass = failClass;
-                        }
-
-                        $link.parents("li")
-                            .first()
-                            .removeClass(bothClasses)
-                            .addClass(resultClass);
-                    };
-
-                checkDomainInUiForm(domain)
-                    .done(highlightClickedItemWithResult);
+                checkDomainAndUpdateUi(domainname);
 
                 return false;
             };
 
-        $document.on("click", ".has-domains-to-check a", doAjaxOnLinkClick);
-    }());
+            $nameShameForm.on("submit", onSubmit);
+        }());
 
-    // TODO: change function scope/location.
-    function clearResults() {
-        var angryOrHappyImage = "angry";
+        (function() {
+            var getDomainFromUrl = function(url) {
+                    var domain = url.split("://")[1].split("/")[0];
 
-        $("#results-container")
-            .find(".results-image")
-            .hide()
-            .end()
-            .find(".results-image." + angryOrHappyImage)
-            .show()
-            .end()
-            .addClass("none-yet");
+                    return domain;
+                },
+                doAjaxOnLinkClick = function(event) {
+                    event.preventDefault();
 
-        $("#results-blocks")
-            .addClass("none-yet");
-    }
+                    var $link = getLinkFromAnchorClick(event),
+                        url = $link.attr("href"),
+                        domain = getDomainFromUrl(url),
+                        highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
+                            // TODO: make this a dynamic lookup, so that multiple or dynamic lists can have green ticks and red crosses.
+                            // This would make a manual lookup of google.com show in the lists below.
+                            var successClass = "success",
+                                failClass = "fail",
+                                bothClasses = successClass + " " + failClass,
+                                resultClass;
 
-    (function() {
-        $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-            // Happy/angry, success/failure images
-            var successOrFailImage,
-                angryOrHappyImage;
+                            if (data.isSecure === true) {
+                                resultClass = successClass;
+                            } else {
+                                resultClass = failClass;
+                            }
 
-            if (data.isSecure === true) {
-                successOrFailImage = "success";
-                angryOrHappyImage = "happy";
-            } else {
-                successOrFailImage = "failure";
-                angryOrHappyImage = "angry";
-            }
+                            $link.parents("li")
+                                .first()
+                                .removeClass(bothClasses)
+                                .addClass(resultClass);
+                        };
+
+                    checkDomainInUiForm(domain)
+                        .done(highlightClickedItemWithResult);
+
+                    return false;
+                };
+
+            $document.on("click", ".has-domains-to-check a", doAjaxOnLinkClick);
+        }());
+
+        // TODO: change function scope/location.
+        function clearResults() {
+            var angryOrHappyImage = "angry";
 
             $("#results-container")
                 .find(".results-image")
@@ -207,236 +181,289 @@ $(function() {
                 .find(".results-image." + angryOrHappyImage)
                 .show()
                 .end()
-                .removeClass("none-yet");
+                .addClass("none-yet");
 
             $("#results-blocks")
-                .find(".results-image")
-                .hide()
-                .end()
-                .find(".results-image." + successOrFailImage)
-                .show()
-                .end()
-                .removeClass("none-yet");
-
-            // Results text
-            $("#results-domain-name").text(data.domain);
-            $("#results-success-or-fail").text(data.isSecure === true ? "" : "not");
-        });
-    }());
-
-    (function() {
-        $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-            var tweetResultsText,
-                tweetLinkText = "Publicly #";
-
-            if (data.isSecure === true) {
-                tweetResultsText = "#praise " + data.domain + " has successfully implemented #DNSSEC!";
-                tweetLinkText += "praise";
-            } else {
-                tweetResultsText = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
-                tweetLinkText += "shame";
-            }
-
-            tweetLinkText += " " + data.domain + "!";
-
-            // Tweet button
-            var tweetSiteUrl = "http://dnssec-name-and-shame.com/domain/" + data.domain;
-
-            $("#results-tweet-link")
-                .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&via=dnssecnameshame&related=joelpurra,tompcuddy&hashtags=internet,dns,security")
-                .text(tweetLinkText);
-
-        });
-    }());
-
-    (function() {
-        var
-            playSound = function(name) {
-                var instance = createjs.Sound.play(name);
-            };
+                .addClass("none-yet");
+        }
 
         (function() {
-            createjs.Sound.registerSound("/resources/audio/164089_2975503-lq.mp3", "fail");
-            createjs.Sound.registerSound("/resources/audio/109662_945474-lq.mp3", "done");
+            $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
+                // Happy/angry, success/failure images
+                var successOrFailImage,
+                    angryOrHappyImage;
+
+                if (data.isSecure === true) {
+                    successOrFailImage = "success";
+                    angryOrHappyImage = "happy";
+                } else {
+                    successOrFailImage = "failure";
+                    angryOrHappyImage = "angry";
+                }
+
+                $("#results-container")
+                    .find(".results-image")
+                    .hide()
+                    .end()
+                    .find(".results-image." + angryOrHappyImage)
+                    .show()
+                    .end()
+                    .removeClass("none-yet");
+
+                $("#results-blocks")
+                    .find(".results-image")
+                    .hide()
+                    .end()
+                    .find(".results-image." + successOrFailImage)
+                    .show()
+                    .end()
+                    .removeClass("none-yet");
+
+                // Results text
+                $("#results-domain-name").text(data.domain);
+                $("#results-success-or-fail").text(data.isSecure === true ? "" : "not");
+            });
         }());
 
-        $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-            if (clientState.firstTime !== true) {
-                // Don't play sound when using the browser's back button etcetera.
+        (function() {
+            $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
+                var tweetResultsText,
+                    tweetLinkText = "Publicly #";
+
+                if (data.isSecure === true) {
+                    tweetResultsText = "#praise " + data.domain + " has successfully implemented #DNSSEC!";
+                    tweetLinkText += "praise";
+                } else {
+                    tweetResultsText = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
+                    tweetLinkText += "shame";
+                }
+
+                tweetLinkText += " " + data.domain + "!";
+
+                // Tweet button
+                var tweetSiteUrl = "http://dnssec-name-and-shame.com/domain/" + data.domain;
+
+                $("#results-tweet-link")
+                    .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&via=dnssecnameshame&related=joelpurra,tompcuddy&hashtags=internet,dns,security")
+                    .text(tweetLinkText);
+
+            });
+        }());
+
+        (function() {
+            var
+                playSound = function(name) {
+                    var instance = createjs.Sound.play(name);
+                };
+
+            (function() {
+                createjs.Sound.registerSound("/resources/audio/164089_2975503-lq.mp3", "fail");
+                createjs.Sound.registerSound("/resources/audio/109662_945474-lq.mp3", "done");
+            }());
+
+            $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
+                if (clientState.firstTime !== true) {
+                    // Don't play sound when using the browser's back button etcetera.
+                    return;
+                }
+
+                if (data.isSecure === true) {
+                    playSound("done");
+                } else {
+                    playSound("fail");
+                }
+            });
+        }());
+
+        (function() {
+            // HACK: Server error! Sleep and then resubmit the form.
+            // TODO: check if the user changed the domain in the input box?
+            var errorsInARow = 0,
+                sleepDefault = 1000;
+
+            $nameShameForm.on("dnas.lookup.fail", function(evt, clientState) {
+                var sleepThisTime = Math.pow(2, errorsInARow++) * sleepDefault;
+
+                console.error("Server failure, waiting to resubmit form.", "errorsInARow", errorsInARow, "sleepThisTime", sleepThisTime);
+
+                setTimeout(function() {
+                    $nameShameForm.submit();
+                }, sleepThisTime);
+            });
+
+            $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
+                errorsInARow = 0;
+            });
+        }());
+
+        function isTrackingEnabled() {
+            // This code has been duplicated elsewhere in this project.
+            // http://stackoverflow.com/questions/23933650/javascript-only-detection-of-do-not-track-settings-in-ie11
+            // http://stackoverflow.com/questions/16947459/is-it-possible-to-check-the-value-of-firefox-dnt-with-javascript/16947583#16947583
+            // http://www.w3.org/TR/tracking-dnt/#js-dom
+            // http://www.w3.org/TR/tracking-dnt/#dnt-header-field
+            var isDNT = window.doNotTrack == "yes" || window.doNotTrack == "1" ||
+                window.msDoNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" ||
+                navigator.msDoNotTrack == "1" || false;
+
+            return !isDNT;
+        }
+
+        function tracker() {
+            var args = Array.prototype.slice.call(arguments, 0),
+                trackerFunction = window.ga || function() {
+                    console.log("Tracking disabled", args);
+                };
+
+            trackerFunction.apply(null, args);
+        }
+
+        function track() {
+            // Only doing page level tracking at the moment.
+            if (!isTrackingEnabled()) {
                 return;
             }
 
-            if (data.isSecure === true) {
-                playSound("done");
-            } else {
-                playSound("fail");
+            tracker("send", "pageview", document.location.pathname);
+        }
+
+        var stateCounter = 0;
+
+        function getStateTitle() {
+            return document.title + " (" + (stateCounter++) + ")";
+        }
+
+        function setPageTitle(title) {
+            title = (!title || title === "") ? "DNSSEC name and shame!" : title;
+
+            document.title = title;
+        }
+
+        function pushClearState() {
+            var state = null,
+                url = "/";
+
+            history.pushState(state, getStateTitle(), url);
+        }
+
+        function loadFrontpageIfNotAlreadyThere() {
+            if (document.location.pathname !== "/") {
+                clearResults();
+
+                setPageTitle();
+
+                pushClearState();
+
+                track();
             }
-        });
-    }());
 
-    (function() {
-        // HACK: Server error! Sleep and then resubmit the form.
-        // TODO: check if the user changed the domain in the input box?
-        var errorsInARow = 0,
-            sleepDefault = 1000;
+            $body.scrollTop(0);
+        }
 
-        $nameShameForm.on("dnas.lookup.fail", function(evt, clientState) {
-            var sleepThisTime = Math.pow(2, errorsInARow++) * sleepDefault;
+        (function() {
+            $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
+                if (clientState.firstTime !== true) {
+                    // Don't replace the URL when using the browser's back button etcetera.
+                    return;
+                }
 
-            console.error("Server failure, waiting to resubmit form.", "errorsInARow", errorsInARow, "sleepThisTime", sleepThisTime);
+                var fromUrl = cleanDomainnameFromDNASUrl(document.location.href);
 
-            setTimeout(function() {
-                $nameShameForm.submit();
-            }, sleepThisTime);
-        });
+                var state = data,
+                    title,
+                    url = "/domain/" + data.domain;
 
-        $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-            errorsInARow = 0;
-        });
-    }());
+                if (data.isSecure === true) {
+                    title = "Praise " + data.domain + " for implementing DNSSEC!";
+                } else {
+                    title = "Shame " + data.domain + " for not implementing DNSSEC!";
+                }
 
-    function isTrackingEnabled() {
-        // This code has been duplicated elsewhere in this project.
-        // http://stackoverflow.com/questions/23933650/javascript-only-detection-of-do-not-track-settings-in-ie11
-        // http://stackoverflow.com/questions/16947459/is-it-possible-to-check-the-value-of-firefox-dnt-with-javascript/16947583#16947583
-        // http://www.w3.org/TR/tracking-dnt/#js-dom
-        // http://www.w3.org/TR/tracking-dnt/#dnt-header-field
-        var isDNT = window.doNotTrack == "yes" || window.doNotTrack == "1" ||
-            window.msDoNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" ||
-            navigator.msDoNotTrack == "1" || false;
+                setPageTitle(title);
 
-        return !isDNT;
-    }
+                // The state should already be loaded according to the
+                // document.location -- so don't pushState it again, just
+                // replaceState with the most recent data.
+                if (fromUrl === data.domain) {
+                    history.replaceState(state, getStateTitle(), url);
+                } else {
+                    history.pushState(state, getStateTitle(), url);
+                }
 
-    function tracker() {
-        var args = Array.prototype.slice.call(arguments, 0),
-            trackerFunction = window.ga || function() {
-                console.log("Tracking disabled", args);
+                track();
+            });
+
+            window.onpopstate = function(event) {
+                var data;
+
+                if (event.state && event.state.domain) {
+                    data = event.state;
+
+                    $domainnameInput.val(event.state.domain);
+
+                    handleLookupDone(data, {
+                        firstTime: false
+                    });
+                } else {
+                    loadFrontpageIfNotAlreadyThere();
+                }
             };
+        }());
 
-        trackerFunction.apply(null, args);
-    }
+        (function() {
+            $(function() {
+                var domainname = cleanDomainnameFromDNASUrl(document.location.href);
 
-    function track() {
-        // Only doing page level tracking at the moment.
-        if (!isTrackingEnabled()) {
-            return;
-        }
+                if (!domainname) {
+                    loadFrontpageIfNotAlreadyThere();
+                } else {
+                    $domainnameInput.val(domainname);
+                    $nameShameForm.submit();
+                }
+            });
+        }());
 
-        tracker("send", "pageview", document.location.pathname);
-    }
+        (function() {
+            function dontGoToHere(evt) {
+                var $link = getLinkFromAnchorClick(evt),
+                    url = $link.attr("href");
 
-    var stateCounter = 0;
+                // Links to the front page, but clickable domain checks excluded.
+                if ((url === "/" || url === "https://dnssec-name-and-shame.com/") && !$link.parents(".has-domains-to-check").length) {
+                    evt.preventDefault();
 
-    function getStateTitle() {
-        return document.title + " (" + (stateCounter++) + ")";
-    }
+                    loadFrontpageIfNotAlreadyThere();
 
-    function setPageTitle(title) {
-        title = (!title || title === "") ? "DNSSEC name and shame!" : title;
-
-        document.title = title;
-    }
-
-    function pushClearState() {
-        var state = null,
-            url = "/";
-
-        history.pushState(state, getStateTitle(), url);
-    }
-
-    function loadFrontpageIfNotAlreadyThere() {
-        if (document.location.pathname !== "/") {
-            clearResults();
-
-            setPageTitle();
-
-            pushClearState();
-
-            track();
-        }
-
-        $body.scrollTop(0);
-    }
-
-    (function() {
-        $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-            if (clientState.firstTime !== true) {
-                // Don't replace the URL when using the browser's back button etcetera.
-                return;
+                    return false;
+                }
             }
 
-            var fromUrl = cleanDomainnameFromDNASUrl(document.location.href);
+            $("a").on("click", dontGoToHere);
+        }());
+    });
+}(jQuery));
 
-            var state = data,
-                title,
-                url = "/domain/" + data.domain;
+(function($) {
+    $(function() {
+        // This code updates Meddelare' social sharing counts for all matching elements on this page.
+        // The url is taken from the elements' data-meddelare-url.
+        // See more information on https://meddelare.com/
+        //
+        // Requires jQuery.
+        //
+        // TODO: de-duplicate urls to reduce the number of requests.
 
-            if (data.isSecure === true) {
-                title = "Praise " + data.domain + " for implementing DNSSEC!";
-            } else {
-                title = "Shame " + data.domain + " for not implementing DNSSEC!";
-            }
+        $("[data-meddelare-url]").each(function(index, element) {
+            var $meddelareUrlElement = $(element),
+                url = $meddelareUrlElement.data("meddelare-url");
 
-            setPageTitle(title);
-
-            // The state should already be loaded according to the
-            // document.location -- so don't pushState it again, just
-            // replaceState with the most recent data.
-            if (fromUrl === data.domain) {
-                history.replaceState(state, getStateTitle(), url);
-            } else {
-                history.pushState(state, getStateTitle(), url);
-            }
-
-            track();
+            $.ajax("/meddelare/?networks=facebook,twitter,googleplus&url=" + url, {
+                success: function(res, err) {
+                    $.each(res, function(network, value) {
+                        $meddelareUrlElement.find("[data-meddelare-network=" + network + "]").attr("data-count", value);
+                    });
+                }
+            });
         });
-
-        window.onpopstate = function(event) {
-            var data;
-
-            if (event.state && event.state.domain) {
-                data = event.state;
-
-                $domainnameInput.val(event.state.domain);
-
-                handleLookupDone(data, {
-                    firstTime: false
-                });
-            } else {
-                loadFrontpageIfNotAlreadyThere();
-            }
-        };
-    }());
-
-    (function() {
-        $(function() {
-            var domainname = cleanDomainnameFromDNASUrl(document.location.href);
-
-            if (!domainname) {
-                loadFrontpageIfNotAlreadyThere();
-            } else {
-                $domainnameInput.val(domainname);
-                $nameShameForm.submit();
-            }
-        });
-    }());
-
-    (function() {
-        function dontGoToHere(evt) {
-            var $link = getLinkFromAnchorClick(evt),
-                url = $link.attr("href");
-
-            // Links to the front page, but clickable domain checks excluded.
-            if ((url === "/" || url === "https://dnssec-name-and-shame.com/") && !$link.parents(".has-domains-to-check").length) {
-                evt.preventDefault();
-
-                loadFrontpageIfNotAlreadyThere();
-
-                return false;
-            }
-        }
-
-        $("a").on("click", dontGoToHere);
-    }());
-});
+    });
+}(jQuery));

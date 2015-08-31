@@ -51,6 +51,9 @@ var configuration = require("configvention"),
         uri: mongoUri
     }),
 
+    MeddelareExpress = require("meddelare-express"),
+    meddelareExpress = new MeddelareExpress(),
+
     app = express();
 
 app.use(express.logger());
@@ -63,6 +66,10 @@ app.use(helmet.hsts({
 }));
 
 app.use(configuredHttpsRedirect());
+
+
+app.use("/meddelare/", meddelareExpress.getRouter());
+
 
 // TODO: refactor function scope/location.
 function checkAndClean(str, disallowedRx, allowedRx) {

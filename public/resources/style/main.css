@@ -1,16 +1,19 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', Helvetica, Verdana, sans-serif;
     font-size: 1.3em;
     line-height: 1.25;
 }
+
 @media (min-width: 1200px) and (min-height: 800px) {
     body {
         margin-top: 200px;
     }
     #results-group {
         position: fixed;
+        z-index: 1000;
         top: 0;
         width: 100%;
         height: 200px;
@@ -22,7 +25,10 @@ html, body {
         box-shadow: 0px 0px 10px #000000;
     }
 }
-section, header, footer {
+
+section,
+header,
+footer {
     padding-top: 1em;
     padding-bottom: 1em;
     padding-left: 10%;
@@ -30,86 +36,117 @@ section, header, footer {
     margin: 0;
     clear: both;
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: Quando, Helvetica, Verdana, sans-serif;
     margin: 0;
     margin-top: 1em;
 }
+
 strong {
     font-family: Quando, Helvetica, Verdana, sans-serif;
 }
+
 em {
     font-family: 'Pacifico', cursive;
     padding-right: 0.1em;
 }
+
 header {
     font-size: 1.5em;
     background-color: #eaeaea;
     padding-bottom: 1em;
     margin-bottom: 1em;
 }
-header, header a {
+
+header,
+header a {
     color: #504c52;
     text-decoration: none;
 }
+
 header h1 {
     line-height: 1em;
     padding-top: 0;
     margin-top: 0;
 }
+
 section:nth-of-type(even) {
     background-color: #f8f8f8;
 }
+
 article {
     padding-top: 1em;
     padding-bottom: 1em;
     padding-left: 10%;
     padding-right: 10%;
 }
+
 article:nth-of-type(even) {
     background-color: #f8f8f8;
 }
+
 fieldset {
     border: 3px solid grey;
     border-radius: 5px;
     font-size: 1.5em;
 }
+
 fieldset p:first-of-type {
     margin-top: 0;
 }
-fieldset input, fieldset button {
+
+fieldset input,
+fieldset button {
     font-size: 1em;
 }
+
 #name-shame-form table {
     padding: 0;
     margin: 0;
 }
-#name-shame-form table, #name-shame-form table input {
+
+#name-shame-form table,
+#name-shame-form table input {
     width: 100%;
 }
+
 #name-shame-form table td {
     padding: 0;
 }
+
 #name-shame-form table button {
     float: right;
 }
+
 footer {
     background-color: #eaeaea;
     padding-top: 5em;
     padding-bottom: 5em;
 }
+
 footer img {
     max-width: 32px;
     vertical-align: middle;
 }
-h1 small, h2 small, h3 small {
+
+h1 small,
+h2 small,
+h3 small {
     font-size: 0.5em;
     color: grey;
 }
+
 abbr {
     border-bottom: 1px dotted grey;
     cursor: help;
 }
+
 .two-columns {
     -moz-column-count: 2;
     -webkit-column-count: 2;
@@ -122,6 +159,7 @@ abbr {
     -ms-column-width: 500px;
     column-width: 500px;
 }
+
 @media (min-width: 1200px) {
     .columns.two .column {
         width: 50%;
@@ -133,47 +171,183 @@ abbr {
         float: right;
     }
 }
+
 .has-domains-to-check {
     list-style-type: none;
 }
+
 .has-domains-to-check li:before {
     content: '?';
     display: inline-block;
     width: 0.7em;
     text-align: center;
 }
+
 .has-domains-to-check li.success:before {
     content: '✔︎';
     color: green;
 }
+
 .has-domains-to-check li.fail:before {
     content: '✘';
     color: red;
 }
-#results-group {} #results-container {
+
+#results-group {}
+
+#results-container {
     text-align: center;
     float: left;
     margin-right: 1em;
 }
+
 #results-container img {
     border-bottom: 1px solid lightgrey;
 }
-#results-container .results-image.angry {} #results-container .results-image.happy {} #results-container.none-yet .results-image.happy {
+
+#results-container .results-image.angry {}
+
+#results-container .results-image.happy {}
+
+#results-container.none-yet .results-image.happy {
     display: none;
 }
-#results-blocks {} #results-blocks.none-yet {
+
+#results-blocks {}
+
+#results-blocks.none-yet {
     display: none;
 }
+
 #results-blocks .results-block {
     float: left;
     margin: 0.3em;
 }
-#results-blocks .results-image.success {} #results-blocks .results-image.failure {} #results-blocks.none-yet .results-image {
+
+#results-blocks .results-image.success {}
+
+#results-blocks .results-image.failure {}
+
+#results-blocks.none-yet .results-image {
     display: none;
 }
-#results-domain-name {} #results-success-or-fail {
+
+#results-domain-name {}
+
+#results-success-or-fail {
     color: red;
 }
+
 .clear {
     clear: both;
 }
+
+aside {
+    text-align: center;
+    font-size: 0.8em;
+}
+
+/* *** Start https://meddelare.com/ styles *** */
+
+.meddelare-container {
+    display: inline-block;
+    padding-top: 1.5em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0;
+}
+
+.meddelare-container .meddelare-network {
+    position: relative;
+    display: inline-block;
+    border: 0.01em solid #fff;
+}
+
+.meddelare-container .meddelare-network:after {
+    position: absolute;
+    z-index: 98;
+    top: -1.3em;
+    display: block;
+    width: 100%;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    content: attr(data-count);
+    text-align: center;
+    white-space: nowrap;
+    background: darkgrey;
+    border: 0.01em solid #fff;
+    border-radius: 0.01em;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.meddelare-container .meddelare-network:before {
+    z-index: 97;
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    margin-right: auto;
+    content: "";
+    border: solid;
+    border-color: #ccc transparent;
+    border-width: .5em .5em 0 .5em;
+}
+
+.meddelare-container .meddelare-network:hover:after {
+    transition: 0.15s ease-in all;
+    opacity: 1;
+}
+
+.meddelare-container .meddelare-network .meddelare-icon {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    background-color: darkgrey;
+    border: hidden;
+    border-bottom: 0.05em solid #FFFFFF;
+    transition: 0.2s ease-out all;
+    opacity: 0.8;
+    font-size: 2em;
+    text-align: center;
+    line-height: 2em;
+    color: #fff;
+    font-family: serif;
+    margin-bottom: 0.75em;
+}
+
+.meddelare-container .meddelare-network:hover .meddelare-icon {
+    border-bottom-color: #343437;
+    transition: 0.15s ease-in all;
+    opacity: 1;
+}
+
+.meddelare-container .meddelare-network[data-meddelare-network=facebook] .meddelare-icon:before {
+    content: "f";
+}
+
+.meddelare-container .meddelare-network[data-meddelare-network=twitter] .meddelare-icon:before {
+    content: "t";
+}
+
+.meddelare-container .meddelare-network[data-meddelare-network=googleplus] .meddelare-icon:before {
+    content: "g";
+}
+
+.meddelare-container .meddelare-network[data-meddelare-network=facebook] .meddelare-icon,
+.meddelare-container .meddelare-network[data-meddelare-network=facebook]:after {
+    background-color: #3b5998;
+}
+
+.meddelare-container .meddelare-network[data-meddelare-network=twitter] .meddelare-icon,
+.meddelare-container .meddelare-network[data-meddelare-network=twitter]:after {
+    background-color: #00aced;
+}
+
+.meddelare-container .meddelare-network[data-meddelare-network=googleplus] .meddelare-icon,
+.meddelare-container .meddelare-network[data-meddelare-network=googleplus]:after {
+    background-color: #dd4b39;
+}
+
+
+/* *** End https://meddelare.com/ styles *** */
