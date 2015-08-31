@@ -1,5 +1,5 @@
 # [node-dnssec-name-shame](https://github.com/joelpurra/node-dnssec-name-shame)
-[dnssec-name-and-shame.com](http://dnssec-name-and-shame.com/)
+[dnssec-name-and-shame.com](https://dnssec-name-and-shame.com/)
 
 Look at a domain and check for DNSSEC records. Naming and shaming included!
 

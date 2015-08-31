@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "description": "Look at a domain and check for DNSSEC records. Name and shame included!",
-    "homepage": "http://dnssec-name-and-shame.com/",
+    "homepage": "https://dnssec-name-and-shame.com/",
     "dependencies": {
         "Deferred": "^0.1.1",
         "configvention": "^1.0.2",

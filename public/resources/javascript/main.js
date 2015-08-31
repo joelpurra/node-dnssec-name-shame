@@ -241,7 +241,7 @@
                 tweetLinkText += " " + data.domain + "!";
 
                 // Tweet button
-                var tweetSiteUrl = "http://dnssec-name-and-shame.com/domain/" + data.domain;
+                var tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domain;
 
                 $("#results-tweet-link")
                     .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&via=dnssecnameshame&related=joelpurra,tompcuddy&hashtags=internet,dns,security")
