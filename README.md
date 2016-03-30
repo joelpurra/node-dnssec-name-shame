@@ -31,7 +31,7 @@ npm install
 bower install
 
 # Start the server
-node app/web.js
+npm start
 ```
 
 - Browse to your local test site, [http://localhost:5000/](http://localhost:5000/).
