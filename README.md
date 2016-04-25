@@ -32,9 +32,13 @@ bower install
 
 # Start the server
 npm start
+
+# Optionally start the server in debugging mode
+npm run debug
 ```
 
 - Browse to your local test site, [http://localhost:5000/](http://localhost:5000/).
+- Optionally debug the server from [http://127.0.0.1:8080/?port=5858](http://127.0.0.1:8080/?port=5858).
 
 
 

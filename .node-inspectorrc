@@ -1,0 +1,7 @@
+{
+  "debug-brk": false,
+  "cli": true,
+  "preload": false,
+  "saveLiveEdit": true,
+  "hidden": ["node_modules/"]
+}
