@@ -176,19 +176,57 @@ abbr {
     list-style-type: none;
 }
 
-.has-domains-to-check li:before {
+#results-container-types {
+    margin: 0;
+    padding: 0;
+}
+
+#results-container-types .results-container-type {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    color: lightgrey;
+}
+
+#results-container-types .results-container-type.success {
+    color: black;
+}
+
+#results-container-types .results-container-type.fail {
+    color: black;
+}
+
+#results-container-details {
+    font-size: 0.7em;
+    color: lightgrey;
+}
+
+.has-domains-to-check li:before,
+#results-container-types .results-container-type:before {
+    vertical-align: middle;
+}
+
+.has-domains-to-check li:before,
+#results-container-types .results-container-type:before {
     content: '?';
     display: inline-block;
     width: 0.7em;
     text-align: center;
+    font-size: 0.7em;
+    font-weight: bold;
+    margin-left: 0.5em;
+    margin-right: 0.25em;
 }
 
-.has-domains-to-check li.success:before {
+.has-domains-to-check li.success:before,
+#results-container-types .results-container-type.success:before {
     content: '✔︎';
-    color: green;
+    color: lightgreen;
 }
 
-.has-domains-to-check li.fail:before {
+.has-domains-to-check li.fail:before,
+#results-container-types .results-container-type.fail:before {
     content: '✘';
     color: red;
 }
@@ -215,13 +253,13 @@ abbr {
 
 #results-blocks {}
 
-#results-blocks.none-yet {
-    display: none;
+#results-blocks p {
+    margin: 0;
+    margin-bottom: 0.3em;
 }
 
-#results-blocks .results-block {
-    float: left;
-    margin: 0.3em;
+#results-blocks.none-yet {
+    display: none;
 }
 
 #results-blocks .results-image.success {}
@@ -246,6 +284,7 @@ aside {
     text-align: center;
     font-size: 0.8em;
 }
+
 
 /* *** Start https://meddelare.com/ styles *** */
 

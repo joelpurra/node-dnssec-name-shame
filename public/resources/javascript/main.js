@@ -1,6 +1,10 @@
 (function($) {
     $(function() {
-        var $document = $(document),
+        var STATUS_SECURE = "secure",
+            STATUS_INSECURE = "insecure",
+            STATUS_UNKNOWN = "unknown",
+
+            $document = $(document),
             $body = $("body"),
             $nameShameForm = $("#name-shame-form"),
             $domainnameInput = $("[name=domainname]", $nameShameForm),
@@ -53,8 +57,10 @@
 
                 $nameShameForm.trigger("dnas.lookup.done", [data, clientState]);
 
-                if (data.isSecure === true) {
+                if (data.status === STATUS_SECURE) {
                     $nameShameForm.trigger("dnas.lookup.is-secure", [data, clientState]);
+                } else if (data.status === STATUS_UNKNOWN) {
+                    $nameShameForm.trigger("dnas.lookup.is-unknown", [data, clientState]);
                 } else {
                     $nameShameForm.trigger("dnas.lookup.is-insecure", [data, clientState]);
                 }
@@ -73,8 +79,8 @@
                 console.log("domainLookupXHRDone", data, textStatus, jqXHR);
 
                 data = data || {};
-                data.domain = (data && data.domain) || "";
-                data.domain = checkAndCleanDomainname(data.domain);
+                data.domainname = (data && data.domainname) || "";
+                data.domainname = checkAndCleanDomainname(data.domainname);
 
                 handleLookupDone(data, {
                     firstTime: true
@@ -145,19 +151,22 @@
                             // TODO: make this a dynamic lookup, so that multiple or dynamic lists can have green ticks and red crosses.
                             // This would make a manual lookup of google.com show in the lists below.
                             var successClass = "success",
+                                unknownClass = "unknown",
                                 failClass = "fail",
-                                bothClasses = successClass + " " + failClass,
+                                allThreeClasses = successClass + " " + unknownClass + " " + failClass,
                                 resultClass;
 
-                            if (data.isSecure === true) {
+                            if (data.status === STATUS_SECURE) {
                                 resultClass = successClass;
+                            } else if (data.status === STATUS_UNKNOWN) {
+                                resultClass = unknownClass;
                             } else {
                                 resultClass = failClass;
                             }
 
                             $link.parents("li")
                                 .first()
-                                .removeClass(bothClasses)
+                                .removeClass(allThreeClasses)
                                 .addClass(resultClass);
                         };
 
@@ -189,16 +198,24 @@
 
         (function() {
             $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-                // Happy/angry, success/failure images
+                // Happy/unknown/angry, success/unknown/failure images/text.
                 var successOrFailImage,
-                    angryOrHappyImage;
+                    angryOrHappyImage,
+                    statusText;
 
-                if (data.isSecure === true) {
+                if (data.status === STATUS_SECURE) {
                     successOrFailImage = "success";
                     angryOrHappyImage = "happy";
+                    statusText = "";
+                } else if (data.status === STATUS_UNKNOWN) {
+                    successOrFailImage = "unknown";
+                    angryOrHappyImage = "unknown";
+                    statusText = "?"
                 } else {
+                    // Presumably STATUS_INSECURE.
                     successOrFailImage = "failure";
                     angryOrHappyImage = "angry";
+                    statusText = "not";
                 }
 
                 $("#results-container")
@@ -220,8 +237,37 @@
                     .removeClass("none-yet");
 
                 // Results text
-                $("#results-domain-name").text(data.domain);
-                $("#results-success-or-fail").text(data.isSecure === true ? "" : "not");
+                $("#results-domain-name").text(data.domainname);
+                $("#results-success-or-fail").text(statusText);
+            });
+        }());
+
+        (function() {
+            $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
+                var $types = $("#results-container-types"),
+                    keys = Object.keys(data.recordTypesStatus);
+
+                keys.forEach(function(recordTypeStatus) {
+                    var recordStatus = data.recordTypesStatus[recordTypeStatus],
+                        $statusElement = $(".results-container-type.results-container-type-" + recordTypeStatus, $types),
+                        successClass = "success",
+                        unknownClass = "unknown",
+                        failClass = "fail",
+                        allThreeClasses = successClass + " " + unknownClass + " " + failClass,
+                        resultClass;
+
+                    if (recordStatus === STATUS_SECURE) {
+                        resultClass = successClass;
+                    } else if (recordStatus === STATUS_INSECURE) {
+                        resultClass = failClass;
+                    } else {
+                        resultClass = unknownClass;
+                    }
+
+                    $statusElement
+                        .removeClass(allThreeClasses)
+                        .addClass(resultClass);
+                });
             });
         }());
 
@@ -230,18 +276,21 @@
                 var tweetResultsText,
                     tweetLinkText = "Publicly #";
 
-                if (data.isSecure === true) {
-                    tweetResultsText = "#praise " + data.domain + " has successfully implemented #DNSSEC!";
+                if (data.status === STATUS_SECURE) {
+                    tweetResultsText = "#praise " + data.domainname + " has successfully implemented #DNSSEC!";
                     tweetLinkText += "praise";
+                } else if (data.status === STATUS_UNKNOWN) {
+                    tweetResultsText = "#whoknow " + data.domainname + " has maybe implemented #DNSSEC?";
+                    tweetLinkText += "unknown";
                 } else {
-                    tweetResultsText = "#shame " + data.domain + " has NOT implemented #DNSSEC!";
+                    tweetResultsText = "#shame " + data.domainname + " has NOT implemented #DNSSEC!";
                     tweetLinkText += "shame";
                 }
 
-                tweetLinkText += " " + data.domain + "!";
+                tweetLinkText += " " + data.domainname + "!";
 
                 // Tweet button
-                var tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domain;
+                var tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domainname;
 
                 $("#results-tweet-link")
                     .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&via=dnssecnameshame&related=joelpurra,tompcuddy&hashtags=internet,dns,security")
@@ -267,8 +316,10 @@
                     return;
                 }
 
-                if (data.isSecure === true) {
+                if (data.status === STATUS_SECURE) {
                     playSound("done");
+                } else if (data.status === STATUS_UNKNOWN) {
+                    playSound("unknown");
                 } else {
                     playSound("fail");
                 }
@@ -371,12 +422,14 @@
 
                 var state = data,
                     title,
-                    url = "/domain/" + data.domain;
+                    url = "/domain/" + data.domainname;
 
-                if (data.isSecure === true) {
-                    title = "Praise " + data.domain + " for implementing DNSSEC!";
+                if (data.status === STATUS_SECURE) {
+                    title = "Praise " + data.domainname + " for implementing DNSSEC!";
+                } else if (data.status === STATUS_UNKNOWN) {
+                    title = "Who knows if " + data.domainname + " has implemented DNSSEC?";
                 } else {
-                    title = "Shame " + data.domain + " for not implementing DNSSEC!";
+                    title = "Shame " + data.domainname + " for not implementing DNSSEC!";
                 }
 
                 setPageTitle(title);
@@ -384,7 +437,7 @@
                 // The state should already be loaded according to the
                 // document.location -- so don't pushState it again, just
                 // replaceState with the most recent data.
-                if (fromUrl === data.domain) {
+                if (fromUrl === data.domainname) {
                     history.replaceState(state, getStateTitle(), url);
                 } else {
                     history.pushState(state, getStateTitle(), url);

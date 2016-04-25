@@ -44,7 +44,7 @@ npm run debug
 
 ## Notes
 
-- This implementation only checks a domain for signed A or AAAA records. While an A/AAAA record isn't required in DNS, it's what the browser will use when a user requests a page (sometimes after resolving CNAME records), and therefore considered more common than for example MX records. If you don't have an A/AAAA record, you might want to try another tool for your DNSSEC tests.
+- This implementation only checks a domain for signed A, AAAA, CNAME, MX and SOA records. You might want to try another tool for more extensive DNSSEC tests and analysis.
 - Lookups are cached in getdns' context for the duration of the server's uptime. DNS record TTL should also be in effect.
 
 

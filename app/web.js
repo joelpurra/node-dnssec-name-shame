@@ -13,17 +13,11 @@ var configuration = require("configvention"),
     dumpedDataVersion = 0,
     relativePathToRootFromThisFile = "..",
 
-    getdns = require("getdns"),
-    t = require("../lib/DNSLookup.js").DNSLookup,
-    DNSLookup = new t(),
     express = require("express"),
     helmet = require("helmet"),
     st = require("st"),
     path = require("path"),
-    extend = require("extend"),
     configuredHttpsRedirect = require("../lib/configuredHttpsRedirect.js"),
-
-    callWithFirstInArray = require("../lib/callWithFirstInArray.js"),
 
     resolvePath = function() {
         var args = [].slice.call(arguments),
@@ -50,6 +44,8 @@ var configuration = require("configvention"),
     database = require("./data/data-layer-wrapper.js")({
         uri: mongoUri
     }),
+
+    DNSSECNameAndShameLookerUpper = require("../lib/dnssec-name-and-shame-looker-upper.js"),
 
     MeddelareExpress = require("meddelare-express"),
     meddelareExpress = new MeddelareExpress(),
@@ -93,9 +89,10 @@ function checkAndCleanDomainnameOrDie(response, domainname) {
     var clean = checkAndCleanDomainname(domainname);
 
     if (!clean) {
-        response.send(422);
+        response.sendStatus(422);
         response.end();
-        return;
+
+        return null;
     }
 
     return clean;
@@ -103,128 +100,27 @@ function checkAndCleanDomainnameOrDie(response, domainname) {
 
 app.get("/name-shame/", function(request, response, next) {
     function handleError(error) {
-        // TODO: log this error in a better way
+        // TODO: log this error in a better way.
         //throw error;
         console.error("handleError", error);
 
-        // TODO: make a prettier error message, maybe with some limited information
-        response.send(500);
+        // TODO: make a prettier error message, maybe with some limited information.
+        response.sendStatus(500);
         response.end();
     }
 
-    var domainname = checkAndCleanDomainnameOrDie(response, request.query.domainname);
+    function sendResults(dnssecNameAndShameResponse) {
+        response.json(dnssecNameAndShameResponse);
+        response.end();
+    }
 
-    database.Domains.getOrCreate(domainname)
-        .fail(handleError)
-        .done(function(domain) {
-            DNSLookup.lookup(domain.name)
-                .fail(handleError)
-                .done(function(records) {
-                    function createDNSLookupObjectForDatabase(domain, generatedAt, records) {
-                        var obj = {
-                            domain: domain._id,
-                            generatedAt: generatedAt,
-                            records: records
-                        };
+    var domainname = checkAndCleanDomainnameOrDie(response, request.query.domainname),
+        dnssecNameAndShameLookerUpperOptions = {},
+        dnssecNameAndShameLookerUpper = new DNSSECNameAndShameLookerUpper(database, domainname, dnssecNameAndShameLookerUpperOptions);
 
-                        return obj;
-                    }
-
-                    // TODO: break out helper functions
-                    // Based on getFirstSecureResponse from https://github.com/getdnsapi/tnw2014/blob/master/node/getdns-crypto-example/app.js
-                    var getSecureRecordsOfType = function(result, type) {
-                        var replies_tree = result.replies_tree;
-
-                        // validate that there is a reply
-                        if (!replies_tree || !replies_tree.length) {
-                            return "empty reply list";
-                        }
-                        var secureOfType = [];
-
-                        replies_tree.forEach(function(reply) {
-                            var answers = reply.answer;
-
-                            // ensure the reply is secure
-                            if (reply.dnssec_status != getdns.DNSSEC_SECURE) {
-                                return;
-                            }
-
-                            if (!answers || !answers.length) {
-                                return;
-                            }
-
-                            // get the records of that type
-                            secureOfType = secureOfType.concat(answers.filter(function(answer) {
-                                return answer.type == type;
-                            }));
-                        });
-
-                        if (!secureOfType.length) {
-                            return "no secure answers of type " + type;
-                        }
-
-                        return secureOfType;
-                    };
-
-                    // TODO: break out helper functions
-
-                    function getFirstSecureRecordOfType(result, type) {
-                        var records = getSecureRecordsOfType(result, type);
-
-                        if (typeof records === "string") {
-                            return records;
-                        }
-
-                        return records[0];
-                    }
-
-                    // TODO: break out helper functions
-
-                    function hasSecureRecordOfType(result, type) {
-                        var record = getFirstSecureRecordOfType(result, type);
-
-                        return (typeof record !== "string");
-                    }
-
-                    function stripDNSLookupObjectForFrontend(records) {
-                        var typeAorAAAAIsSecure = hasSecureRecordOfType(records, getdns.RRTYPE_A) || hasSecureRecordOfType(records, getdns.RRTYPE_AAAA),
-                            result = {
-                                isSecure: typeAorAAAAIsSecure
-                            };
-
-                        return result;
-                    }
-
-                    function createResultsObjectForFrontend(domain, dnsLookupObject) {
-                        var meta = {
-                                domain: domain.name,
-                                generatedAt: dnsLookupObject.generatedAt
-                            },
-                            stripped = stripDNSLookupObjectForFrontend(dnsLookupObject.records),
-                            result = extend({}, meta, stripped);
-
-                        return result;
-                    }
-
-                    function send(result) {
-                        response.json(result);
-                        response.end();
-                    }
-
-                    function sendResults(fromCache) {
-                        var result = createResultsObjectForFrontend(domain, toCache);
-
-                        send(result);
-                    }
-
-                    var generatedAt = new Date().valueOf(),
-                        toCache = createDNSLookupObjectForDatabase(domain, generatedAt, records);
-
-                    database.DNSLookupHistory.insert(toCache)
-                        .fail(handleError)
-                        .done(callWithFirstInArray(sendResults));
-                });
-        });
+    dnssecNameAndShameLookerUpper.fetchResponse()
+        .error(handleError)
+        .then(sendResults);
 });
 
 // TODO: group as middleware.

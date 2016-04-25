@@ -3,7 +3,7 @@
 /*jslint white: true, todo: true */
 /*global require: true, module: true */
 
-var Deferred = require("Deferred"),
+var Promise = require("bluebird"),
     MongoDBManagment = require("../../lib/mongodb-deferred.js"),
     callWithFirstInArray = require("../../lib/callWithFirstInArray.js"),
 
@@ -11,27 +11,25 @@ var Deferred = require("Deferred"),
     generate = function(options) {
         var generateDomains = function() {
                 // TODO: class inheritance/aliasing, prototype chain stuffs
-                var Domains = new MongoDBManagment.Server(options.uri).getDatabase(options.databaseName).getCollection("domains");
+                var Domains = new MongoDBManagment.Server(options.uri)
+                    .getDatabase(options.databaseName)
+                    .getCollection("domains");
 
                 Domains.getOrCreate = function(domainname) {
-                    var deferred = new Deferred(),
-                        domainToFind = {
-                            name: domainname
-                        };
+                    var domainToFind = {
+                        name: domainname
+                    };
 
-                    this.findOne(domainToFind)
-                        .fail(deferred.reject)
-                        .done(function(domain) {
+                    return Promise.resolve(this.findOne(domainToFind))
+                        .then(function(domain) {
                             if (domain) {
-                                deferred.resolve(domain);
+                                return domain;
                             } else {
-                                this.insert(domainToFind)
-                                    .fail(deferred.reject)
-                                    .done(callWithFirstInArray(deferred.resolve));
+                                return Promise.resolve(this.insert(domainToFind))
+                                    // Only return first item in the array.
+                                    .get(0);
                             }
                         }.bind(this));
-
-                    return deferred.promise();
                 }.bind(Domains);
 
                 return Domains;
@@ -39,7 +37,9 @@ var Deferred = require("Deferred"),
 
             generateDNSLookupHistory = function() {
                 // TODO: class inheritance/aliasing, prototype chain stuffs
-                var DNSLookupHistory = new MongoDBManagment.Server(options.uri).getDatabase(options.databaseName).getCollection("dnslookuphistory");
+                var DNSLookupHistory = new MongoDBManagment.Server(options.uri)
+                    .getDatabase(options.databaseName)
+                    .getCollection("dnslookuphistory");
 
                 return DNSLookupHistory;
             },
