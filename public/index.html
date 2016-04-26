@@ -149,7 +149,7 @@
                     <li><a href="/domain/iis.se">iis.se</a><a href="https://iis.se/" rel="external" target="_blank">⏍</a></li>
                     <li><a href="/domain/www.kirei.se">www.kirei.se</a><a href="https://www.kirei.se/" rel="external" target="_blank">⏍</a></li>
                     <li><a href="/domain/www.opendnssec.org">www.opendnssec.org</a><a href="https://www.opendnssec.org/" rel="external" target="_blank">⏍</a></li>
-                    <li><a href="/domain/www.ietf.org"><strike>www.ietf.org</strike></a><a href="https://www.ietf.org/" rel="external" target="_blank">⏍</a> (see log from 2014-07-13 below)</li>
+                    <li><a href="/domain/www.ietf.org">www.ietf.org</a><a href="https://www.ietf.org/" rel="external" target="_blank">⏍</a></li>
                     <li><a href="/domain/internetsociety.org">internetsociety.org</a><a href="https://internetsociety.org/" rel="external" target="_blank">⏍</a></li>
                 </ul>
             </div>
@@ -226,43 +226,54 @@
         </h2>
         <article>
             <h3>
-                <time datetime="2014-07-13" title="2014-07-13">
-                    2014-07-13
+                <time datetime="2016-04-26" title="2016-04-26">
+                    2016-04-26
                 </time>
-                Shame: IETF and PayPal not fully signed because of CNAMEs to external services in their www. subdomains.
+                Cloudflare does DNSSEC, IETF in the clear
             </h3>
             <p>
-                Last month, I received two separate but similar questions: why is <a href="https://paypal.com/">paypal.com</a> reported as successful, but <a href="https://www.paypal.com/">www.paypal.com</a> isn't? And why is <a href="https://ietf.org/">ietf.org</a> successful but <a href="https://www.ietf.org/">www.ietf.org</a> not?
-            </p>
-            <p>
-                The answer is easy to spot with
-                <code>dig +dnssec www.ietf.org</code>: IETF has correctly signed their own zone, including the A record for their domain, but the www. subdomain uses a CNAME to Cloudflare. Cloudflare hasn't signed their records (<a href="http://www.internetsociety.org/deploy360/blog/2014/07/report-on-icann50-dnssec-workshop-cloudflare-hsms-otr-demos-and-more/">yet</a>, <a href="http://london50.icann.org/en/schedule/wed-dnssec/presentation-dnssec-dns-proxying-25jun14-en.pdf">pdf</a>), so the CNAME chain leading up to an A record is broken. IETF used to be a known good example. For shame!
-            </p>
-            <p>
-                The same goes for www.paypal.com, which signs a CNAME record pointing to Akamai, which doesn't sign their records. Keep in mind that PayPal gave
-                <em>this very site</em> a prize 2014-04-24, because we validated them for having correctly implemented DNSSEC. For shame!
-            </p>
-            <p>
-                Both IETF and PayPal redirect users browsing to their web sites to the www. subdomain, this means that they're effectively bypassing their own DNSSEC signing. Perhaps
-                <em>you</em> should ask for more from
-                <em>your</em> external service providers?
-            </p>
-        </article>
-        <article>
-            <h3>
-                <time datetime="2014-06-25" title="2014-06-25">
-                    2014-06-25
-                </time>
-                Happy <a href="https://twitter.com/amelsec">Anne-Marie Eklund Löwinder</a> handing out t-shirts at <a href="http://london50.icann.org/">ICANN 50 in London</a>
-            </h3>
-            <p>
-                During the <a href="http://london50.icann.org/en/schedule/wed-dnssec">DNSSEC workshop</a> at the 50th ICANN meeting, Anne-Marie handed out t-shirts promoting dnsssec-name-and-shame.com to some of the most active people in DNSSEC, prompting jokes and laughter. At the same time, the site was updated with a happy image of her for successful DNSSEC lookups. Thanks again, Anne-Marie!
+                An apology goes out to <a href="https://www.ietf.org/">IETF</a> and <a href="https://www.cloudflare.com/">Cloudflare</a> for not removing the previous shaming on this site sooner. Cloudflare has already <a href="https://blog.cloudflare.com/introducing-universal-dnssec/">been signing domains for half a year</a>, through their <a href="https://www.cloudflare.com/dnssec/">Universal DNSSEC</a> service. Their push to make DNSSEC available to a broader audience is appreciated!
             </p>
         </article>
         <details>
             <summary>
                 Older entries
             </summary>
+            <article>
+                <h3>
+                <time datetime="2014-07-13" title="2014-07-13">
+                    2014-07-13
+                </time>
+                Shame: IETF and PayPal not fully signed because of CNAMEs to external services in their www. subdomains.
+            </h3>
+                <p>
+                    Last month, I received two separate but similar questions: why is <a href="https://paypal.com/">paypal.com</a> reported as successful, but <a href="https://www.paypal.com/">www.paypal.com</a> isn't? And why is <a href="https://ietf.org/">ietf.org</a> successful but <a href="https://www.ietf.org/">www.ietf.org</a> not?
+                </p>
+                <p>
+                    The answer is easy to spot with
+                    <code>dig +dnssec www.ietf.org</code>: IETF has correctly signed their own zone, including the A record for their domain, but the www. subdomain uses a CNAME to Cloudflare. Cloudflare hasn't signed their records (<a href="http://www.internetsociety.org/deploy360/blog/2014/07/report-on-icann50-dnssec-workshop-cloudflare-hsms-otr-demos-and-more/">yet</a>, <a href="http://london50.icann.org/en/schedule/wed-dnssec/presentation-dnssec-dns-proxying-25jun14-en.pdf">pdf</a>), so the CNAME chain leading up to an A record is broken. IETF used to be a known good example. For shame!
+                </p>
+                <p>
+                    The same goes for www.paypal.com, which signs a CNAME record pointing to Akamai, which doesn't sign their records. Keep in mind that PayPal gave
+                    <em>this very site</em> a prize 2014-04-24, because we validated them for having correctly implemented DNSSEC. For shame!
+                </p>
+                <p>
+                    Both IETF and PayPal redirect users browsing to their web sites to the www. subdomain, this means that they're effectively bypassing their own DNSSEC signing. Perhaps
+                    <em>you</em> should ask for more from
+                    <em>your</em> external service providers?
+                </p>
+            </article>
+            <article>
+                <h3>
+                <time datetime="2014-06-25" title="2014-06-25">
+                    2014-06-25
+                </time>
+                Happy <a href="https://twitter.com/amelsec">Anne-Marie Eklund Löwinder</a> handing out t-shirts at <a href="http://london50.icann.org/">ICANN 50 in London</a>
+            </h3>
+                <p>
+                    During the <a href="http://london50.icann.org/en/schedule/wed-dnssec">DNSSEC workshop</a> at the 50th ICANN meeting, Anne-Marie handed out t-shirts promoting dnsssec-name-and-shame.com to some of the most active people in DNSSEC, prompting jokes and laughter. At the same time, the site was updated with a happy image of her for successful DNSSEC lookups. Thanks again, Anne-Marie!
+                </p>
+            </article>
             <article>
                 <h3>
                     <time datetime="2014-04-28" title="2014-04-28">
