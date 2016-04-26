@@ -231,6 +231,12 @@ abbr {
     color: red;
 }
 
+.has-domains-to-check a[rel='external'] {
+    vertical-align: top;
+    font-size: 0.7em;
+    text-decoration: none;
+}
+
 #results-group {}
 
 #results-container {

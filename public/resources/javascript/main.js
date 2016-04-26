@@ -136,8 +136,8 @@
         }());
 
         (function() {
-            var getDomainFromUrl = function(url) {
-                    var domain = url.split("://")[1].split("/")[0];
+            var getDomainFromInternalDomainUrl = function(url) {
+                    var domain = url.split("/")[2];
 
                     return domain;
                 },
@@ -146,7 +146,7 @@
 
                     var $link = getLinkFromAnchorClick(event),
                         url = $link.attr("href"),
-                        domain = getDomainFromUrl(url),
+                        domain = getDomainFromInternalDomainUrl(url),
                         highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
                             // TODO: make this a dynamic lookup, so that multiple or dynamic lists can have green ticks and red crosses.
                             // This would make a manual lookup of google.com show in the lists below.
@@ -176,7 +176,7 @@
                     return false;
                 };
 
-            $document.on("click", ".has-domains-to-check a", doAjaxOnLinkClick);
+            $document.on("click", ".has-domains-to-check a:not([rel='external'])", doAjaxOnLinkClick);
         }());
 
         // TODO: change function scope/location.
