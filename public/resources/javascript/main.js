@@ -347,37 +347,6 @@
             });
         }());
 
-        function isTrackingEnabled() {
-            // This code has been duplicated elsewhere in this project.
-            // http://stackoverflow.com/questions/23933650/javascript-only-detection-of-do-not-track-settings-in-ie11
-            // http://stackoverflow.com/questions/16947459/is-it-possible-to-check-the-value-of-firefox-dnt-with-javascript/16947583#16947583
-            // http://www.w3.org/TR/tracking-dnt/#js-dom
-            // http://www.w3.org/TR/tracking-dnt/#dnt-header-field
-            var isDNT = window.doNotTrack == "yes" || window.doNotTrack == "1" ||
-                window.msDoNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" ||
-                navigator.msDoNotTrack == "1" || false;
-
-            return !isDNT;
-        }
-
-        function tracker() {
-            var args = Array.prototype.slice.call(arguments, 0),
-                trackerFunction = window.ga || function() {
-                    console.log("Tracking disabled", args);
-                };
-
-            trackerFunction.apply(null, args);
-        }
-
-        function track() {
-            // Only doing page level tracking at the moment.
-            if (!isTrackingEnabled()) {
-                return;
-            }
-
-            tracker("send", "pageview", document.location.pathname);
-        }
-
         var stateCounter = 0;
 
         function getStateTitle() {
@@ -404,8 +373,6 @@
                 setPageTitle();
 
                 pushClearState();
-
-                track();
             }
 
             $body.scrollTop(0);
@@ -442,8 +409,6 @@
                 } else {
                     history.pushState(state, getStateTitle(), url);
                 }
-
-                track();
             });
 
             window.onpopstate = function(event) {
