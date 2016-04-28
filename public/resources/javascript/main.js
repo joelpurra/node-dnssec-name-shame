@@ -478,7 +478,9 @@
             $.ajax("/meddelare/?networks=facebook,twitter,googleplus&url=" + url, {
                 success: function(res, err) {
                     $.each(res, function(network, value) {
-                        $meddelareUrlElement.find("[data-meddelare-network=" + network + "]").attr("data-count", value);
+                        if (value >= 0) {
+                            $meddelareUrlElement.find("[data-meddelare-network=" + network + "]").attr("data-count", value);
+                        }
                     });
                 }
             });
