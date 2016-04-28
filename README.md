@@ -57,6 +57,7 @@ npm run debug
 &#9745; Tweet the results.  
 &#9745; Add sounds for pass and fail.  
 &#9745; Create a small API.  
+&#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`.  
 
 
 

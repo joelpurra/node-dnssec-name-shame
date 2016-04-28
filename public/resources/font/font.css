@@ -4,15 +4,15 @@
 	font-weight: normal;
 	src:
 		local('Quando-Regular'),
-		/* from http://fonts.gstatic.com/s/quando/v5/ysDGDGAevf6IZihUeAqYKQ.eot */
+		/* from https://fonts.gstatic.com/s/quando/v5/ysDGDGAevf6IZihUeAqYKQ.eot */
 		url('Quando.eot?#iefix') format('embedded-opentype'),
-		/* from http://fonts.gstatic.com/s/quando/v5/qVv1zuxOTRil_FcBMa30Kg.woff */
+		/* from https://fonts.gstatic.com/s/quando/v5/qVv1zuxOTRil_FcBMa30Kg.woff */
 		url('Quando.woff') format('woff'),
-		/* from http://fonts.gstatic.com/s/quando/v5/PH1InQe0rvp_yN3TzIuyyQ.woff2 */
+		/* from https://fonts.gstatic.com/s/quando/v5/PH1InQe0rvp_yN3TzIuyyQ.woff2 */
 		url('Quando.woff2') format('woff2'),
-		/* from http://fonts.gstatic.com/l/font?kit=5Fa4sC3u0-lk7PDPFf4R4w&skey=dc4e8c3b7c4829c7&v=v5#Quando */
+		/* from https://fonts.gstatic.com/l/font?kit=5Fa4sC3u0-lk7PDPFf4R4w&skey=dc4e8c3b7c4829c7&v=v5#Quando */
 		url('Quando.svg#Quando') format('svg'),
-		/* from http://fonts.gstatic.com/s/quando/v5/r5DvKXdPMFvthtcoLLAk3w.ttf */
+		/* from https://fonts.gstatic.com/s/quando/v5/r5DvKXdPMFvthtcoLLAk3w.ttf */
 		url('Quando.ttf') format('truetype');
 }
 @font-face {
@@ -22,15 +22,15 @@
 	src:
 		local('Pacifico Regular'),
 		local('Pacifico-Regular'),
-		/* from http://fonts.gstatic.com/s/pacifico/v7/-vGerp1w0ZI2FbLjP6XX__esZW2xOQ-xsNqO47m55DA.eot */
+		/* from https://fonts.gstatic.com/s/pacifico/v7/-vGerp1w0ZI2FbLjP6XX__esZW2xOQ-xsNqO47m55DA.eot */
 		url('Pacifico.eot?#iefix') format('embedded-opentype'),
-		/* from http://fonts.gstatic.com/s/pacifico/v7/yunJt0R8tCvMyj_V4xSjafesZW2xOQ-xsNqO47m55DA.woff */
+		/* from https://fonts.gstatic.com/s/pacifico/v7/yunJt0R8tCvMyj_V4xSjafesZW2xOQ-xsNqO47m55DA.woff */
 		url('Pacifico.woff') format('woff'),
-		/* from http://fonts.gstatic.com/s/pacifico/v7/Q_Z9mv4hySLTMoMjnk_rCfesZW2xOQ-xsNqO47m55DA.woff2 */
+		/* from https://fonts.gstatic.com/s/pacifico/v7/Q_Z9mv4hySLTMoMjnk_rCfesZW2xOQ-xsNqO47m55DA.woff2 */
 		url('Pacifico.woff2') format('woff2'),
-		/* from http://fonts.gstatic.com/l/font?kit=zy0XcfX0fnB9E8T2pyT5CvesZW2xOQ-xsNqO47m55DA&skey=a336e4011ec32111&v=v7#Pacifico */
+		/* from https://fonts.gstatic.com/l/font?kit=zy0XcfX0fnB9E8T2pyT5CvesZW2xOQ-xsNqO47m55DA&skey=a336e4011ec32111&v=v7#Pacifico */
 		url('Pacifico.svg#Pacifico') format('svg'),
-		/* from http://fonts.gstatic.com/s/pacifico/v7/fKnfV28XkldRW297cFLeqfesZW2xOQ-xsNqO47m55DA.ttf */
+		/* from https://fonts.gstatic.com/s/pacifico/v7/fKnfV28XkldRW297cFLeqfesZW2xOQ-xsNqO47m55DA.ttf */
 		url('Pacifico.ttf') format('truetype');
 }
 @font-face {
@@ -40,14 +40,14 @@
 	src:
 		local('Open Sans'),
 		local('OpenSans'),
-		/* from http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3fY6323mHUZFJMgTvxaG2iE.eot */
+		/* from https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3fY6323mHUZFJMgTvxaG2iE.eot */
 		url('Open_Sans.eot?#iefix') format('embedded-opentype'),
-		/* from http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff */
+		/* from https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff */
 		url('Open_Sans.woff') format('woff'),
-		/* from http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2 */
+		/* from https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2 */
 		url('Open_Sans.woff2') format('woff2'),
-		/* from http://fonts.gstatic.com/l/font?kit=cJZKeOuBrn4kERxqtaUH3Zbd9NUM7myrQQz30yPaGQ4&skey=62c1cbfccc78b4b2&v=v13#OpenSans */
+		/* from https://fonts.gstatic.com/l/font?kit=cJZKeOuBrn4kERxqtaUH3Zbd9NUM7myrQQz30yPaGQ4&skey=62c1cbfccc78b4b2&v=v13#OpenSans */
 		url('Open_Sans.svg#OpenSans') format('svg'),
-		/* from http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf */
+		/* from https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf */
 		url('Open_Sans.ttf') format('truetype');
 }
