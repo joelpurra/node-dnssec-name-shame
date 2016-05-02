@@ -1,16 +1,16 @@
 "use strict";
 
 /*jslint white: true, todo: true */
-/*global require: true, process: true, __dirname: true, console: true */
+/*global require: true, process: true, __dirname: true */
 
 var configuration = require("configvention"),
+    logger = require("../lib/logger.js")("web"),
     // Keep "PORT" for servers with PORT defined in an environment variable
     httpServerPort = configuration.get("PORT") || configuration.get("http-server-port"),
     httpServerIp = configuration.get("http-server-ip"),
     mongoUri = configuration.get("MONGOLAB_URI"),
     siteRootRelativePath = configuration.get("site-root"),
 
-    dumpedDataVersion = 0,
     relativePathToRootFromThisFile = "..",
 
     express = require("express"),
@@ -102,7 +102,7 @@ app.get("/name-shame/", function(request, response, next) {
     function handleError(error) {
         // TODO: log this error in a better way.
         //throw error;
-        console.error("handleError", error);
+        logger.error("handleError", error);
 
         // TODO: make a prettier error message, maybe with some limited information.
         response.sendStatus(500);
@@ -147,7 +147,7 @@ app.get("/domain/*", function(request, response, next) {
 app.use(mount);
 
 app.listen(httpServerPort, httpServerIp, function() {
-    console.log("Listening on port", httpServerPort);
-    console.log("Bound to interface with ip", httpServerIp);
-    console.log("Serving site root from folder", siteRootPath);
+    logger.info("Listening on port", httpServerPort);
+    logger.info("Bound to interface with ip", httpServerIp);
+    logger.info("Serving site root from folder", siteRootPath);
 });

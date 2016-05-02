@@ -40,7 +40,7 @@ nvm use 0.12
 npm install
 bower install
 
-# Start the server
+# Start the server. Note that logging is in bunyan's json format.
 npm start
 ```
 
