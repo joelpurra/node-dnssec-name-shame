@@ -1,5 +1,5 @@
 # [node-dnssec-name-shame](https://github.com/joelpurra/node-dnssec-name-shame)
-[dnssec-name-and-shame.com](https://dnssec-name-and-shame.com/)
+**The project is live at [dnssec-name-and-shame.com](https://dnssec-name-and-shame.com/).**
 
 Look at a domain and check for DNSSEC records. Naming and shaming included!
 
@@ -7,10 +7,17 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 
 
 
+## Notes
+
+- This implementation only checks a domain for signed A, AAAA, CNAME, MX and SOA records. You might want to try another tool for more extensive DNSSEC tests and analysis.
+- Lookups are cached in getdns' context for the duration of the server's uptime. DNS record TTL should also be in effect.
+
+
+
 ## Requirements
 
 - [getdns](https://github.com/getdnsapi/getdns), see [getdnsapi.net](https://getdnsapi.net/).
-- [node.js](https://nodejs.org/) and [Node Package Manager](https://www.npmjs.org/) (NPM).
+- [node.js](https://nodejs.org/) and [Node Package Manager `npm`](https://www.npmjs.org/) (NPM), optionally through [Node Version Manager `nvm`](https://github.com/creationix/nvm).
 - [MongoDB](https://www.mongodb.org/).
 - [Bower](http://bower.io/).
 
@@ -26,38 +33,47 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 git clone --recursive https://github.com/joelpurra/node-dnssec-name-shame.git node-dnssec-name-shame
 cd node-dnssec-name-shame
 
+# Switch to node.js v0.12, if necessary
+nvm use 0.12
+
 # Install dependencies
 npm install
 bower install
 
 # Start the server
 npm start
-
-# Optionally start the server in debugging mode
-npm run debug
 ```
 
-- Browse to your local test site, [http://localhost:5000/](http://localhost:5000/).
-- Optionally debug the server from [http://127.0.0.1:8080/?port=5858](http://127.0.0.1:8080/?port=5858).
+Browse to your local test site, [http://localhost:5000/](http://localhost:5000/).
 
 
 
-## Notes
+## Development
 
-- This implementation only checks a domain for signed A, AAAA, CNAME, MX and SOA records. You might want to try another tool for more extensive DNSSEC tests and analysis.
-- Lookups are cached in getdns' context for the duration of the server's uptime. DNS record TTL should also be in effect.
+```bash
+# Start the inspector separately (once per session)
+npm run inspector
+
+# Start the server in debugging mode
+npm run debug
+
+# Test the code
+npm test --silent
+```
+
+Optionally debug the server from [http://127.0.0.1:8080/?port=5858](http://127.0.0.1:8080/?port=5858).
 
 
 
 ## Todo
 
 &#9744; Fetch Alexa's top 25 (or more) sites dynamically.  
-&#9744; Modify links to the external sites to open in new window, and add link to `/name-shame/` JSON URL canceled with javascript.  
 &#9744; Create pretty-pretty slide show style animations for the listed example domains?  
+&#9745; Modify links to the external sites to open in new window, and add link to `/domain/example.com` so content can be discovered.  
 &#9745; Tweet the results.  
 &#9745; Add sounds for pass and fail.  
 &#9745; Create a small API.  
-&#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`.  
+&#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`. 
 
 
 

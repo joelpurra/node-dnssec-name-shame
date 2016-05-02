@@ -2,7 +2,7 @@
     "name": "dnssec-name-shame",
     "private": true,
     "version": "0.0.0",
-    "description": "Look at a domain and check for DNSSEC records. Name and shame included!",
+    "description": "Look at a domain and check for DNSSEC records. Naming and shaming included!",
     "homepage": "https://dnssec-name-and-shame.com/",
     "dependencies": {
         "Deferred": "^0.1.1",
@@ -17,15 +17,25 @@
         "st": "^0.4.1"
     },
     "devDependencies": {
-        "node-inspector": "^0.12.8"
+        "babel-eslint": "^6.0.4",
+        "eslint": "^2.9.0",
+        "eslint-config-standard": "^5.3.1",
+        "eslint-plugin-promise": "^1.1.0",
+        "node-inspector": "^0.12.8",
+        "nodemon": "^1.9.2",
+        "pre-commit": "^1.0.10"
     },
     "engines": {
-        "node": "^0.12.0 || ^4.0.0 || ^5.0.0",
-        "npm": "^2.5.1 || ^3.0.0"
+        "node": "^0.12.0",
+        "npm": "^2.5.1"
     },
     "scripts": {
         "start": "node app/web.js",
-        "debug": "node-debug app/web.js"
+        "inspector": "node node_modules/.bin/node-inspector",
+        "debug": "node node_modules/.bin/nodemon --debug app/web.js",
+        "test": "npm run lint && echo && echo 'No tests have been added!'",
+        "lint": "npm run eslint",
+        "eslint": "node ./node_modules/.bin/eslint app/ lib/"
     },
     "repository": {
         "type": "git",
