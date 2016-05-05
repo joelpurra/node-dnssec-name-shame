@@ -1,6 +1,5 @@
 "use strict";
 
-/*jslint white: true, todo: true */
 /*global require: true, process: true, __dirname: true */
 
 var configuration = require("configvention"),
@@ -38,11 +37,11 @@ var configuration = require("configvention"),
     mount = st({
         path: siteRootPath,
         url: "/",
-        index: "index.html"
+        index: "index.html",
     }),
 
     database = require("./data/data-layer-wrapper.js")({
-        uri: mongoUri
+        uri: mongoUri,
     }),
 
     DNSSECNameAndShameLookerUpper = require("../lib/dnssec-name-and-shame-looker-upper.js"),
@@ -58,14 +57,12 @@ app.use(helmet());
 app.use(helmet.hsts({
     maxAge: 15724800000,
     includeSubdomains: true,
-    force: configuration.get("enable-hsts") === true
+    force: configuration.get("enable-hsts") === true,
 }));
 
 app.use(configuredHttpsRedirect());
 
-
 app.use("/meddelare/", meddelareExpress.getRouter());
-
 
 // TODO: refactor function scope/location.
 function checkAndClean(str, disallowedRx, allowedRx) {

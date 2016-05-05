@@ -1,11 +1,9 @@
 "use strict";
 
-/*jslint white: true, todo: true */
 /*global require: true, module: true */
 
 var Promise = require("bluebird"),
     MongoDBManagment = require("../../lib/mongodb-deferred.js"),
-    callWithFirstInArray = require("../../lib/callWithFirstInArray.js"),
 
     // TODO: simplify this code, to avoid generating functions?
     generate = function(options) {
@@ -17,18 +15,18 @@ var Promise = require("bluebird"),
 
                 Domains.getOrCreate = function(domainname) {
                     var domainToFind = {
-                        name: domainname
+                        name: domainname,
                     };
 
                     return Promise.resolve(this.findOne(domainToFind))
                         .then(function(domain) {
                             if (domain) {
                                 return domain;
-                            } else {
-                                return Promise.resolve(this.insert(domainToFind))
-                                    // Only return first item in the array.
-                                    .get(0);
                             }
+
+                            return Promise.resolve(this.insert(domainToFind))
+                                // Only return first item in the array.
+                                .get(0);
                         }.bind(this));
                 }.bind(Domains);
 
@@ -59,7 +57,7 @@ var Promise = require("bluebird"),
             generateApi = function() {
                 var generatedApi = {
                     Domains: generateDomains(),
-                    DNSLookupHistory: generateDNSLookupHistory()
+                    DNSLookupHistory: generateDNSLookupHistory(),
                 };
 
                 return generatedApi;
