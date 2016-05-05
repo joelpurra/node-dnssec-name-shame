@@ -16,7 +16,7 @@ var configuration = require("configvention"),
     helmet = require("helmet"),
     st = require("st"),
     path = require("path"),
-    configuredHttpsRedirect = require("../lib/configuredHttpsRedirect.js"),
+    configuredHttpsRedirect = require("../lib/configured-https-redirect.js"),
 
     resolvePath = function() {
         var args = [].slice.call(arguments),
