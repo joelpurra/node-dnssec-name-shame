@@ -49,9 +49,21 @@ var configuration = require("configvention"),
     MeddelareExpress = require("meddelare-express"),
     meddelareExpress = new MeddelareExpress(),
 
+    bunyanMiddleware = require("bunyan-middleware"),
+    bunyanMiddlewareOptions = {
+        logger: logger,
+    },
+    bunyanMiddlewareLogger = bunyanMiddleware(bunyanMiddlewareOptions),
+
+    favicon = require("serve-favicon"),
+
     app = express();
 
-app.use(express.logger());
+// Changes JSON indentation for all JSON responses.
+// TODO: set only in a sub-app.
+app.set("json spaces", 2);
+
+app.use(bunyanMiddlewareLogger);
 
 app.use(helmet());
 app.use(helmet.hsts({
@@ -61,6 +73,8 @@ app.use(helmet.hsts({
 }));
 
 app.use(configuredHttpsRedirect());
+
+app.use(favicon(path.join(siteRootPath, "/resources/image/icon/favicon.ico")));
 
 app.use("/meddelare/", meddelareExpress.getRouter());
 
