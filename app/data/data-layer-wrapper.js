@@ -3,7 +3,7 @@
 /*global require: true, module: true */
 
 var Promise = require("bluebird"),
-    MongoDBManagment = require("../../lib/mongodb-deferred.js"),
+    MongoDBManagment = require("../../lib/mongodb-bluebird.js"),
 
     // TODO: simplify this code, to avoid generating functions?
     generate = function(options) {
@@ -18,13 +18,13 @@ var Promise = require("bluebird"),
                         name: domainname,
                     };
 
-                    return Promise.resolve(this.findOne(domainToFind))
+                    return this.findOne(domainToFind)
                         .then(function(domain) {
                             if (domain) {
                                 return domain;
                             }
 
-                            return Promise.resolve(this.insert(domainToFind))
+                            return this.insertOne(domainToFind)
                                 // Only return first item in the array.
                                 .get(0);
                         }.bind(this));
