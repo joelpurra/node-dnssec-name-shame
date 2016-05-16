@@ -13,22 +13,20 @@ var Promise = require("bluebird"),
                     .getDatabase(options.databaseName)
                     .getCollection("domains");
 
-                Domains.getOrCreate = function(domainname) {
+                Domains.getOrCreate = Promise.method(function(domainname) {
                     var domainToFind = {
                         name: domainname,
                     };
 
-                    return this.findOne(domainToFind)
+                    return Domains.findOne(domainToFind)
                         .then(function(domain) {
                             if (domain) {
                                 return domain;
                             }
 
-                            return this.insertOne(domainToFind)
-                                // Only return first item in the array.
-                                .get(0);
-                        }.bind(this));
-                }.bind(Domains);
+                            return Domains.insertOne(domainToFind);
+                        });
+                });
 
                 return Domains;
             },

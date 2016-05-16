@@ -3,59 +3,68 @@
 /*global require: true, process: true, __dirname: true */
 
 var configuration = require("configvention"),
-    logger = require("../lib/logger.js")("web"),
     // Keep "PORT" for servers with PORT defined in an environment variable
     httpServerPort = configuration.get("PORT") || configuration.get("http-server-port"),
     httpServerIp = configuration.get("http-server-ip"),
-    mongoUri = configuration.get("MONGOLAB_URI"),
     siteRootRelativePath = configuration.get("site-root"),
+    mongoUri = configuration.get("MONGOLAB_URI"),
+    enableHsts = configuration.get("enable-hsts") === true,
 
-    relativePathToRootFromThisFile = "..",
-
-    express = require("express"),
-    helmet = require("helmet"),
-    st = require("st"),
-    path = require("path"),
-    configuredHttpsRedirect = require("../lib/configured-https-redirect.js"),
-
-    resolvePath = function() {
-        var args = [].slice.call(arguments),
-            parts = [__dirname].concat(args);
-
-        return path.resolve.apply(path, parts);
-    },
-    resolvePathFromProjectRoot = function() {
-        var args = [].slice.call(arguments),
-            parts = [relativePathToRootFromThisFile].concat(args);
-
-        return resolvePath.apply(null, parts);
-    },
-
-    // Path to static resources like index.html, css etcetera
-    siteRootPath = resolvePathFromProjectRoot.apply(null, siteRootRelativePath.split("/")),
-
-    mount = st({
-        path: siteRootPath,
-        url: "/",
-        index: "index.html",
-    }),
-
-    database = require("./data/data-layer-wrapper.js")({
-        uri: mongoUri,
-    }),
-
-    DNSSECNameAndShameLookerUpper = require("../lib/dnssec-name-and-shame-looker-upper.js"),
-
-    MeddelareExpress = require("meddelare-express"),
-    meddelareExpress = new MeddelareExpress(),
-
+    logger = require("../lib/logger.js")("web"),
     bunyanMiddleware = require("bunyan-middleware"),
     bunyanMiddlewareOptions = {
         logger: logger,
     },
     bunyanMiddlewareLogger = bunyanMiddleware(bunyanMiddlewareOptions),
 
+    path = require("path"),
+    // Path to static resources like index.html, css etcetera
+    siteRootPath = path.resolve(siteRootRelativePath),
+
+    express = require("express"),
+    helmet = require("helmet"),
+    st = require("st"),
+    configuredHttpsRedirect = require("../lib/configured-https-redirect.js"),
+
     favicon = require("serve-favicon"),
+    faviconPath = path.join(siteRootPath, "/resources/image/icon/favicon.ico"),
+
+    stMountOptions = {
+        path: siteRootPath,
+        url: "/",
+        index: "index.html",
+    },
+    mount = st(stMountOptions),
+
+    hstsOptions = {
+        maxAge: 15724800000,
+        includeSubdomains: true,
+        force: enableHsts,
+    },
+
+    database = require("./data/data-layer-wrapper.js")({
+        uri: mongoUri,
+    }),
+
+    laundry = require("../lib/laundry.js"),
+
+    checkAndCleanDomainnameOrDie = function(response, domainname) {
+        var clean = laundry.checkAndCleanDomainname(domainname);
+
+        if (!clean) {
+            response.sendStatus(422)
+                .end();
+
+            return null;
+        }
+
+        return clean;
+    },
+
+    DNSSECNameAndShameLookerUpper = require("../lib/dnssec-name-and-shame-looker-upper.js"),
+
+    MeddelareExpress = require("meddelare-express"),
+    meddelareExpress = new MeddelareExpress(),
 
     app = express();
 
@@ -66,72 +75,44 @@ app.set("json spaces", 2);
 app.use(bunyanMiddlewareLogger);
 
 app.use(helmet());
-app.use(helmet.hsts({
-    maxAge: 15724800000,
-    includeSubdomains: true,
-    force: configuration.get("enable-hsts") === true,
-}));
+app.use(helmet.hsts(hstsOptions));
 
 app.use(configuredHttpsRedirect());
 
-app.use(favicon(path.join(siteRootPath, "/resources/image/icon/favicon.ico")));
+app.use(favicon(faviconPath));
 
 app.use("/meddelare/", meddelareExpress.getRouter());
 
-// TODO: refactor function scope/location.
-function checkAndClean(str, disallowedRx, allowedRx) {
-    if (disallowedRx.test(str) || !allowedRx.test(str)) {
-        return null;
-    }
-
-    return str;
-}
-
-// TODO: refactor function scope/location.
-function checkAndCleanDomainname(domainname) {
-    // TOOD: write regexp for domain names
-    var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
-
-    return clean;
-}
-
-// TODO: refactor function scope/location.
-function checkAndCleanDomainnameOrDie(response, domainname) {
-    var clean = checkAndCleanDomainname(domainname);
-
-    if (!clean) {
-        response.sendStatus(422);
-        response.end();
-
-        return null;
-    }
-
-    return clean;
-}
-
+// TODO: group as middleware.
 app.get("/name-shame/", function(request, response, next) {
-    function handleError(error) {
-        // TODO: log this error in a better way.
-        //throw error;
-        logger.error("handleError", error);
+    var dirtyDomainname = request.query.domainname,
+        cleanDomainname = checkAndCleanDomainnameOrDie(response, dirtyDomainname);
 
-        // TODO: make a prettier error message, maybe with some limited information.
-        response.sendStatus(500);
-        response.end();
+    if (cleanDomainname) {
+        next();
     }
+});
 
-    function sendResults(dnssecNameAndShameResponse) {
-        response.json(dnssecNameAndShameResponse);
-        response.end();
-    }
+// TODO: group as middleware.
+app.get("/name-shame/", function(request, response, next) {
+    var handleError = function(error) {
+            next(error);
+        },
 
-    var domainname = checkAndCleanDomainnameOrDie(response, request.query.domainname),
+        sendResults = function(dnssecNameAndShameResponse) {
+            response.json(dnssecNameAndShameResponse)
+                .end();
+        },
+
+        // Real domain name validation done above.
+        domainname = laundry.checkAndCleanDomainname(request.query.domainname),
+
         dnssecNameAndShameLookerUpperOptions = {},
         dnssecNameAndShameLookerUpper = new DNSSECNameAndShameLookerUpper(database, domainname, dnssecNameAndShameLookerUpperOptions);
 
     dnssecNameAndShameLookerUpper.fetchResponse()
-        .error(handleError)
-        .then(sendResults);
+        .then(sendResults)
+        .catch(handleError);
 });
 
 // TODO: group as middleware.
@@ -140,11 +121,12 @@ app.get("/domain/", function(request, response, next) {
 });
 
 // TODO: group as middleware.
-app.get("/domain/:domainname", function(request, response, next, domainname) {
-    var clean = checkAndCleanDomainnameOrDie(response, request.query.domainname);
+app.get("/domain/:dirtyDomainname", function(request, response, next, dirtyDomainname) {
+    var cleanDomainname = checkAndCleanDomainnameOrDie(response, dirtyDomainname);
 
-    // The domain name is now clean, or this won't be reached.
-    next();
+    if (cleanDomainname) {
+        next();
+    }
 });
 
 app.get("/domain/*", function(request, response, next) {
@@ -153,6 +135,15 @@ app.get("/domain/*", function(request, response, next) {
     request.url = "/";
 
     next();
+});
+
+app.use(function(error, request, response, next) {
+    // TODO: log this error in a better way.
+    logger.error("handleError", error);
+
+    // TODO: make a prettier error message, maybe with some limited information.
+    response.sendStatus(500)
+        .end();
 });
 
 app.use(mount);

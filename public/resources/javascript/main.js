@@ -1,5 +1,6 @@
 (function($) {
     $(function() {
+        // TODO: share constants?
         var STATUS_SECURE = "secure",
             STATUS_INSECURE = "insecure",
             STATUS_UNKNOWN = "unknown",
@@ -9,42 +10,56 @@
             $nameShameForm = $("#name-shame-form"),
             $domainnameInput = $("[name=domainname]", $nameShameForm),
 
-            // TODO: refactor function scope/location.
-            checkAndClean = function(str, disallowedRx, allowedRx) {
-                if (disallowedRx.test(str) || !allowedRx.test(str)) {
-                    return null;
-                }
+            // See also lib/laundry.js.
+            // TODO: use require() to get this file.
+            laundry = (function() {
+                "use strict";
 
-                return str;
-            },
+                // TOOD: write/find better regexp for domain names?
+                var disallowedDomainRx = /[^a-z0-9\-\.]/i,
+                    allowedDomainRx = /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i,
 
-            // TODO: refactor function scope/location.
-            checkAndCleanDomainname = function(domainname) {
-                // TOOD: write regexp for domain names
-                var clean = checkAndClean(domainname, /[^a-z0-9\-\.]/i, /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i);
+                    checkAndClean = function(str, disallowedRx, allowedRx) {
+                        if (disallowedRx.test(str) || !allowedRx.test(str)) {
+                            return null;
+                        }
 
-                return clean;
-            },
+                        return str;
+                    },
 
-            // TODO: refactor function scope/location.
-            cleanDomainnameFromDNASUrl = function(url) {
-                var path = url || "",
-                    domainnameRx = /\/domain\/([^/]+)$/,
-                    domainname;
+                    checkAndCleanDomainname = function(domainname) {
+                        var clean = checkAndClean(domainname, disallowedDomainRx, allowedDomainRx);
 
-                if (!path || !domainnameRx.test(path)) {
-                    return null;
-                }
+                        return clean;
+                    },
 
-                path.match(domainnameRx);
-                domainname = checkAndCleanDomainname(RegExp.$1);
+                    cleanDomainnameFromDNASUrl = function(url) {
+                        var path = url || "",
+                            domainnameRx = /\/domain\/([^/]+)$/,
+                            domainname;
 
-                if (!domainname) {
-                    return null;
-                }
+                        if (!path || !domainnameRx.test(path)) {
+                            return null;
+                        }
 
-                return domainname;
-            },
+                        path.match(domainnameRx);
+                        domainname = checkAndCleanDomainname(RegExp.$1);
+
+                        if (!domainname) {
+                            return null;
+                        }
+
+                        return domainname;
+                    },
+
+                    api = {
+                        checkAndClean: checkAndClean,
+                        checkAndCleanDomainname: checkAndCleanDomainname,
+                        cleanDomainnameFromDNASUrl: cleanDomainnameFromDNASUrl,
+                    };
+
+                return api;
+            }()),
 
             handleLookupFail = function(clientState) {
                 clientState = clientState || {};
@@ -67,7 +82,7 @@
             },
 
             domainLookupXHRFail = function(jqXHR, textStatus, errorThrown) {
-                // TODO: show error to the user
+                // TODO: show error to the user?
                 console.error("domainLookupXHRFail", jqXHR, textStatus, errorThrown);
 
                 handleLookupFail({
@@ -80,7 +95,7 @@
 
                 data = data || {};
                 data.domainname = (data && data.domainname) || "";
-                data.domainname = checkAndCleanDomainname(data.domainname);
+                data.domainname = laundry.checkAndCleanDomainname(data.domainname);
 
                 handleLookupDone(data, {
                     firstTime: true
@@ -236,7 +251,7 @@
                     .end()
                     .removeClass("none-yet");
 
-                // Results text
+                // Results text.
                 $("#results-domain-name").text(data.domainname);
                 $("#results-success-or-fail").text(statusText);
             });
@@ -289,7 +304,7 @@
 
                 tweetLinkText += " " + data.domainname + "!";
 
-                // Tweet button
+                // Tweet button.
                 var tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domainname;
 
                 $("#results-tweet-link")
@@ -385,7 +400,7 @@
                     return;
                 }
 
-                var fromUrl = cleanDomainnameFromDNASUrl(document.location.href);
+                var fromUrl = laundry.cleanDomainnameFromDNASUrl(document.location.href);
 
                 var state = data,
                     title,
@@ -430,7 +445,7 @@
 
         (function() {
             $(function() {
-                var domainname = cleanDomainnameFromDNASUrl(document.location.href);
+                var domainname = laundry.cleanDomainnameFromDNASUrl(document.location.href);
 
                 if (!domainname) {
                     loadFrontpageIfNotAlreadyThere();
