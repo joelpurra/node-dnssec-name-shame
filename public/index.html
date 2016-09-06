@@ -54,9 +54,7 @@
                 <a id="results-tweet-link" href="#" target="_blank"></a>
             </p>
             <details id="results-container-details">
-                <summary>
-                    DNSSEC lookup details
-                </summary>
+                <summary>DNSSEC lookup details</summary>
                 <ul id="results-container-types">
                     <li class="results-container-type results-container-type-a">A (IPv4)</li>
                     <li class="results-container-type results-container-type-aaaa">AAAA (IPv6)</li>
@@ -71,20 +69,12 @@
         <form id="name-shame-form" action="/name-shame/" method="GET">
             <fieldset>
                 <legend>Check a domain for DNSSEC compliance</legend>
-                <table>
-                    <tr>
-                        <td>
-                            <label>
-                                <input id="name-shame-domain" name="domainname" type="text" required="required" pattern="^([a-z0-9\-]{1,64}\.)+[a-z]+$" autofocus="autofocus" title="Please fill out a domain (example.com), all lowercase." />
-                            </label>
-                        </td>
-                        <td>
-                            <button type="submit">
-                                Check now!
-                            </button>
-                        </td>
-                    </tr>
-                </table>
+                    <label>
+                        <input id="name-shame-domain" name="domainname" type="text" required="required" pattern="^([a-z0-9\-]{1,64}\.)+[a-z]+$" autofocus="autofocus" title="Please fill out a domain (example.com), all lowercase." placeholder="example.com" />
+                    </label>
+                    <button type="submit">
+                        Check now!
+                    </button>
             </fieldset>
         </form>
     </section>
@@ -212,7 +202,7 @@
                     <a href="https://www.internetsociety.org/deploy360/dnssec/">DNSSEC resources</a> on <a href="https://www.internetsociety.org/deploy360/">The Internet Society Deploy360 Programme</a>.
                 </li>
                 <li>
-                    We're using <a href="https://getdnsapi.net/">getdnsapi</a> through <a href="https://github.com/getdnsapi/getdns-node">getdns-node</a> for easy DNSSEC enabled DNS lookups.
+                    We're using <a href="https://getdnsapi.net/">getdnsapi</a> through <a href="https://github.com/getdnsapi/getdns-node">getdns-node</a> for easy DNSSEC-enabled DNS lookups.
                 </li>
                 <li>
                     <a href="https://zonemaster.net/">Zonemaster</a> by <a href="https://iis.se/">IIS</a> and <a href="https://www.afnic.fr/">AFNIC</a>.
@@ -253,9 +243,7 @@
             </p>
         </article>
         <details>
-            <summary>
-                Older entries
-            </summary>
+            <summary>Older entries</summary>
             <article>
                 <h3>
                 <time datetime="2014-07-13" title="2014-07-13">
@@ -314,9 +302,7 @@
                 </p>
             </article>
             <details>
-                <summary>
-                    Older entries
-                </summary>
+                <summary>Older entries</summary>
                 <article>
                     <h3>
                         <time datetime="2014-04-24" title="2014-04-24">
@@ -342,7 +328,7 @@
             </details>
     </section>
     <footer>
-        <img src="/resources/image/icon/anne-marie-64x64.jpg" /> <a href="https://dnssec-name-and-shame.com/">DNSSEC name and shame!</a> &copy; 2014, 2015 <a href="http://joelpurra.com/">Joel Purra</a> and Tom Cuddy. <a href="https://github.com/joelpurra/node-dnssec-name-shame">Released</a> under the <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0 License</a>. Hosted by <a href="https://nlnetlabs.nl/">NLnet Labs</a>.
+        <img src="/resources/image/icon/anne-marie-64x64.jpg" /> <a href="https://dnssec-name-and-shame.com/">DNSSEC name and shame!</a> &copy; 2014, 2015 <a href="http://joelpurra.com/">Joel Purra</a> and Tom Cuddy. <a href="https://github.com/joelpurra/node-dnssec-name-shame">Source code</a> released under the <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0 License</a>. Hosted by <a href="https://nlnetlabs.nl/">NLnet Labs</a>.
     </footer>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/SoundJS/lib/soundjs-NEXT.combined.js"></script>

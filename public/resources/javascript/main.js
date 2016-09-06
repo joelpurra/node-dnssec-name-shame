@@ -289,7 +289,7 @@
         (function() {
             $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
                 var tweetResultsText,
-                    tweetLinkText = "Publicly #";
+                    tweetLinkText = "Tweet to #";
 
                 if (data.status === STATUS_SECURE) {
                     tweetResultsText = "#praise " + data.domainname + " has successfully implemented #DNSSEC!";
