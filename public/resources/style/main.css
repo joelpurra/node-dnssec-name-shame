@@ -208,12 +208,16 @@ details[open] > summary:before {
 @media (min-width: 1200px) {
     .columns.two .column {
         width: 50%;
+        box-sizing: border-box;
     }
     .columns.two .column.left {
         float: left;
+        padding-right: 0.5em;
     }
     .columns.two .column.right {
         float: right;
+        padding-left: 0.5em;
+        border-left: 1px solid #f8f8f8;
     }
 }
 
