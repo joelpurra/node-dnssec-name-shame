@@ -19,7 +19,7 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 - [getdns](https://github.com/getdnsapi/getdns), see [getdnsapi.net](https://getdnsapi.net/).
 - [node.js](https://nodejs.org/) and [Node Package Manager `npm`](https://www.npmjs.org/) (NPM), optionally through [Node Version Manager `nvm`](https://github.com/creationix/nvm).
 - [MongoDB](https://www.mongodb.org/).
-- [Bower](http://bower.io/).
+- [Bower](https://bower.io/).
 
 
 
@@ -44,7 +44,7 @@ bower install
 npm start
 ```
 
-Browse to your local test site, [http://localhost:5000/](http://localhost:5000/).
+Browse to your local test site, [https://localhost:5000/](http://localhost:5000/).
 
 
 
@@ -73,15 +73,15 @@ Optionally debug the server from [http://127.0.0.1:8080/?port=5858](http://127.0
 &#9745; Tweet the results.  
 &#9745; Add sounds for pass and fail.  
 &#9745; Create a small API.  
-&#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`. 
+&#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`.
 
 
 
 ## Thanks
 
-- [Versign Labs](http://labs.verisigninc.com/).
+- [Versign Labs](https://labs.verisigninc.com/).
 - [NLnet Labs](https://nlnetlabs.nl/).
-- [Anne-Marie Eklund Löwinder](https://twitter.com/amelsec), DNSSEC pioneer and [Internet Hall of Fame inductee](http://www.internethalloffame.org/inductees/anne-marie-eklund-l%C3%B6winder), for the photo made specially for this site.
+- [Anne-Marie Eklund Löwinder](https://twitter.com/amelsec), DNSSEC pioneer and [Internet Hall of Fame inductee](https://www.internethalloffame.org/inductees/anne-marie-eklund-l%C3%B6winder), for the photo made specially for this site.
 - Photo of [Anne-Marie Eklund Löwinder](https://twitter.com/amelsec) by [Per-Ola Mjömark](http://www.mjomark.com/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Fail sound [buzzer2.wav](https://www.freesound.org/people/hypocore/sounds/164089/) by [hypocore](https://www.freesound.org/people/hypocore/), licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
 - Success sound [success.wav](https://www.freesound.org/people/grunz/sounds/109662/) by [grunz](https://www.freesound.org/people/grunz/), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
@@ -89,7 +89,6 @@ Optionally debug the server from [http://127.0.0.1:8080/?port=5858](http://127.0
 
 ## License
 
-Copyright (c) 2014, [Joel Purra](http://joelpurra.com/) and Tom Cuddy. All rights reserved.
+Copyright (c) 2014, [Joel Purra](https://joelpurra.com/) and Tom Cuddy. All rights reserved.
 
 When using node-dnssec-name-shame, comply to the [GNU Affero General Public License 3.0 (AGPL-3.0)](https://en.wikipedia.org/wiki/Affero_General_Public_License). Please see the LICENSE file for details.
-
