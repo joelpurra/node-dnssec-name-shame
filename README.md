@@ -51,9 +51,6 @@ Browse to your local test site, [https://localhost:5000/](http://localhost:5000/
 ## Development
 
 ```bash
-# Start the inspector separately (once per session)
-npm run inspector
-
 # Start the server in debugging mode
 npm run debug
 
@@ -61,7 +58,7 @@ npm run debug
 npm test --silent
 ```
 
-Optionally debug the server from [http://127.0.0.1:8080/?port=5858](http://127.0.0.1:8080/?port=5858).
+Optionally debug the server, possibly using [Chrome DevTools for Node.js](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27).
 
 
 
@@ -89,6 +86,6 @@ Optionally debug the server from [http://127.0.0.1:8080/?port=5858](http://127.0
 
 ## License
 
-Copyright (c) 2014, [Joel Purra](https://joelpurra.com/) and Tom Cuddy. All rights reserved.
+Copyright © 2014, 2015, 2016, 2017, 2018 [Joel Purra](https://joelpurra.com/) and Tom Cuddy. All rights reserved.
 
 When using node-dnssec-name-shame, comply to the [GNU Affero General Public License 3.0 (AGPL-3.0)](https://en.wikipedia.org/wiki/Affero_General_Public_License). Please see the LICENSE file for details.
