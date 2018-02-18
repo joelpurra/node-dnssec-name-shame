@@ -1,5 +1,10 @@
-# [node-dnssec-name-shame](https://github.com/joelpurra/node-dnssec-name-shame)
-**The project is live at [dnssec-name-and-shame.com](https://dnssec-name-and-shame.com/).**
+<p align="center">
+  <a href="https://dnssec-name-and-shame.com/"><img src="public/resources/image/angry.jpg" alt="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" title="Photo of Anne-Marie Eklund Löwinder, DNSSEC pioneer, when she's angry" width="300" height="200" border="0" /></a>
+</p>
+<h1 align="center">
+  <a href="https://dnssec-name-and-shame.com/">dnssec-name-and-shame.com</a>
+</h1>
+
 
 Look at a domain and check for DNSSEC records. Naming and shaming included!
 
@@ -11,6 +16,7 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 
 - This implementation only checks a domain for signed A, AAAA, CNAME, MX and SOA records. You might want to try another tool for more extensive DNSSEC tests and analysis.
 - Lookups are cached in getdns' context for the duration of the server's uptime. DNS record TTL should also be in effect.
+- [Source code](https://github.com/joelpurra/node-dnssec-name-shame), [project page](https://joelpurra.com/projects/node-dnssec-name-shame/).
 
 
 
