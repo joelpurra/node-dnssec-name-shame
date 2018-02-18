@@ -317,12 +317,12 @@
         (function() {
             var
                 playSound = function(name) {
-                    var instance = createjs.Sound.play(name);
+                    var instance = createjs.SoundJS.play(name);
                 };
 
             (function() {
-                createjs.Sound.registerSound("/resources/audio/164089_2975503-lq.mp3", "fail");
-                createjs.Sound.registerSound("/resources/audio/109662_945474-lq.mp3", "done");
+                createjs.SoundJS.registerSound("/resources/audio/164089_2975503-lq.mp3", "fail");
+                createjs.SoundJS.registerSound("/resources/audio/109662_945474-lq.mp3", "done");
             }());
 
             $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
