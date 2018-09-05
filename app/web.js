@@ -116,7 +116,7 @@ app.get("/name-shame/", function(request, response, next) {
 });
 
 // TODO: group as middleware.
-app.get("/domain/", function(request, response, next) {
+app.get("/domain/", function(request, response, /* eslint-disable no-unused-vars */next/* eslint-enable no-unused-vars */) {
     response.redirect(301, "/");
 });
 
@@ -137,7 +137,7 @@ app.get("/domain/*", function(request, response, next) {
     next();
 });
 
-app.use(function(error, request, response, next) {
+app.use(function(error, request, response, /* eslint-disable no-unused-vars */next/* eslint-enable no-unused-vars */) {
     // TODO: log this error in a better way.
     logger.error("handleError", error);
 

@@ -1,4 +1,8 @@
 (function($) {
+    /* global createjs:false, history:false, jQuery:false */
+
+    /* eslint-disable no-unused-vars */
+
     $(function() {
         // TODO: share constants?
         var STATUS_SECURE = "secure",
@@ -10,14 +14,16 @@
             $nameShameForm = $("#name-shame-form"),
             $domainnameInput = $("[name=domainname]", $nameShameForm),
 
+            stateCounter = 0,
+
             // See also lib/laundry.js.
             // TODO: use require() to get this file.
             laundry = (function() {
                 "use strict";
 
                 // TOOD: write/find better regexp for domain names?
-                var disallowedDomainRx = /[^a-z0-9\-\.]/i,
-                    allowedDomainRx = /^([a-z0-9\-]{1,64}\.)+[a-z]+$/i,
+                var disallowedDomainRx = /[^a-z0-9\-.]/i,
+                    allowedDomainRx = /^([a-z0-9-]{1,64}\.)+[a-z]+$/i,
 
                     checkAndClean = function(str, disallowedRx, allowedRx) {
                         if (disallowedRx.test(str) || !allowedRx.test(str)) {
@@ -83,28 +89,28 @@
 
             domainLookupXHRFail = function(jqXHR, textStatus, errorThrown) {
                 // TODO: show error to the user?
+                /* eslint-disable no-console */
                 console.error("domainLookupXHRFail", jqXHR, textStatus, errorThrown);
+                /* eslint-enable no-console */
 
                 handleLookupFail({
-                    firstTime: true
+                    firstTime: true,
                 });
             },
 
             domainLookupXHRDone = function(data, textStatus, jqXHR) {
-                console.log("domainLookupXHRDone", data, textStatus, jqXHR);
-
                 data = data || {};
                 data.domainname = (data && data.domainname) || "";
                 data.domainname = laundry.checkAndCleanDomainname(data.domainname);
 
                 handleLookupDone(data, {
-                    firstTime: true
+                    firstTime: true,
                 });
             },
 
             checkDomain = function(domainname) {
                 var promise = $.getJSON("/name-shame/", {
-                    domainname: domainname
+                    domainname: domainname,
                 });
 
                 return promise;
@@ -129,9 +135,9 @@
             getLinkFromAnchorClick = function(evt) {
                 var $target = $(evt.target),
                     $link = $target
-                    .filter("[href]")
-                    .add($(evt.target).parents("[href]"))
-                    .first();
+                        .filter("[href]")
+                        .add($(evt.target).parents("[href]"))
+                        .first();
 
                 return $link;
             };
@@ -225,7 +231,7 @@
                 } else if (data.status === STATUS_UNKNOWN) {
                     successOrFailImage = "unknown";
                     angryOrHappyImage = "unknown";
-                    statusText = "?"
+                    statusText = "?";
                 } else {
                     // Presumably STATUS_INSECURE.
                     successOrFailImage = "failure";
@@ -289,7 +295,8 @@
         (function() {
             $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
                 var tweetResultsText,
-                    tweetLinkText = "Tweet to #";
+                    tweetLinkText = "Tweet to #",
+                    tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domainname;
 
                 if (data.status === STATUS_SECURE) {
                     tweetResultsText = "#praise " + data.domainname + " has successfully implemented #DNSSEC!";
@@ -304,13 +311,9 @@
 
                 tweetLinkText += " " + data.domainname + "!";
 
-                // Tweet button.
-                var tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domainname;
-
                 $("#results-tweet-link")
                     .attr("href", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetResultsText) + "&url=" + encodeURIComponent(tweetSiteUrl) + "&via=dnssecnameshame&related=joelpurra,tompcuddy&hashtags=internet,dns,security")
                     .text(tweetLinkText);
-
             });
         }());
 
@@ -350,7 +353,9 @@
             $nameShameForm.on("dnas.lookup.fail", function(evt, clientState) {
                 var sleepThisTime = Math.pow(2, errorsInARow++) * sleepDefault;
 
+                /* eslint-disable no-console */
                 console.error("Server failure, waiting to resubmit form.", "errorsInARow", errorsInARow, "sleepThisTime", sleepThisTime);
+                /* eslint-enable no-console */
 
                 setTimeout(function() {
                     $nameShameForm.submit();
@@ -361,8 +366,6 @@
                 errorsInARow = 0;
             });
         }());
-
-        var stateCounter = 0;
 
         function getStateTitle() {
             return document.title + " (" + (stateCounter++) + ")";
@@ -400,9 +403,8 @@
                     return;
                 }
 
-                var fromUrl = laundry.cleanDomainnameFromDNASUrl(document.location.href);
-
-                var state = data,
+                var fromUrl = laundry.cleanDomainnameFromDNASUrl(document.location.href),
+                    state = data,
                     title,
                     url = "/domain/" + data.domainname;
 
@@ -435,7 +437,7 @@
                     $domainnameInput.val(event.state.domain);
 
                     handleLookupDone(data, {
-                        firstTime: false
+                        firstTime: false,
                     });
                 } else {
                     loadFrontpageIfNotAlreadyThere();
@@ -497,7 +499,7 @@
                             $meddelareUrlElement.find("[data-meddelare-network=" + network + "]").attr("data-count", value);
                         }
                     });
-                }
+                },
             });
         });
     });

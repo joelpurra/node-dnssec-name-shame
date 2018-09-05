@@ -73,7 +73,7 @@
         "no-underscore-dangle": "off",
         "no-unreachable": "error",
         "no-unused-expressions": "error",
-        "no-unused-vars": ["warn", { "vars": "all", "args": "all" }],
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
         "no-use-before-define": "off",
         "no-with": "error",
         "one-var": ["error", "always"],
