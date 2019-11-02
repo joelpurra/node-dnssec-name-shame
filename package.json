@@ -5,7 +5,7 @@
     "description": "Look at a domain and check for DNSSEC records. Naming and shaming included!",
     "homepage": "https://dnssec-name-and-shame.com/",
     "dependencies": {
-        "bluebird": "^3.0.5",
+        "bluebird": "^3.7.1",
         "bunyan": "^1.8.1",
         "bunyan-middleware": "^0.3.1",
         "configvention": "^1.0.2",
