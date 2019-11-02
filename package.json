@@ -9,7 +9,7 @@
         "bunyan": "^1.8.1",
         "bunyan-middleware": "^0.3.1",
         "configvention": "^1.0.2",
-        "express": "^4.13.4",
+        "express": "^4.17.1",
         "extend": "^3.0.2",
         "getdns": "^2.0.1",
         "helmet": "^3.21.2",
