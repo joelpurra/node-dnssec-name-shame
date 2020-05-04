@@ -13,7 +13,6 @@
         "extend": "^3.0.2",
         "getdns": "^2.0.1",
         "helmet": "^3.21.2",
-        "meddelare-express": "^1.0.1",
         "mongodb": "^2.1.18",
         "serve-favicon": "^2.5.0",
         "st": "^1.2.2"

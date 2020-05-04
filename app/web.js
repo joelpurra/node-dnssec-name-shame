@@ -63,9 +63,6 @@ var configuration = require("configvention"),
 
     DNSSECNameAndShameLookerUpper = require("../lib/dnssec-name-and-shame-looker-upper.js"),
 
-    MeddelareExpress = require("meddelare-express"),
-    meddelareExpress = new MeddelareExpress(),
-
     app = express();
 
 // Changes JSON indentation for all JSON responses.
@@ -80,8 +77,6 @@ app.use(helmet.hsts(hstsOptions));
 app.use(configuredHttpsRedirect());
 
 app.use(favicon(faviconPath));
-
-app.use("/meddelare/", meddelareExpress.getRouter());
 
 // TODO: group as middleware.
 app.get("/name-shame/", function(request, response, next) {
