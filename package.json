@@ -7,7 +7,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "bunyan": "^1.8.15",
-    "bunyan-middleware": "^0.3.1",
+    "bunyan-middleware": "^1.0.1",
     "configvention": "^1.1.0",
     "express": "^4.17.1",
     "extend": "^3.0.2",
