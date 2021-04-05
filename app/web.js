@@ -38,7 +38,7 @@ var configuration = require("configvention"),
 
     hstsOptions = {
         maxAge: 15724800000,
-        includeSubdomains: true,
+        includeSubDomains: true,
         force: enableHsts,
     },
 

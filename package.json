@@ -12,7 +12,7 @@
     "express": "^4.17.1",
     "extend": "^3.0.2",
     "getdns": "^3.0.0",
-    "helmet": "^3.23.3",
+    "helmet": "^4.4.1",
     "mongodb": "^2.2.36",
     "serve-favicon": "^2.5.0",
     "st": "^2.0.0"
