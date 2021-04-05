@@ -8,7 +8,7 @@
     "bluebird": "^3.7.2",
     "bunyan": "^1.8.15",
     "bunyan-middleware": "^1.0.1",
-    "configvention": "^1.1.0",
+    "configvention": "^2.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "express": "^4.17.1",
