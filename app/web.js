@@ -2,7 +2,7 @@
 
 /*global require: true, process: true, __dirname: true */
 
-var configuration = require("configvention"),
+const configuration = require("configvention"),
     // Keep "PORT" for servers with PORT defined in an environment variable
     httpServerPort = configuration.get("PORT") || configuration.get("http-server-port"),
     httpServerIp = configuration.get("http-server-ip"),
@@ -49,7 +49,7 @@ var configuration = require("configvention"),
     laundry = require("../lib/laundry.js"),
 
     checkAndCleanDomainnameOrDie = function(response, domainname) {
-        var clean = laundry.checkAndCleanDomainname(domainname);
+        const clean = laundry.checkAndCleanDomainname(domainname);
 
         if (!clean) {
             response.sendStatus(422)
@@ -80,7 +80,7 @@ app.use(favicon(faviconPath));
 
 // TODO: group as middleware.
 app.get("/name-shame/", function(request, response, next) {
-    var dirtyDomainname = request.query.domainname,
+    const dirtyDomainname = request.query.domainname,
         cleanDomainname = checkAndCleanDomainnameOrDie(response, dirtyDomainname);
 
     if (cleanDomainname) {
@@ -90,7 +90,7 @@ app.get("/name-shame/", function(request, response, next) {
 
 // TODO: group as middleware.
 app.get("/name-shame/", function(request, response, next) {
-    var handleError = function(error) {
+    const handleError = function(error) {
             next(error);
         },
 
@@ -117,7 +117,7 @@ app.get("/domain/", function(request, response, /* eslint-disable no-unused-vars
 
 // TODO: group as middleware.
 app.get("/domain/:dirtyDomainname", function(request, response, next, dirtyDomainname) {
-    var cleanDomainname = checkAndCleanDomainnameOrDie(response, dirtyDomainname);
+    const cleanDomainname = checkAndCleanDomainnameOrDie(response, dirtyDomainname);
 
     if (cleanDomainname) {
         next();

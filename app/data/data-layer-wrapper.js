@@ -2,19 +2,19 @@
 
 /*global require: true, module: true */
 
-var Promise = require("bluebird"),
+const Promise = require("bluebird"),
     MongoDBManagment = require("../../lib/mongodb-bluebird.js"),
 
     // TODO: simplify this code, to avoid generating functions?
     generate = function(options) {
-        var generateDomains = function() {
+        let generateDomains = function() {
                 // TODO: class inheritance/aliasing, prototype chain stuffs
-                var Domains = new MongoDBManagment.Server(options.uri)
+                const Domains = new MongoDBManagment.Server(options.uri)
                     .getDatabase(options.databaseName)
                     .getCollection("domains");
 
                 Domains.getOrCreate = Promise.method(function(domainname) {
-                    var domainToFind = {
+                    const domainToFind = {
                         name: domainname,
                     };
 
@@ -33,7 +33,7 @@ var Promise = require("bluebird"),
 
             generateDNSLookupHistory = function() {
                 // TODO: class inheritance/aliasing, prototype chain stuffs
-                var DNSLookupHistory = new MongoDBManagment.Server(options.uri)
+                const DNSLookupHistory = new MongoDBManagment.Server(options.uri)
                     .getDatabase(options.databaseName)
                     .getCollection("dnslookuphistory");
 
@@ -42,7 +42,7 @@ var Promise = require("bluebird"),
 
             extractDatabaseName = function(uri) {
                 // TODO: replace with some uri library
-                var uriParts = uri.split("/"),
+                const uriParts = uri.split("/"),
                     dbName = uriParts[uriParts.length - 1].split("?")[0];
 
                 return dbName;
@@ -53,7 +53,7 @@ var Promise = require("bluebird"),
             },
 
             generateApi = function() {
-                var generatedApi = {
+                const generatedApi = {
                     Domains: generateDomains(),
                     DNSLookupHistory: generateDNSLookupHistory(),
                 };
