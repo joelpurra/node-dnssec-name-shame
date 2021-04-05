@@ -3,13 +3,13 @@
 /*global require: true, module: true */
 
 const Promise = require("bluebird"),
-    MongoDBManagment = require("../../lib/mongodb-bluebird.js"),
+    MongoDBManagement = require("../../lib/mongodb-bluebird.js"),
 
     // TODO: simplify this code, to avoid generating functions?
     generate = function(options) {
-        let generateDomains = function() {
+        const generateDomains = function() {
                 // TODO: class inheritance/aliasing, prototype chain stuffs
-                const Domains = new MongoDBManagment.Server(options.uri)
+                const Domains = new MongoDBManagement.Server(options.uri)
                     .getDatabase(options.databaseName)
                     .getCollection("domains");
 
@@ -33,7 +33,7 @@ const Promise = require("bluebird"),
 
             generateDNSLookupHistory = function() {
                 // TODO: class inheritance/aliasing, prototype chain stuffs
-                const DNSLookupHistory = new MongoDBManagment.Server(options.uri)
+                const DNSLookupHistory = new MongoDBManagement.Server(options.uri)
                     .getDatabase(options.databaseName)
                     .getCollection("dnslookuphistory");
 
@@ -64,9 +64,9 @@ const Promise = require("bluebird"),
             init = function() {
                 prepareOptions();
                 api = generateApi();
-            },
+            };
 
-            api;
+        let api;
 
         init();
 

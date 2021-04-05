@@ -1,6 +1,6 @@
 "use strict";
 
-/*global require: true, process: true, __dirname: true */
+/*global require: true */
 
 const configuration = require("configvention"),
     // Keep "PORT" for servers with PORT defined in an environment variable
