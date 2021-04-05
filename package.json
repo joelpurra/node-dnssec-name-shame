@@ -35,9 +35,11 @@
   "scripts": {
     "start": "node app/web.js",
     "debug": "nodemon --inspect app/web.js | bunyan",
-    "test": "npm run lint && echo && echo 'No tests have been added!'",
-    "lint": "npm run eslint",
-    "eslint": "eslint app/ lib/"
+    "test": "npm run --silent lint && echo && echo 'No tests have been added!'",
+    "lint": "npm run --silent eslint",
+    "lint:fix": "npm run --silent eslint:fix",
+    "eslint": "eslint app/ lib/",
+    "eslint:fix": "npm run --silent eslint -- --fix"
   },
   "repository": {
     "type": "git",
