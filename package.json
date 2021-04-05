@@ -1,63 +1,63 @@
 {
-    "name": "dnssec-name-shame",
-    "private": true,
-    "version": "0.0.0",
-    "description": "Look at a domain and check for DNSSEC records. Naming and shaming included!",
-    "homepage": "https://dnssec-name-and-shame.com/",
-    "dependencies": {
-        "bluebird": "^3.7.1",
-        "bunyan": "^1.8.1",
-        "bunyan-middleware": "^0.3.1",
-        "configvention": "^1.0.2",
-        "express": "^4.17.1",
-        "extend": "^3.0.2",
-        "getdns": "^3.0.0",
-        "helmet": "^3.21.2",
-        "mongodb": "^2.1.18",
-        "serve-favicon": "^2.5.0",
-        "st": "^1.2.2"
-    },
-    "devDependencies": {
-        "babel-eslint": "^6.0.4",
-        "bower": "^1.8.8",
-        "eslint": "^4.18.2",
-        "eslint-config-standard": "^5.3.1",
-        "eslint-plugin-promise": "^1.1.0",
-        "eslint-plugin-standard": "^3.0.1",
-        "nodemon": "^1.19.4",
-        "pre-commit": "^1.0.10"
-    },
-    "engines": {
-        "node": "^12.0.0 || ^14.0.0",
-        "npm": "^6.0.0"
-    },
-    "scripts": {
-        "start": "node app/web.js",
-        "debug": "node ./node_modules/.bin/nodemon --inspect app/web.js | node ./node_modules/.bin/bunyan",
-        "test": "npm run lint && echo && echo 'No tests have been added!'",
-        "lint": "npm run eslint",
-        "eslint": "node ./node_modules/.bin/eslint app/ lib/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/joelpurra/node-dnssec-name-shame"
-    },
-    "bugs": {
-        "url": "https://github.com/joelpurra/node-dnssec-name-shame/issues",
-        "email": "code+dnssec-name-shame@joelpurra.com"
-    },
-    "keywords": [
-        "dnssec"
-    ],
-    "author": {
-        "name": "Joel Purra",
-        "email": "code+npm@joelpurra.com",
-        "url": "https://joelpurra.com/"
-    },
-    "contributors": [
-        {
-            "name": "Tom Cuddy"
-        }
-    ],
-    "license": "AGPL-3.0"
+  "name": "dnssec-name-shame",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Look at a domain and check for DNSSEC records. Naming and shaming included!",
+  "homepage": "https://dnssec-name-and-shame.com/",
+  "dependencies": {
+    "bluebird": "^3.7.1",
+    "bunyan": "^1.8.1",
+    "bunyan-middleware": "^0.3.1",
+    "configvention": "^1.0.2",
+    "express": "^4.17.1",
+    "extend": "^3.0.2",
+    "getdns": "^3.0.0",
+    "helmet": "^3.21.2",
+    "mongodb": "^2.1.18",
+    "serve-favicon": "^2.5.0",
+    "st": "^1.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.0.4",
+    "bower": "^1.8.8",
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-plugin-promise": "^1.1.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.19.4",
+    "pre-commit": "^1.0.10"
+  },
+  "engines": {
+    "node": "^12.0.0 || ^14.0.0",
+    "npm": "^6.0.0"
+  },
+  "scripts": {
+    "start": "node app/web.js",
+    "debug": "node ./node_modules/.bin/nodemon --inspect app/web.js | node ./node_modules/.bin/bunyan",
+    "test": "npm run lint && echo && echo 'No tests have been added!'",
+    "lint": "npm run eslint",
+    "eslint": "node ./node_modules/.bin/eslint app/ lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joelpurra/node-dnssec-name-shame"
+  },
+  "bugs": {
+    "url": "https://github.com/joelpurra/node-dnssec-name-shame/issues",
+    "email": "code+dnssec-name-shame@joelpurra.com"
+  },
+  "keywords": [
+    "dnssec"
+  ],
+  "author": {
+    "name": "Joel Purra",
+    "email": "code+npm@joelpurra.com",
+    "url": "https://joelpurra.com/"
+  },
+  "contributors": [
+    {
+      "name": "Tom Cuddy"
+    }
+  ],
+  "license": "AGPL-3.0"
 }
