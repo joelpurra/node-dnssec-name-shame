@@ -23,7 +23,7 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 ## Requirements
 
 - [getdns](https://github.com/getdnsapi/getdns), see [getdnsapi.net](https://getdnsapi.net/).
-- [node.js](https://nodejs.org/) and [Node Package Manager `npm`](https://www.npmjs.org/) (NPM), optionally through [Node Version Manager `nvm`](https://github.com/creationix/nvm).
+- [node.js](https://nodejs.org/) and [Node Package Manager `npm`](https://www.npmjs.org/) (NPM).
 - [MongoDB](https://www.mongodb.org/).
 - [Bower](https://bower.io/).
 
@@ -38,9 +38,6 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 # Clone the repository
 git clone --recursive https://github.com/joelpurra/node-dnssec-name-shame.git node-dnssec-name-shame
 cd node-dnssec-name-shame
-
-# Switch to node.js v0.12, if necessary
-nvm use 0.12
 
 # Install dependencies
 npm install
