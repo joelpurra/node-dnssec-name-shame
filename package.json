@@ -14,14 +14,14 @@
     "express": "^4.17.1",
     "extend": "^3.0.2",
     "getdns": "^3.0.0",
-    "helmet": "^4.5.0",
+    "helmet": "^4.6.0",
     "mongodb": "^3.6.6",
     "serve-favicon": "^2.5.0",
     "st": "^2.0.0"
   },
   "devDependencies": {
     "bower": "^1.8.12",
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-standard": "^5.0.0",
