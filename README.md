@@ -80,7 +80,7 @@ Optionally debug the server, possibly using [Chrome DevTools for Node.js](https:
 ## Thanks
 
 - [Versign Labs](https://labs.verisigninc.com/).
-- [NLnet Labs](https://nlnetlabs.nl/).
+- [NLnet Labs](https://nlnetlabs.nl/), with special thanks to [Willem Toorop](https://nlnetlabs.nl/bios/willem/) ([@wtoorop](https://github.com/wtoorop)) for all the help with the DNAS server(s).
 - [Anne-Marie Eklund Löwinder](https://twitter.com/amelsec), DNSSEC pioneer and [Internet Hall of Fame inductee](https://www.internethalloffame.org/inductees/anne-marie-eklund-l%C3%B6winder), for the photo made specially for this site.
 - Photo of [Anne-Marie Eklund Löwinder](https://twitter.com/amelsec) by [Per-Ola Mjömark](http://www.mjomark.com/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Fail sound [buzzer2.wav](https://www.freesound.org/people/hypocore/sounds/164089/) by [hypocore](https://www.freesound.org/people/hypocore/), licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
