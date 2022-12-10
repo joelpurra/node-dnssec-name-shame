@@ -11,7 +11,7 @@
     "configvention": "^2.0.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "extend": "^3.0.2",
     "getdns": "^4.1.0",
     "helmet": "^4.6.0",
