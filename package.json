@@ -20,13 +20,13 @@
     "st": "^3.0.3"
   },
   "devDependencies": {
+    "@fastify/pre-commit": "^2.2.1",
     "bower": "^1.8.14",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-standard": "^5.0.0",
-    "nodemon": "^3.1.14",
-    "pre-commit": "^1.2.2"
+    "nodemon": "^3.1.14"
   },
   "engines": {
     "node": "^12.0.0 || ^14.0.0",
