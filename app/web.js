@@ -13,7 +13,7 @@ const configuration = require("configvention"),
     logger = require("../lib/logger.js")("web"),
     bunyanMiddleware = require("bunyan-middleware"),
     bunyanMiddlewareOptions = {
-        logger: logger,
+        logger,
     },
     bunyanMiddlewareLogger = bunyanMiddleware(bunyanMiddlewareOptions),
 
