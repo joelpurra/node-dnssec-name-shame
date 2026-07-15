@@ -5,9 +5,13 @@
   <a href="https://dnssec-name-and-shame.com/">dnssec-name-and-shame.com</a>
 </h1>
 
-Look at a domain and check for DNSSEC records. Naming and shaming included!
+Look at a domain and check for [Domain Name System Security Extensions](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions) (DNSSEC) records. Naming and shaming included!
 
-Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of Code Hack Battle](https://thenextweb.com/conference/europe/hack-battle/) 2014 in Amsterdam, The Netherlands.
+Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of Code Hack Battle](https://thenextweb.com/conference/europe/hack-battle/) 2014 in Amsterdam, The Netherlands. Decommissioned during 2026.
+
+## Website decommissioned
+
+After 12+ years online, it's time to wind down operations during 2026. Hopefully all the naming and shaming inspired someone to implement DNSSEC for their own domain. Thanks to everyone involved!
 
 ## Notes
 
