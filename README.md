@@ -13,6 +13,10 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 
 After 12+ years online, it's time to wind down operations during 2026. Hopefully all the naming and shaming inspired someone to implement DNSSEC for their own domain. Thanks to everyone involved!
 
+### Internet Archive
+
+The kind folks at [Internet Archive](https://archive.org/) have [visited dnssec-name-and-shame.com 100+ times](https://web.archive.org/web/*/https://dnssec-name-and-shame.com/) between [2014](https://web.archive.org/web/20140825004752/https://dnssec-name-and-shame.com/) and [2026](https://web.archive.org/web/20260715114728/https://dnssec-name-and-shame.com/). They also [captured some domain pages](https://web.archive.org/web/*/https://dnssec-name-and-shame.com/domain/*) (although often without the dynamic results), such as for [dnssec-name-and-shame.com itself](https://web.archive.org/web/20260715095025/https://dnssec-name-and-shame.com/domain/dnssec-name-and-shame.com).
+
 ## Notes
 
 - This implementation only checks a domain for signed A, AAAA, CNAME, MX and SOA records. You might want to try another tool for more extensive DNSSEC tests and analysis.
