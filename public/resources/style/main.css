@@ -154,26 +154,6 @@ li {
 	margin-bottom: 0.35em;
 }
 
-details>summary::-webkit-details-marker {
-	display: none;
-}
-
-details>summary::-moz-details-marker {
-	display: none;
-}
-
-details>summary::-ms-details-marker {
-	display: none;
-}
-
-details>summary::-o-details-marker {
-	display: none;
-}
-
-details>summary::details-marker {
-	display: none;
-}
-
 details>summary {
 	outline: none;
 	cursor: default;
@@ -181,30 +161,6 @@ details>summary {
 
 details>summary:hover {
 	text-decoration: underline;
-}
-
-details:not([open]) {}
-
-details[open] {}
-
-details>summary:before {
-	content: "+";
-	display: inline-block;
-	width: 1em;
-	text-align: center;
-	font-weight: bold;
-	background-color: #f8f8f8;
-	border-radius: 0.15em;
-	margin-right: 0.15em;
-	line-height: 1;
-}
-
-details>summary:hover:before {
-	background-color: #eaeaea;
-}
-
-details[open]>summary:before {
-	content: "-";
 }
 
 .two-columns {
