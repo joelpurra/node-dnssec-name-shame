@@ -5,12 +5,9 @@
   <a href="https://dnssec-name-and-shame.com/">dnssec-name-and-shame.com</a>
 </h1>
 
-
 Look at a domain and check for DNSSEC records. Naming and shaming included!
 
 Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of Code Hack Battle](https://thenextweb.com/conference/europe/hack-battle/) 2014 in Amsterdam, The Netherlands.
-
-
 
 ## Notes
 
@@ -18,16 +15,12 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 - Lookups are cached in getdns' context for the duration of the server's uptime. DNS record TTL should also be in effect.
 - [Source code](https://github.com/joelpurra/node-dnssec-name-shame), [project page](https://joelpurra.com/projects/node-dnssec-name-shame/).
 
-
-
 ## Requirements
 
 - [getdns](https://github.com/getdnsapi/getdns), see [getdnsapi.net](https://getdnsapi.net/).
 - [node.js](https://nodejs.org/) and [Node Package Manager `npm`](https://www.npmjs.org/) (NPM).
 - [MongoDB](https://www.mongodb.org/).
 - [Bower](https://bower.io/).
-
-
 
 ## Getting started
 
@@ -49,8 +42,6 @@ npm start
 
 Browse to your local test site, [https://localhost:5000/](http://localhost:5000/).
 
-
-
 ## Development
 
 ```bash
@@ -63,8 +54,6 @@ npm test --silent
 
 Optionally debug the server, possibly using [Chrome DevTools for Node.js](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27).
 
-
-
 ## Todo
 
 &#9744; Fetch Alexa's top 25 (or more) sites dynamically.
@@ -75,8 +64,6 @@ Optionally debug the server, possibly using [Chrome DevTools for Node.js](https:
 &#9745; Create a small API.
 &#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`.
 
-
-
 ## Thanks
 
 - [Versign Labs](https://labs.verisigninc.com/).
@@ -85,7 +72,6 @@ Optionally debug the server, possibly using [Chrome DevTools for Node.js](https:
 - Photo of [Anne-Marie Eklund Löwinder](https://twitter.com/amelsec) by [Per-Ola Mjömark](http://www.mjomark.com/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Fail sound [buzzer2.wav](https://www.freesound.org/people/hypocore/sounds/164089/) by [hypocore](https://www.freesound.org/people/hypocore/), licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
 - Success sound [success.wav](https://www.freesound.org/people/grunz/sounds/109662/) by [grunz](https://www.freesound.org/people/grunz/), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
-
 
 ## License
 

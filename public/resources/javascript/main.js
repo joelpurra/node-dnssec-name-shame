@@ -5,7 +5,7 @@
 
     $(function() {
         // TODO: share constants?
-        var STATUS_SECURE = "secure",
+        const STATUS_SECURE = "secure",
             STATUS_INSECURE = "insecure",
             STATUS_UNKNOWN = "unknown",
 
@@ -14,15 +14,13 @@
             $nameShameForm = $("#name-shame-form"),
             $domainnameInput = $("[name=domainname]", $nameShameForm),
 
-            stateCounter = 0,
-
             // See also lib/laundry.js.
             // TODO: use require() to get this file.
             laundry = (function() {
                 "use strict";
 
                 // TOOD: write/find better regexp for domain names?
-                var disallowedDomainRx = /[^a-z0-9\-.]/i,
+                const disallowedDomainRx = /[^a-z0-9\-.]/i,
                     allowedDomainRx = /^([a-z0-9-]{1,64}\.)+[a-z]+$/i,
 
                     checkAndClean = function(str, disallowedRx, allowedRx) {
@@ -34,21 +32,23 @@
                     },
 
                     checkAndCleanDomainname = function(domainname) {
-                        var clean = checkAndClean(domainname, disallowedDomainRx, allowedDomainRx);
+                        const clean = checkAndClean(domainname, disallowedDomainRx, allowedDomainRx);
 
                         return clean;
                     },
 
                     cleanDomainnameFromDNASUrl = function(url) {
-                        var path = url || "",
-                            domainnameRx = /\/domain\/([^/]+)$/,
-                            domainname;
+                        const path = url || "",
+                            domainnameRx = /\/domain\/([^/]+)$/;
+                        let domainname;
 
                         if (!path || !domainnameRx.test(path)) {
                             return null;
                         }
 
                         path.match(domainnameRx);
+
+                        // eslint-disable-next-line prefer-const
                         domainname = checkAndCleanDomainname(RegExp.$1);
 
                         if (!domainname) {
@@ -59,9 +59,9 @@
                     },
 
                     api = {
-                        checkAndClean: checkAndClean,
-                        checkAndCleanDomainname: checkAndCleanDomainname,
-                        cleanDomainnameFromDNASUrl: cleanDomainnameFromDNASUrl,
+                        checkAndClean,
+                        checkAndCleanDomainname,
+                        cleanDomainnameFromDNASUrl,
                     };
 
                 return api;
@@ -109,15 +109,15 @@
             },
 
             checkDomain = function(domainname) {
-                var promise = $.getJSON("/name-shame/", {
-                    domainname: domainname,
+                const promise = $.getJSON("/name-shame/", {
+                    domainname,
                 });
 
                 return promise;
             },
 
             checkDomainAndUpdateUi = function(domainname) {
-                var promise = checkDomain(domainname)
+                const promise = checkDomain(domainname)
                     .fail(domainLookupXHRFail)
                     .done(domainLookupXHRDone);
 
@@ -127,13 +127,13 @@
             checkDomainInUiForm = function(domainname) {
                 $domainnameInput.val(domainname);
 
-                var promise = checkDomainAndUpdateUi(domainname);
+                const promise = checkDomainAndUpdateUi(domainname);
 
                 return promise;
             },
 
             getLinkFromAnchorClick = function(evt) {
-                var $target = $(evt.target),
+                const $target = $(evt.target),
                     $link = $target
                         .filter("[href]")
                         .add($(evt.target).parents("[href]"))
@@ -142,11 +142,13 @@
                 return $link;
             };
 
+        let stateCounter = 0;
+
         (function() {
-            var onSubmit = function(event) {
+            const onSubmit = function(event) {
                 event.preventDefault();
 
-                var domainname = $domainnameInput.val();
+                const domainname = $domainnameInput.val();
 
                 checkDomainAndUpdateUi(domainname);
 
@@ -157,25 +159,25 @@
         }());
 
         (function() {
-            var getDomainFromInternalDomainUrl = function(url) {
-                    var domain = url.split("/")[2];
+            const getDomainFromInternalDomainUrl = function(url) {
+                    const domain = url.split("/")[2];
 
                     return domain;
                 },
                 doAjaxOnLinkClick = function(event) {
                     event.preventDefault();
 
-                    var $link = getLinkFromAnchorClick(event),
+                    const $link = getLinkFromAnchorClick(event),
                         url = $link.attr("href"),
                         domain = getDomainFromInternalDomainUrl(url),
                         highlightClickedItemWithResult = function(data, textStatus, jqXHR) {
-                            // TODO: make this a dynamic lookup, so that multiple or dynamic lists can have green ticks and red crosses.
-                            // This would make a manual lookup of google.com show in the lists below.
-                            var successClass = "success",
+                        // TODO: make this a dynamic lookup, so that multiple or dynamic lists can have green ticks and red crosses.
+                        // This would make a manual lookup of google.com show in the lists below.
+                            const successClass = "success",
                                 unknownClass = "unknown",
                                 failClass = "fail",
-                                allThreeClasses = successClass + " " + unknownClass + " " + failClass,
-                                resultClass;
+                                allThreeClasses = successClass + " " + unknownClass + " " + failClass;
+                            let resultClass;
 
                             if (data.status === STATUS_SECURE) {
                                 resultClass = successClass;
@@ -202,7 +204,7 @@
 
         // TODO: change function scope/location.
         function clearResults() {
-            var angryOrHappyImage = "angry";
+            const angryOrHappyImage = "angry";
 
             $("#results-container")
                 .find(".results-image")
@@ -220,7 +222,7 @@
         (function() {
             $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
                 // Happy/unknown/angry, success/unknown/failure images/text.
-                var successOrFailImage,
+                let successOrFailImage,
                     angryOrHappyImage,
                     statusText;
 
@@ -265,17 +267,17 @@
 
         (function() {
             $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-                var $types = $("#results-container-types"),
+                const $types = $("#results-container-types"),
                     keys = Object.keys(data.recordTypesStatus);
 
                 keys.forEach(function(recordTypeStatus) {
-                    var recordStatus = data.recordTypesStatus[recordTypeStatus],
+                    const recordStatus = data.recordTypesStatus[recordTypeStatus],
                         $statusElement = $(".results-container-type.results-container-type-" + recordTypeStatus, $types),
                         successClass = "success",
                         unknownClass = "unknown",
                         failClass = "fail",
-                        allThreeClasses = successClass + " " + unknownClass + " " + failClass,
-                        resultClass;
+                        allThreeClasses = successClass + " " + unknownClass + " " + failClass;
+                    let resultClass;
 
                     if (recordStatus === STATUS_SECURE) {
                         resultClass = successClass;
@@ -294,9 +296,9 @@
 
         (function() {
             $nameShameForm.on("dnas.lookup.done", function(evt, data, clientState) {
-                var tweetResultsText,
-                    tweetLinkText = "Tweet to #",
-                    tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domainname;
+                const tweetSiteUrl = "https://dnssec-name-and-shame.com/domain/" + data.domainname;
+                let tweetResultsText,
+                    tweetLinkText = "Tweet to #";
 
                 if (data.status === STATUS_SECURE) {
                     tweetResultsText = "#praise " + data.domainname + " has successfully implemented #DNSSEC!";
@@ -318,10 +320,9 @@
         }());
 
         (function() {
-            var
-                playSound = function(name) {
-                    var instance = createjs.Sound.play(name);
-                };
+            const playSound = function(name) {
+                const instance = createjs.Sound.play(name);
+            };
 
             (function() {
                 createjs.Sound.registerSound("/resources/audio/164089_2975503-lq.mp3", "fail");
@@ -347,11 +348,11 @@
         (function() {
             // HACK: Server error! Sleep and then resubmit the form.
             // TODO: check if the user changed the domain in the input box?
-            var errorsInARow = 0,
-                sleepDefault = 1000;
+            const sleepDefault = 1000;
+            let errorsInARow = 0;
 
             $nameShameForm.on("dnas.lookup.fail", function(evt, clientState) {
-                var sleepThisTime = Math.pow(2, errorsInARow++) * sleepDefault;
+                const sleepThisTime = Math.pow(2, errorsInARow++) * sleepDefault;
 
                 /* eslint-disable no-console */
                 console.error("Server failure, waiting to resubmit form.", "errorsInARow", errorsInARow, "sleepThisTime", sleepThisTime);
@@ -378,7 +379,7 @@
         }
 
         function pushClearState() {
-            var state = null,
+            const state = null,
                 url = "/";
 
             history.pushState(state, getStateTitle(), url);
@@ -403,10 +404,10 @@
                     return;
                 }
 
-                var fromUrl = laundry.cleanDomainnameFromDNASUrl(document.location.href),
+                const fromUrl = laundry.cleanDomainnameFromDNASUrl(document.location.href),
                     state = data,
-                    title,
                     url = "/domain/" + data.domainname;
+                let title;
 
                 if (data.status === STATUS_SECURE) {
                     title = "Praise " + data.domainname + " for implementing DNSSEC!";
@@ -429,7 +430,7 @@
             });
 
             window.onpopstate = function(event) {
-                var data;
+                let data;
 
                 if (event.state && event.state.domain) {
                     data = event.state;
@@ -447,7 +448,7 @@
 
         (function() {
             $(function() {
-                var domainname = laundry.cleanDomainnameFromDNASUrl(document.location.href);
+                const domainname = laundry.cleanDomainnameFromDNASUrl(document.location.href);
 
                 if (!domainname) {
                     loadFrontpageIfNotAlreadyThere();
@@ -460,7 +461,7 @@
 
         (function() {
             function dontGoToHere(evt) {
-                var $link = getLinkFromAnchorClick(evt),
+                const $link = getLinkFromAnchorClick(evt),
                     url = $link.attr("href");
 
                 // Links to the front page, but clickable domain checks excluded.

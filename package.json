@@ -38,7 +38,7 @@
     "test": "npm run --silent lint && echo && echo 'No tests have been added!'",
     "lint": "npm run --silent eslint",
     "lint:fix": "npm run --silent eslint:fix",
-    "eslint": "eslint app/ lib/",
+    "eslint": "eslint app/ lib/ public/resources/javascript/",
     "eslint:fix": "npm run --silent eslint -- --fix"
   },
   "repository": {
