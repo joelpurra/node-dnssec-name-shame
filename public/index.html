@@ -232,7 +232,10 @@
 				Website is being decommissioned
 			</h3>
 			<p>
-				After 12+ years online, it's time to wind down operations during 2026. Hope all the naming and shaming inspired someone to implement DNSSEC for their own domain. Thank you to everyone involved!
+				After 12+ years online, it's time to wind down operations during 2026. Hopefully all the naming and shaming inspired someone to implement DNSSEC for their own domain. Thanks to everyone involved!
+			</p>
+			<p>
+				During a sunset period an increasing portion of domain lookups deliberately fail with a <code>501 Not Implemented</code> <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status code</a>. While the DNSSEC domain lookup API used internally on this website was not created for general consumption, this should indicate to any third-party consumers that the service should be replaced with something else. The website itself should continue to work for casual users, although perhaps with noticeable delay since it uses retry logic with <a href="https://en.wikipedia.org/wiki/Exponential_backoff">exponential backoff</a>.
 			</p>
 		</article>
 		<details>

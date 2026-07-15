@@ -61,6 +61,7 @@ const configuration = require("configvention"),
         return clean;
     },
 
+    isAboveSunsetThreshold = require("../lib/sunset.js"),
     DNSSECNameAndShameLookerUpper = require("../lib/dnssec-name-and-shame-looker-upper.js"),
 
     app = express();
@@ -84,6 +85,24 @@ app.get("/name-shame/", function(request, response, next) {
         cleanDomainname = checkAndCleanDomainnameOrDie(response, dirtyDomainname);
 
     if (cleanDomainname) {
+        next();
+    }
+});
+
+// TODO: group as middleware.
+app.get("/name-shame/", function(request, response, next) {
+    const shouldSendSunsetResponse = isAboveSunsetThreshold(Date.now(), Math.random());
+
+    if (shouldSendSunsetResponse) {
+        const sunsetMessage = "Not Implemented (noncommittal service sunset period from " +
+            configuration.get("sunset-date-start") +
+            " until decommissioning " +
+            configuration.get("sunset-date-target") +
+            ")";
+
+        response.status(501)
+            .end(sunsetMessage);
+    } else {
         next();
     }
 });
