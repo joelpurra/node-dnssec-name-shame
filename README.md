@@ -26,6 +26,8 @@ Initially developed during [The Next Web's](https://thenextweb.com/) [Kings of C
 
 - Make sure getdns is installed properly, including [unbound's root anchor](https://www.unbound.net/documentation/howto_anchor.html). If the root anchor isn't set up properly, all DNS lookups will be labeled insecure.
 - Make sure mongodb is running.
+  - DNAS is currently not compatible with the most recent mongodb version.
+  - Long-term on-disk storage of the database is not required, but can be useful.
 
 ```bash
 # Clone the repository
@@ -38,6 +40,13 @@ npm install
 
 # Start the server. Note that logging is in bunyan's json format.
 npm start
+```
+
+Containerization of the [`mongo`](https://hub.docker.com/_/mongo) image is recommended, for example using [`podman`](https://podman.io/).
+
+```shell
+# NOTE: simple containerized mongodb; this is not a production-ready setup, with volumes for storage etcetera.
+podman container run --rm --init --publish '127.0.0.1:27017:27017/tcp' --name 'mongo-dnas' docker.io/library/mongo:4.4
 ```
 
 Browse to your local test site, [https://localhost:5000/](http://localhost:5000/).
