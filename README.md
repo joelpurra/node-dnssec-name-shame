@@ -56,13 +56,13 @@ Optionally debug the server, possibly using [Chrome DevTools for Node.js](https:
 
 ## Todo
 
-&#9744; Fetch Alexa's top 25 (or more) sites dynamically.
-&#9744; Create pretty-pretty slide show style animations for the listed example domains?
-&#9745; Modify links to the external sites to open in new window, and add link to `/domain/example.com` so content can be discovered.
-&#9745; Tweet the results.
-&#9745; Add sounds for pass and fail.
-&#9745; Create a small API.
-&#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`.
+- &#9744; Fetch Alexa's top 25 (or more) sites dynamically.
+- &#9744; Create pretty-pretty slide show style animations for the listed example domains?
+- &#9745; Modify links to the external sites to open in new window, and add link to `/domain/example.com` so content can be discovered.
+- &#9745; Tweet the results.
+- &#9745; Add sounds for pass and fail.
+- &#9745; Create a small API.
+- &#9745; Download Google Fonts and serve locally: `google-font-download "Quando" "Pacifico" "'Open Sans'"`.
 
 ## Thanks
 
