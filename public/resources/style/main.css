@@ -7,6 +7,7 @@ body {
 body {
 	font-family: 'Open Sans', Helvetica, Verdana, sans-serif;
 	font-size: 1.5em;
+	hyphens: auto;
 	line-height: 1.25;
 	margin-top: 16px;
 }
@@ -317,4 +318,36 @@ details>summary:hover {
 aside {
 	text-align: center;
 	font-size: 0.8em;
+}
+
+.warning {
+	background-color: #ffdd00;
+	border-color: #ff9900;
+	border-style: solid;
+	border-width: 3px;
+}
+
+section.warning {
+	display: block;
+	border-radius: 0.15em;
+	margin-bottom: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	max-width: 80%;
+	padding: 1em;
+}
+
+section.warning h2,
+section.warning p {
+	margin-bottom: 0.3em;
+	margin-top: 0.3em;
+}
+
+@media (min-width: 1200px) {
+
+	/* TODO: use grid/columns system. */
+	section.warning {
+		max-width: 50%;
+	}
 }
