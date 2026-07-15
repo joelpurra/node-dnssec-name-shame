@@ -19,7 +19,7 @@
             laundry = (function() {
                 "use strict";
 
-                // TOOD: write/find better regexp for domain names?
+                // TODO: write/find better regexp for domain names?
                 const disallowedDomainRx = /[^a-z0-9\-.]/i,
                     allowedDomainRx = /^([a-z0-9-]{1,64}\.)+[a-z]+$/i,
 
@@ -460,7 +460,7 @@
         }());
 
         (function() {
-            function dontGoToHere(evt) {
+            function doNotGoToHere(evt) {
                 const $link = getLinkFromAnchorClick(evt),
                     url = $link.attr("href");
 
@@ -474,7 +474,7 @@
                 }
             }
 
-            $("a").on("click", dontGoToHere);
+            $("a").on("click", doNotGoToHere);
         }());
     });
 }(jQuery));
